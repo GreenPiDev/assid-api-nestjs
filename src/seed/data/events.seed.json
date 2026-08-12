@@ -1,0 +1,46 @@
+[
+  {
+    "title": "Siteler Mobilya Sektörü: İhracat ve Yeni Pazarlar Buluşması",
+    "description": "Mobilya ve dekorasyon sektöründeki üyelerimizin katılımıyla ihracat fırsatları ve yeni pazarlar konuşulacak.",
+    "location": "ASSİD Konferans Salonu, Ankara Siteler",
+    "startDate": "2026-09-18T11:00:00.000Z",
+    "endDate": "2026-09-18T14:00:00.000Z",
+    "imageUrl": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1400&q=85",
+    "isFeatured": true
+  },
+  {
+    "title": "Üye Tanışma ve Networking Kahvaltısı",
+    "description": "Yeni ve mevcut üyelerimizin bir araya geleceği tanışma ve networking etkinliği.",
+    "location": "Ankara Siteler",
+    "startDate": "2026-06-27T06:30:00.000Z",
+    "isFeatured": false
+  },
+  {
+    "title": "Dijital Pazarlama ve B2B Satış Eğitimi",
+    "description": "Üyelerimize yönelik dijital pazarlama ve B2B satış teknikleri eğitimi.",
+    "location": "Online / Hibrit",
+    "startDate": "2026-07-10T10:00:00.000Z",
+    "isFeatured": false
+  },
+  {
+    "title": "Üretimde Verimlilik ve Yapay Zekâ Paneli",
+    "description": "Üretim ve sanayi sektöründe verimlilik artırıcı yapay zekâ uygulamaları üzerine panel.",
+    "location": "ASSİD Merkezi",
+    "startDate": "2026-08-22T12:00:00.000Z",
+    "isFeatured": false
+  },
+  {
+    "title": "Sektörler Arası İş Birliği Çalıştayı",
+    "description": "Farklı sektörlerden üyelerin bir araya gelerek iş birliği fırsatlarını değerlendireceği çalıştay.",
+    "location": "ASSİD Konferans Salonu",
+    "startDate": "2026-10-05T09:00:00.000Z",
+    "isFeatured": false
+  },
+  {
+    "title": "Yıllık Olağan Genel Kurul Toplantısı",
+    "description": "Derneğimizin yıllık olağan genel kurul toplantısı.",
+    "location": "ASSİD Genel Merkezi, Altındağ/Ankara",
+    "startDate": "2026-11-14T09:00:00.000Z",
+    "isFeatured": true
+  }
+]

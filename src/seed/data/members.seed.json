@@ -1,0 +1,2169 @@
+[
+  {
+    "fullName": "RAHŞAN AKFIRAT",
+    "companyName": "AKFIRAT LOJİSTİK İNŞAAT HARFİYAT",
+    "email": "akfirat-lojistik-insaat-harfiy-1@example.com",
+    "sectors": [
+      "insaat-ve-yapi",
+      "lojistik-ve-tasimacilik"
+    ],
+    "activityAreas": [
+      "Konut İnşaatı"
+    ],
+    "productsAndServices": [
+      "Villa İnşaatı",
+      "Kaba İnşaat İşleri",
+      "Anahtar Teslim Konut İnşaatı"
+    ],
+    "membershipType": "corporate",
+    "phone": "0532 492 71 99",
+    "companyAddress": "Mehmet Akif ersoy Mahallesi 286.sokak Profis Sitesi A Blok No 6 İç Kapı No 11 Yenimahalle Ankara",
+    "isApproved": false
+  },
+  {
+    "fullName": "YUNUS CİHAN ÖZER",
+    "companyName": "ÖZERLER İNŞAAT",
+    "email": "ozerler-insaat-2@example.com",
+    "sectors": [
+      "insaat-ve-yapi"
+    ],
+    "activityAreas": [
+      "Ticari Yapı İnşaatı",
+      "Harfiyat ve Altyapı"
+    ],
+    "productsAndServices": [
+      "AVM ve Ticari Kompleks İnşaatı",
+      "Depo ve Lojistik Merkezi İnşaatı"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 274 72 54",
+    "companyAddress": "Mebusevleri, Önder Cd. 12/6, 06570 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "İBRAHİM DÜVENCİ",
+    "companyName": "TEKNİKER OTO İNŞ. HAK. MAK.",
+    "email": "tekniker-oto-ins-hak-mak-3@example.com",
+    "sectors": [
+      "insaat-ve-yapi",
+      "uretim-ve-sanayi",
+      "metal-ve-makine",
+      "otomotiv"
+    ],
+    "activityAreas": [
+      "Yapı Malzemeleri"
+    ],
+    "productsAndServices": [
+      "İnşaat Demiri",
+      "Seramik ve Fayans"
+    ],
+    "membershipType": "individual",
+    "phone": "0533 337 78 95",
+    "companyAddress": "Organize Sanayi Bölgesi İbrahim Şenlikçi Cad. No:1, 26110 Odunpazarı/Eskişehir",
+    "isApproved": true
+  },
+  {
+    "fullName": "HALİL KAPUCU",
+    "companyName": "PROJET SUJETİ TASARIM MERMER İNŞAAT",
+    "email": "projet-sujeti-tasarim-mermer-i-4@example.com",
+    "sectors": [
+      "insaat-ve-yapi",
+      "mimarlik-ve-tasarim",
+      "uretim-ve-sanayi"
+    ],
+    "activityAreas": [
+      "Uygulama Projeleri"
+    ],
+    "productsAndServices": [
+      "Uygulama Denetimi",
+      "Şantiye Uygulama Danışmanlığı"
+    ],
+    "membershipType": "individual",
+    "phone": "0543 669 42 35",
+    "companyAddress": "Sujetim Fason Kesim Atölyesi, Beylikdüzü OSB, 2. Cd. Birlik sanayi sitesi No: 36 / B, 34520 Beylikdüzü/İstanbul",
+    "isApproved": true
+  },
+  {
+    "fullName": "OKTAY AKÇAM",
+    "companyName": "G.M.F. İNŞAAT / RENEWHOME DEKORASYON",
+    "email": "g-m-f-insaat-renewhome-dekoras-5@example.com",
+    "sectors": [
+      "insaat-ve-yapi",
+      "mobilya-ve-dekorasyon"
+    ],
+    "activityAreas": [
+      "Konut İnşaatı",
+      "Aksesuar ve Dekor Ürünleri"
+    ],
+    "productsAndServices": [
+      "Kaba İnşaat İşleri",
+      "Anahtar Teslim Konut İnşaatı"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 276 40 33",
+    "companyAddress": "Renew Home, Birlik, 435. Cd. No:25, 06830 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "YİĞİT BERK EĞRİDERE",
+    "companyName": "DEKORAMA YAPI VE MİMARLIK",
+    "email": "dekorama-yapi-ve-mimarlik-6@example.com",
+    "sectors": [
+      "insaat-ve-yapi",
+      "mimarlik-ve-tasarim"
+    ],
+    "activityAreas": [
+      "Yapı Malzemeleri"
+    ],
+    "productsAndServices": [
+      "Seramik ve Fayans",
+      "Yalıtım Malzemeleri",
+      "Hazır Beton",
+      "İnşaat Demiri"
+    ],
+    "membershipType": "individual",
+    "phone": "0539 543 44 44",
+    "companyAddress": "Merkez Mah, Göktürk Cad. No:48/H Göktürk/Eyüpsultan-İSTANBUL",
+    "isApproved": true
+  },
+  {
+    "fullName": "GÖZDE AKYÜZ",
+    "companyName": "BG GRUP İÇ MİMARLIK",
+    "email": "bg-grup-ic-mimarlik-7@example.com",
+    "sectors": [
+      "insaat-ve-yapi",
+      "mimarlik-ve-tasarim"
+    ],
+    "activityAreas": [
+      "Kentsel Tasarım Danışmanlığı"
+    ],
+    "productsAndServices": [
+      "İmar Danışmanlığı",
+      "Kentsel Dönüşüm Danışmanlığı"
+    ],
+    "membershipType": "individual",
+    "phone": "0530 886 64 56",
+    "companyAddress": "BG MİMARLIK VE İNŞAAT LTD. ŞTİ, No:3, Konutkent, 3029 Sokak Azel Kule, 06810 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "ALİ HAN KARABİNA",
+    "companyName": "AYK MÜŞAVİRLİK MİMARLIK MÜHENDİSLİK İNŞAAT",
+    "email": "ayk-musavirlik-mimarlik-muhend-8@example.com",
+    "sectors": [
+      "insaat-ve-yapi"
+    ],
+    "activityAreas": [
+      "Harfiyat ve Altyapı"
+    ],
+    "productsAndServices": [
+      "Hafriyat Kazı Çalışması",
+      "Altyapı Kanalizasyon İşleri",
+      "İş Makinesi Kiralama"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 306 97 61",
+    "companyAddress": "AYK Mimarlık, Konutkent, 3028 Cd. NO:8/C, 06000 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "EKİN BULUT",
+    "companyName": "EKHA MOBİLYA AĞAÇ İNŞ.",
+    "email": "ekha-mobilya-agac-ins-9@example.com",
+    "sectors": [
+      "insaat-ve-yapi",
+      "mobilya-ve-dekorasyon",
+      "uretim-ve-sanayi"
+    ],
+    "activityAreas": [
+      "Ahşap İşleme"
+    ],
+    "productsAndServices": [
+      "Lazer Ahşap Oyma",
+      "CNC Ahşap Kesim",
+      "Ahşap Doğrama Profilleri"
+    ],
+    "membershipType": "individual",
+    "phone": "0554 516 80 20",
+    "companyAddress": "BAĞLICA MAH. MERMEROĞLU CAD. NO:45CB ETİMESGUT - ETİMESGUT / ANKARA / TÜRKİYE",
+    "isApproved": true
+  },
+  {
+    "fullName": "MEHMET ATİLLA İNAN",
+    "companyName": "ASP KAPI İNŞAAT",
+    "email": "asp-kapi-insaat-10@example.com",
+    "sectors": [
+      "insaat-ve-yapi"
+    ],
+    "activityAreas": [
+      "Ticari Yapı İnşaatı",
+      "Yapı Malzemeleri"
+    ],
+    "productsAndServices": [
+      "Depo ve Lojistik Merkezi İnşaatı",
+      "Fabrika Binası İnşaatı",
+      "Seramik ve Fayans"
+    ],
+    "membershipType": "individual",
+    "phone": "0533 208 33 96",
+    "companyAddress": "Asp Kapı, Çankaya, Çankaya Cd. No:18, 06690 Çankaya/Ankara",
+    "isApproved": false
+  },
+  {
+    "fullName": "YAVUZ CEVHER",
+    "companyName": "CEVHERLER YAPI İNŞAAT MİMARLIK",
+    "email": "cevherler-yapi-insaat-mimarlik-11@example.com",
+    "sectors": [
+      "insaat-ve-yapi",
+      "mimarlik-ve-tasarim"
+    ],
+    "activityAreas": [
+      "Konut İnşaatı",
+      "Zemin ve Kaplama İşleri"
+    ],
+    "productsAndServices": [
+      "Epoksi Zemin Kaplama",
+      "Anahtar Teslim Konut İnşaatı",
+      "Parke ve Laminat Döşeme"
+    ],
+    "membershipType": "individual",
+    "phone": "0507 756 17 89",
+    "companyAddress": "Next Level Loft Ofis, Kat: 23, No: 65 Çukurambar / Çankaya / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "RÜSTEM YILDIZ",
+    "companyName": "RY PROJE TASARIM UYGULAMA İNŞAAT",
+    "email": "ry-proje-tasarim-uygulama-insa-12@example.com",
+    "sectors": [
+      "insaat-ve-yapi",
+      "mimarlik-ve-tasarim"
+    ],
+    "activityAreas": [
+      "Mimari Proje Tasarımı",
+      "Harfiyat ve Altyapı"
+    ],
+    "productsAndServices": [
+      "Mimari Avan Proje",
+      "Hafriyat Kazı Çalışması"
+    ],
+    "membershipType": "individual",
+    "phone": "0545 261 28 28",
+    "companyAddress": "BEŞTEPE MAH. MERHALE CAD. ŞEN YUVA APT. NO:65 İÇ KAPI NO:2 YENİMAHALLE - YENİMAHALLE / ANKARA / TÜRKİYE",
+    "isApproved": true
+  },
+  {
+    "fullName": "BELKİZ TÜLÜN ERDEN AYDINLAR",
+    "companyName": "BETA YAPI ZEMİN KAPLAMALARI",
+    "email": "beta-yapi-zemin-kaplamalari-13@example.com",
+    "sectors": [
+      "insaat-ve-yapi"
+    ],
+    "activityAreas": [
+      "Ticari Yapı İnşaatı"
+    ],
+    "productsAndServices": [
+      "Ofis Binası İnşaatı",
+      "Depo ve Lojistik Merkezi İnşaatı",
+      "AVM ve Ticari Kompleks İnşaatı"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 632 81 77",
+    "companyAddress": "Beta Yapı Zemin Kaplamaları: Hilal Mahallesi, 701. Sokak No:30/A, Çankaya / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "EGEMEN DERNEK",
+    "companyName": "MASİF MOBİLYA / MASİF İNŞAAT",
+    "email": "masif-mobilya-masif-insaat-14@example.com",
+    "sectors": [
+      "insaat-ve-yapi",
+      "mobilya-ve-dekorasyon"
+    ],
+    "activityAreas": [
+      "Ticari Yapı İnşaatı",
+      "Aksesuar ve Dekor Ürünleri"
+    ],
+    "productsAndServices": [
+      "Aydınlatma Aksesuarları",
+      "Duvar Panosu",
+      "Ofis Binası İnşaatı"
+    ],
+    "membershipType": "individual",
+    "phone": "0541 813 05 30",
+    "companyAddress": "Mutlukent Mahallesi, Angora Bulvarı No:31/A, Çankaya / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "BURAK ATİLA",
+    "companyName": "JOVEN HOLDİNG / MODEL KAPI",
+    "email": "joven-holding-model-kapi-15@example.com",
+    "sectors": [
+      "insaat-ve-yapi"
+    ],
+    "activityAreas": [
+      "Konut İnşaatı",
+      "Zemin ve Kaplama İşleri"
+    ],
+    "productsAndServices": [
+      "Parke ve Laminat Döşeme",
+      "Villa İnşaatı",
+      "Seramik Zemin Uygulaması"
+    ],
+    "membershipType": "individual",
+    "phone": "0533 486 60 74",
+    "companyAddress": "Fabrika Mahallesi, Çubuk / Ankara. JOVEN HOLDİNG",
+    "isApproved": true
+  },
+  {
+    "fullName": "MEHMET ÖZCAN",
+    "companyName": "HİSS DESİNG TASARIM MOBİLYA TEKSTİL",
+    "email": "hiss-desing-tasarim-mobilya-te-16@example.com",
+    "sectors": [
+      "mimarlik-ve-tasarim",
+      "mobilya-ve-dekorasyon",
+      "tekstil-ve-ev-tekstili"
+    ],
+    "activityAreas": [
+      "Aksesuar ve Dekor Ürünleri",
+      "Uygulama Projeleri"
+    ],
+    "productsAndServices": [
+      "Dekoratif Ayna",
+      "Detay Uygulama Projesi",
+      "Vazo ve Biblo Seti"
+    ],
+    "membershipType": "individual",
+    "phone": "0530 521 12 70",
+    "companyAddress": "Hiss Design, Önder, Dolantı Sk. NO : 10, 06160 Altındağ/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "MERVE YOLCU",
+    "companyName": "MY CONCEPT MİMARLIK",
+    "email": "my-concept-mimarlik-17@example.com",
+    "sectors": [
+      "mimarlik-ve-tasarim"
+    ],
+    "activityAreas": [
+      "Kentsel Tasarım Danışmanlığı"
+    ],
+    "productsAndServices": [
+      "Yerleşim Analizi",
+      "İmar Danışmanlığı",
+      "Şehir Planlama Raporu",
+      "Kentsel Dönüşüm Danışmanlığı"
+    ],
+    "membershipType": "individual",
+    "phone": "0533 599 15 20",
+    "companyAddress": "Mi Concept Mimari Tasarım Dekorasyon, Cemil Meriç, Alemdağ Cd No: 319A, 34771 Ümraniye/İstanbul",
+    "isApproved": true
+  },
+  {
+    "fullName": "ALİ HAN KARABİNA",
+    "companyName": "AYK MÜŞAVİRLİK MİMARLIK MÜHENDİSLİK",
+    "email": "ayk-musavirlik-mimarlik-muhend-18@example.com",
+    "sectors": [
+      "mimarlik-ve-tasarim",
+      "saglik-ve-profesyonel-hizmetler"
+    ],
+    "activityAreas": [
+      "Hukuki Danışmanlık"
+    ],
+    "productsAndServices": [
+      "Ticaret Hukuku Danışmanlığı",
+      "Dava Takibi"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 306 97 61",
+    "companyAddress": "AYK Mimarlık, Konutkent, 3028 Cd. NO:8/C, 06000 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "MURAT GÖKALP",
+    "companyName": "MURAT GÖKALP MİMARLIK",
+    "email": "murat-gokalp-mimarlik-19@example.com",
+    "sectors": [
+      "mimarlik-ve-tasarim"
+    ],
+    "activityAreas": [
+      "Uygulama Projeleri"
+    ],
+    "productsAndServices": [
+      "Şantiye Uygulama Danışmanlığı",
+      "Uygulama Denetimi",
+      "Detay Uygulama Projesi",
+      "Malzeme Metraj Hesabı"
+    ],
+    "membershipType": "individual",
+    "phone": "0531 224 99 69",
+    "companyAddress": "Murat Gökalp Mimarlık, YDA CENTER, Kızılırmak, Dumlupınar Blv. KAT:12, NO:530, 06510 Çankaya/Ankara",
+    "isApproved": false
+  },
+  {
+    "fullName": "İSMAİL GEMİŞ",
+    "companyName": "KALENN İÇ MİMARLIK",
+    "email": "kalenn-ic-mimarlik-20@example.com",
+    "sectors": [
+      "mimarlik-ve-tasarim"
+    ],
+    "activityAreas": [
+      "Uygulama Projeleri",
+      "Peyzaj Tasarımı"
+    ],
+    "productsAndServices": [
+      "Detay Uygulama Projesi",
+      "Çatı Bahçesi Projesi",
+      "Peyzaj Bitkilendirme",
+      "Bahçe Peyzaj Tasarımı"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 511 02 34",
+    "companyAddress": "KALENN DESIGN, Karacakaya caddesi 37 siteler Karacakaya caddesi 37-1, siteler, Karacakaya Cd. No:37, 06700 Altındağ/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "CEM ÖZAĞAR",
+    "companyName": "AVANDOOR / PROJE TASARIM",
+    "email": "avandoor-proje-tasarim-21@example.com",
+    "sectors": [
+      "mimarlik-ve-tasarim"
+    ],
+    "activityAreas": [
+      "Mimari Proje Tasarımı"
+    ],
+    "productsAndServices": [
+      "3D Görselleştirme",
+      "Statik Proje Koordinasyonu",
+      "Uygulama Projesi Çizimi"
+    ],
+    "membershipType": "corporate",
+    "phone": "0530 541 69 46",
+    "companyAddress": "AVANDOOR KAPI KAPAK MODÜLER CEM ÖZAĞAR PROJE TASARIM, Önder, Ereğli Cd. no:37, 06165 Altındağ/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "ÖMER UYSAL",
+    "companyName": "WOMA-MILIMETRIC DESİNG",
+    "email": "woma-milimetric-desing-22@example.com",
+    "sectors": [
+      "mimarlik-ve-tasarim"
+    ],
+    "activityAreas": [
+      "İç Mekan Tasarımı"
+    ],
+    "productsAndServices": [
+      "Aydınlatma Tasarımı",
+      "Konut İç Mekan Tasarımı",
+      "3D İç Mekan Görselleştirme",
+      "Ofis İç Mekan Tasarımı"
+    ],
+    "membershipType": "individual",
+    "phone": "0538 822 57 06",
+    "companyAddress": "Öveçler Mahallesi, Ahmet Haşim Caddesi No:46/16, Çankaya / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "SEVİM TEKİN",
+    "companyName": "ENİSSA MOBİLYA / İÇ MİMAR",
+    "email": "enissa-mobilya-ic-mimar-23@example.com",
+    "sectors": [
+      "mimarlik-ve-tasarim",
+      "mobilya-ve-dekorasyon"
+    ],
+    "activityAreas": [
+      "İç Mekan Tasarımı",
+      "Kentsel Tasarım Danışmanlığı"
+    ],
+    "productsAndServices": [
+      "Ofis İç Mekan Tasarımı",
+      "Konut İç Mekan Tasarımı",
+      "Şehir Planlama Raporu",
+      "3D İç Mekan Görselleştirme"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 172 18 12",
+    "companyAddress": "Önder Mahallesi, Akbal Caddesi No:11",
+    "isApproved": true
+  },
+  {
+    "fullName": "MURAT KOPAN",
+    "companyName": "CAPİLON MOBİLYA",
+    "email": "capilon-mobilya-24@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon"
+    ],
+    "activityAreas": [
+      "Özel Tasarım Mobilya"
+    ],
+    "productsAndServices": [
+      "Sipariş Üzerine Üretim",
+      "Özel Ölçü Mobilya",
+      "Butik Mobilya Üretimi",
+      "Kişiye Özel Mobilya Tasarımı"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 727 38 36",
+    "companyAddress": "Capilon Mobilya, Topçu, 06796 Etimesgu",
+    "isApproved": true
+  },
+  {
+    "fullName": "YASİN DENİZLİ",
+    "companyName": "DENİZLİ KOLTUK / DK HOME",
+    "email": "denizli-koltuk-dk-home-25@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon",
+      "tekstil-ve-ev-tekstili"
+    ],
+    "activityAreas": [
+      "Kumaş Tasarımı",
+      "Perde Sistemleri"
+    ],
+    "productsAndServices": [
+      "Güneşlik ve Jaluzi",
+      "Perde Kumaşı"
+    ],
+    "membershipType": "individual",
+    "phone": "0554 729 83 53",
+    "companyAddress": "Önder, siteler, Yapıcı Sk. No:3 /7, 06360 Altındağ/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "SABİT AKCAN",
+    "companyName": "AYATA ÇEYİZ MOB.",
+    "email": "ayata-ceyiz-mob-26@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon",
+      "tekstil-ve-ev-tekstili"
+    ],
+    "activityAreas": [
+      "Perde Sistemleri"
+    ],
+    "productsAndServices": [
+      "Zebra Perde",
+      "Stor Perde",
+      "Güneşlik ve Jaluzi"
+    ],
+    "membershipType": "individual",
+    "phone": "0533 636 57 39",
+    "companyAddress": "Ayata Halıcılık, Gülveren, Plevne Cd. No:42, 06340 Mamak/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "HALİT KARACA",
+    "companyName": "LAZER MART",
+    "email": "lazer-mart-27@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon",
+      "uretim-ve-sanayi"
+    ],
+    "activityAreas": [
+      "Özel Tasarım Mobilya",
+      "Aksesuar ve Dekor Ürünleri"
+    ],
+    "productsAndServices": [
+      "Duvar Panosu",
+      "Butik Mobilya Üretimi",
+      "Dekoratif Ayna"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 550 36 36",
+    "companyAddress": "Lazer Mart Dekorasyon A.Ş., Ulubey mahallesi Çamlıtepe Caddesi, Siteler - 2 Kavşağı no 159/A, 06165 Altındağ",
+    "isApproved": true
+  },
+  {
+    "fullName": "HASAN YILMAZ",
+    "companyName": "MASSA MOBİLYA DEKORASYON TEKSTİL",
+    "email": "massa-mobilya-dekorasyon-tekst-28@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon",
+      "uretim-ve-sanayi",
+      "tekstil-ve-ev-tekstili"
+    ],
+    "activityAreas": [
+      "Makine İmalatı"
+    ],
+    "productsAndServices": [
+      "Prototip Makine Geliştirme",
+      "Otomasyon Hattı Üretimi",
+      "Makine Parçası İmalatı"
+    ],
+    "membershipType": "corporate",
+    "phone": "0532 505 39 85",
+    "companyAddress": "Massa Office, Önder, Kareli Sk. No:15, 06160 Altındağ/Ankara",
+    "isApproved": false
+  },
+  {
+    "fullName": "CEM ÖZAĞAR",
+    "companyName": "AVANDOOR KAPI KAPAK MODÜLER",
+    "email": "avandoor-kapi-kapak-moduler-29@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon",
+      "uretim-ve-sanayi"
+    ],
+    "activityAreas": [
+      "Endüstriyel İmalat"
+    ],
+    "productsAndServices": [
+      "Endüstriyel Ekipman Üretimi",
+      "Sac Metal İşleme"
+    ],
+    "membershipType": "corporate",
+    "phone": "0530 541 69 46",
+    "companyAddress": "AVANDOOR KAPI KAPAK MODÜLER CEM ÖZAĞAR PROJE TASARIM, Önder, Ereğli Cd. no:37, 06165 Altındağ/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "HASAN KAYA",
+    "companyName": "ÖNNUR ŞÖMİNE MERMER",
+    "email": "onnur-somine-mermer-30@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon",
+      "uretim-ve-sanayi"
+    ],
+    "activityAreas": [
+      "Ofis Mobilyası"
+    ],
+    "productsAndServices": [
+      "Toplantı Masası Takımı",
+      "Çalışma Masası",
+      "Ofis Koltuğu",
+      "Dosya Dolabı"
+    ],
+    "membershipType": "corporate",
+    "phone": "0533 643 63 56",
+    "companyAddress": "önnur şömine, Yuvaköy, 3708. Sk. No:9, 06105 İvedik Osb/Yenimahalle/Yenimahalle/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "AYBER İPEK",
+    "companyName": "ÇOCUKÇA MOBİLYA",
+    "email": "cocukca-mobilya-31@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon"
+    ],
+    "activityAreas": [
+      "Özel Tasarım Mobilya",
+      "Ofis Mobilyası"
+    ],
+    "productsAndServices": [
+      "Ofis Koltuğu",
+      "Dosya Dolabı",
+      "Özel Ölçü Mobilya",
+      "Butik Mobilya Üretimi"
+    ],
+    "membershipType": "individual",
+    "phone": "0541 350 60 06",
+    "companyAddress": "Çocukça Mobilya - Kids Furniture, Önder, Karacakaya Cad., Çalım Sok. No:13, 06160 Siteler/Altındağ/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "ULAŞ KAPLAN",
+    "companyName": "MÖBEL DESİNG BY ULAŞ KAPLAN",
+    "email": "mobel-desing-by-ulas-kaplan-32@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon"
+    ],
+    "activityAreas": [
+      "Ofis Mobilyası"
+    ],
+    "productsAndServices": [
+      "Çalışma Masası",
+      "Dosya Dolabı",
+      "Toplantı Masası Takımı"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 625 82 87",
+    "companyAddress": "Klas İstanbul - Furniture, Decoration & Home Art, Önder, Atılgan Sokağı No: 15/5, 06160 Altındağ/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "AHMET AYKOL",
+    "companyName": "JOYE HOME",
+    "email": "joye-home-33@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon",
+      "tekstil-ve-ev-tekstili"
+    ],
+    "activityAreas": [
+      "Özel Tasarım Mobilya"
+    ],
+    "productsAndServices": [
+      "Butik Mobilya Üretimi",
+      "Kişiye Özel Mobilya Tasarımı",
+      "Özel Ölçü Mobilya"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 604 45 86",
+    "companyAddress": "Ahmet Taner Kışlalı Mah. Alacaatlı Cad Anchor İş Merkezi 18/CA, Çayyolu, 06810 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "FURKAN TAŞCI",
+    "companyName": "TAŞÇIOĞLU FURNITURE",
+    "email": "tascioglu-furniture-34@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon"
+    ],
+    "activityAreas": [
+      "Ofis Mobilyası"
+    ],
+    "productsAndServices": [
+      "Toplantı Masası Takımı",
+      "Ofis Koltuğu",
+      "Çalışma Masası"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 135 63 71",
+    "companyAddress": "Taşcıoğlu Furniture, Altınpark Mh, Dikmeli Sk. No:15 D:8, 06140 Altındağ/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "UĞUR GEDİK",
+    "companyName": "GEDİKSAN AHŞ. MOB. DEK.",
+    "email": "gediksan-ahs-mob-dek-35@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon"
+    ],
+    "activityAreas": [
+      "Ofis Mobilyası",
+      "Ahşap Mobilya Üretimi"
+    ],
+    "productsAndServices": [
+      "Ahşap Sehpa Takımı",
+      "Masif Ahşap Yemek Masası",
+      "Toplantı Masası Takımı"
+    ],
+    "membershipType": "individual",
+    "phone": "0536 673 72 53",
+    "companyAddress": "Gediksan, Önder, Kalım Sk. No:10/1-2, 06360 Altındağ/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "HAMDULLAH KORAY DURŞEN",
+    "companyName": "DURŞEN SANDALYE",
+    "email": "dursen-sandalye-36@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon",
+      "uretim-ve-sanayi"
+    ],
+    "activityAreas": [
+      "Makine İmalatı"
+    ],
+    "productsAndServices": [
+      "Otomasyon Hattı Üretimi",
+      "Makine Parçası İmalatı",
+      "Özel Amaçlı Makine İmalatı"
+    ],
+    "membershipType": "individual",
+    "phone": "0530 233 27 43",
+    "companyAddress": "Önder, Demirhendek Cd. No:184, 06165 Altındağ/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "ÖMER AKSOY KALAYCIOĞLU",
+    "companyName": "KALAYCIOĞLU KLC MAKİNE MADENCİLİK",
+    "email": "kalaycioglu-klc-makine-madenci-37@example.com",
+    "sectors": [
+      "uretim-ve-sanayi",
+      "metal-ve-makine"
+    ],
+    "activityAreas": [
+      "Endüstriyel İmalat",
+      "Krom Kaplama"
+    ],
+    "productsAndServices": [
+      "Nikel Kaplama",
+      "Sac Metal İşleme",
+      "Metal Yüzey Kaplama",
+      "Parlatma ve Cilalama"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 203 77 25",
+    "companyAddress": "Kalaycıoğlu KLC Makina, Dempa Sanayi Sitesi, Susuz, Çaldıran Caddesi No:31, 06105 Yenimahalle/Ankara",
+    "isApproved": false
+  },
+  {
+    "fullName": "EYÜP OZAN OYMAK",
+    "companyName": "KUPA MADALYA EVİ",
+    "email": "kupa-madalya-evi-38@example.com",
+    "sectors": [
+      "uretim-ve-sanayi",
+      "metal-ve-makine"
+    ],
+    "activityAreas": [
+      "Krom Kaplama",
+      "Ambalaj Üretimi"
+    ],
+    "productsAndServices": [
+      "Baloncuklu Naylon",
+      "Streç Film"
+    ],
+    "membershipType": "corporate",
+    "phone": "0541 691 58 10",
+    "companyAddress": "Kupa ve Madalya Evi, Ostim Mh., 1472. Sokak (Ankara İvedik Organize Sanayi Bölgesi), 06374 Yenimahalle/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "TEOMAN ATASOY",
+    "companyName": "PRİZMA DEPO TEK.",
+    "email": "prizma-depo-tek-39@example.com",
+    "sectors": [
+      "uretim-ve-sanayi"
+    ],
+    "activityAreas": [
+      "Ahşap İşleme",
+      "Makine İmalatı"
+    ],
+    "productsAndServices": [
+      "CNC Ahşap Kesim",
+      "Ahşap Kaplama Levha",
+      "Prototip Makine Geliştirme",
+      "Makine Parçası İmalatı"
+    ],
+    "membershipType": "individual",
+    "phone": "0539 580 40 90",
+    "companyAddress": "Prizma Depo A.Ş., Altın Örnek Sanayi Sitesi, 1519. Sokak No: 104 İvedik OSB, 06378 Yenimahalle/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "ALATTİN YÜKSEL",
+    "companyName": "KAVİ AHŞAP",
+    "email": "kavi-ahsap-40@example.com",
+    "sectors": [
+      "uretim-ve-sanayi"
+    ],
+    "activityAreas": [
+      "Makine İmalatı",
+      "Endüstriyel İmalat"
+    ],
+    "productsAndServices": [
+      "Makine Parçası İmalatı",
+      "Özel Amaçlı Makine İmalatı",
+      "Sac Metal İşleme",
+      "Metal Konstrüksiyon İmalatı"
+    ],
+    "membershipType": "individual",
+    "phone": "0536 921 85 73",
+    "companyAddress": "Kavi Ahşap Pelet Cips Yakıt, Pancar organize sanayi 3. cad no: 3, 35865 Torbalı/İzmir",
+    "isApproved": true
+  },
+  {
+    "fullName": "TURGAY TOPBAŞ",
+    "companyName": "SAHİ METAL TASARIM İMALAT",
+    "email": "sahi-metal-tasarim-imalat-41@example.com",
+    "sectors": [
+      "uretim-ve-sanayi",
+      "metal-ve-makine"
+    ],
+    "activityAreas": [
+      "Alüminyum Doğrama",
+      "Endüstriyel İmalat"
+    ],
+    "productsAndServices": [
+      "Sürme Kapı Profili",
+      "Alüminyum Pencere Sistemi"
+    ],
+    "membershipType": "individual",
+    "phone": "0543 953 35 34",
+    "companyAddress": "SAHİ METAL TASARIM İMALAT SANAYİ VE TİC. LTD.ŞTİ, Önder, Dolantı Sk. no:37/c, 06320 Altındağ/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "SEBAHATTİN İNCE",
+    "companyName": "TURKUAZ GRUP AMBALAJ",
+    "email": "turkuaz-grup-ambalaj-42@example.com",
+    "sectors": [
+      "uretim-ve-sanayi",
+      "ticaret-ve-dis-ticaret"
+    ],
+    "activityAreas": [
+      "Gümrük Müşavirliği"
+    ],
+    "productsAndServices": [
+      "İthalat Gümrükleme",
+      "İhracat Gümrükleme",
+      "Antrepo İşlemleri"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 546 10 46",
+    "companyAddress": "Turkuaz Grup Ambalaj ve Matbacılık San. Ltd.Şti., Saray, 2780. Cd. Gimat Depolama Sitesi No:18, 06340 Kahramankazan/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "TURGUT KILINÇSARI",
+    "companyName": "CİTPOL POLİÜRETEN MAK. KİM. HIRD. MOB.",
+    "email": "citpol-poliureten-mak-kim-hird-43@example.com",
+    "sectors": [
+      "uretim-ve-sanayi",
+      "metal-ve-makine"
+    ],
+    "activityAreas": [
+      "Ahşap İşleme",
+      "Metal İşleme"
+    ],
+    "productsAndServices": [
+      "Lazer Ahşap Oyma",
+      "Kaynak İşleri"
+    ],
+    "membershipType": "individual",
+    "phone": "0553 160 80 40",
+    "companyAddress": "Jitpol Poliüretan Ltd Sti, Tahtalı, Dereboyu Caddesi No:4, 16110 Ni̇lüfer/Bursa",
+    "isApproved": true
+  },
+  {
+    "fullName": "KADİR KÖROĞLU",
+    "companyName": "YJCP ASLANMAZ KROM",
+    "email": "yjcp-aslanmaz-krom-44@example.com",
+    "sectors": [
+      "uretim-ve-sanayi",
+      "metal-ve-makine"
+    ],
+    "activityAreas": [
+      "Ambalaj Üretimi"
+    ],
+    "productsAndServices": [
+      "Streç Film",
+      "Endüstriyel Palet Ambalajı",
+      "Baloncuklu Naylon",
+      "Karton Kutu"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 382 52 47",
+    "companyAddress": "Ostim OSB, Enerji Caddesi, Yenimahalle / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "ERSEL SAÇAN",
+    "companyName": "HÖGER ALİMÜNYUM",
+    "email": "hoger-alimunyum-45@example.com",
+    "sectors": [
+      "uretim-ve-sanayi",
+      "metal-ve-makine"
+    ],
+    "activityAreas": [
+      "CNC İşleme"
+    ],
+    "productsAndServices": [
+      "3 Eksen İşleme",
+      "CNC Freze İşleme",
+      "Hassas Metal Kesim"
+    ],
+    "membershipType": "individual",
+    "phone": "0545 941 90 71",
+    "companyAddress": "Önder Mahallesi, Çamlıtepe Caddesi No:149, Altındağ / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "EREN BAYKAL",
+    "companyName": "EFM ALÜMİNYUM CEPHE SİSTEMLERİ",
+    "email": "efm-aluminyum-cephe-sistemleri-46@example.com",
+    "sectors": [
+      "metal-ve-makine"
+    ],
+    "activityAreas": [
+      "Makine Bakım ve Onarım"
+    ],
+    "productsAndServices": [
+      "Yedek Parça Tedariki",
+      "Arıza Tespit ve Onarım",
+      "Periyodik Servis",
+      "Endüstriyel Makine Bakımı"
+    ],
+    "membershipType": "individual",
+    "phone": "0554 233 15 07",
+    "companyAddress": "EFM Alüminyum Cephe Sistemleri Kompozit panel Isı cam Bina Kapıları Alüminyum Doğrama Kapılar fotoselli kapı Üretimleri, Alsancak Sokak, Alsancak, Mehmet Akif Ersoy Cd. No:15 D:b, 06790 Etimesgut/Ankara",
+    "isApproved": false
+  },
+  {
+    "fullName": "ÖMER KILINÇ",
+    "companyName": "ÖMER KILINÇ / PERDEKARR PERDE SİSTEMLERİ",
+    "email": "omer-kilinc-perdekarr-perde-si-47@example.com",
+    "sectors": [
+      "tekstil-ve-ev-tekstili"
+    ],
+    "activityAreas": [
+      "Perakende Tekstil Satışı",
+      "Ev Tekstili Üretimi"
+    ],
+    "productsAndServices": [
+      "Online Satış Kanalı",
+      "Mağaza Satış Hizmeti"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 706 16 65",
+    "companyAddress": "Devlet Mahallesi İnönü Bulvarı No:18 06420 Çankaya/ANKARA",
+    "isApproved": true
+  },
+  {
+    "fullName": "RAHMİ DEMİR",
+    "companyName": "SLEEPERHOME BEDDİNG",
+    "email": "sleeperhome-bedding-48@example.com",
+    "sectors": [
+      "tekstil-ve-ev-tekstili"
+    ],
+    "activityAreas": [
+      "Perakende Tekstil Satışı",
+      "Perde Sistemleri"
+    ],
+    "productsAndServices": [
+      "Zebra Perde",
+      "Toptan/Perakende Tekstil Ürünleri",
+      "Stor Perde"
+    ],
+    "membershipType": "individual",
+    "phone": "0541 352 51 51",
+    "companyAddress": "Sleeper Ankara Mamak, Cengizhan, 816. Sk. No:17 D:18, 06270 Mamak/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "RUKİYE ERGİN",
+    "companyName": "ÖZEL DİZAYN TEKSTİL",
+    "email": "ozel-dizayn-tekstil-49@example.com",
+    "sectors": [
+      "tekstil-ve-ev-tekstili",
+      "ticaret-ve-dis-ticaret"
+    ],
+    "activityAreas": [
+      "Gümrük Müşavirliği"
+    ],
+    "productsAndServices": [
+      "İthalat Gümrükleme",
+      "Antrepo İşlemleri",
+      "İhracat Gümrükleme"
+    ],
+    "membershipType": "individual",
+    "phone": "0541 670 88 07",
+    "companyAddress": "DİZAYN BRANDS, Mesih Paşa, Laleli Cd. no:21, 34130 Fatih/İstanbul",
+    "isApproved": true
+  },
+  {
+    "fullName": "ALİ GÖRÜCÜ",
+    "companyName": "GRC HOME TEKSTİL",
+    "email": "grc-home-tekstil-50@example.com",
+    "sectors": [
+      "tekstil-ve-ev-tekstili"
+    ],
+    "activityAreas": [
+      "Kumaş Tasarımı",
+      "Perde Sistemleri"
+    ],
+    "productsAndServices": [
+      "Özel Desen Kumaş",
+      "Motorlu Perde Sistemi",
+      "Zebra Perde"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 695 23 41",
+    "companyAddress": "Ulubey Mahallesi, Yapıcı Sokak No:12, 06360 Altındağ / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "MURAT TETİK",
+    "companyName": "LUKS STİL PERDE",
+    "email": "luks-stil-perde-51@example.com",
+    "sectors": [
+      "tekstil-ve-ev-tekstili"
+    ],
+    "activityAreas": [
+      "Ev Tekstili Üretimi",
+      "Nevresim ve Yatak Tekstili"
+    ],
+    "productsAndServices": [
+      "Yatak Örtüsü",
+      "Nevresim Takımı",
+      "Masa Örtüsü"
+    ],
+    "membershipType": "individual",
+    "phone": "0531 602 49 48",
+    "companyAddress": "Necatibey Mahallesi, Saraçlar Sokak No:46, Altındağ / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "ERAY ŞAHİN",
+    "companyName": "STA GÜMRÜK MÜŞAVİRLİĞİ",
+    "email": "sta-gumruk-musavirligi-52@example.com",
+    "sectors": [
+      "ticaret-ve-dis-ticaret",
+      "lojistik-ve-tasimacilik"
+    ],
+    "activityAreas": [
+      "İthalat",
+      "Perakende Ticaret"
+    ],
+    "productsAndServices": [
+      "Gümrükleme ve Vergilendirme",
+      "Son Kullanıcı Satışı",
+      "İthalat Lojistik Koordinasyonu"
+    ],
+    "membershipType": "individual",
+    "phone": "0506 951 42 12",
+    "companyAddress": "STA GÜMRÜK MÜŞAVİRLİĞİ, Aşağı Öveçler, 1322. Cd. 13/2, 06460 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "MERT KORAY ASLANBAŞ",
+    "companyName": "İMGE İREM ASLANBAŞ / KEBO OVACIK",
+    "email": "imge-irem-aslanbas-kebo-ovacik-53@example.com",
+    "sectors": [
+      "ticaret-ve-dis-ticaret",
+      "gida-turizm-ve-hizmet"
+    ],
+    "activityAreas": [
+      "Kahve ve İçecek"
+    ],
+    "productsAndServices": [
+      "Soğuk İçecek Menüsü",
+      "Kahve Çekirdeği Toptan Satışı",
+      "Specialty Kahve"
+    ],
+    "membershipType": "corporate",
+    "phone": "0543 263 19 94",
+    "companyAddress": "KEBO OVACIK, Yayla, Yozgat Blv. NO:20C D:23, 06280 Keçiören/Ankara",
+    "isApproved": true,
+    "notes": {
+      "gida-turizm-ve-hizmet": "faaliyetinin niteliği ayrıca kontrol edilmeli"
+    }
+  },
+  {
+    "fullName": "ELVAN YILDIRIM",
+    "companyName": "MBCM İÇ VE DIŞ TİCARET",
+    "email": "mbcm-ic-ve-dis-ticaret-54@example.com",
+    "sectors": [
+      "ticaret-ve-dis-ticaret"
+    ],
+    "activityAreas": [
+      "Toptan Ticaret"
+    ],
+    "productsAndServices": [
+      "B2B Satış Hizmeti",
+      "Stok Yönetimi",
+      "Toptan Ürün Tedariki"
+    ],
+    "membershipType": "corporate",
+    "phone": "0542 446 17 40",
+    "companyAddress": "Güzeltepe Mahallesi, Hoşdere Caddesi No:192, Daire:8, Çankaya / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "EKİN BULUT",
+    "companyName": "EKHA MOBİLYA AĞAÇ İNŞ. YAZILIM İTH. İHR.",
+    "email": "ekha-mobilya-agac-ins-yazilim--55@example.com",
+    "sectors": [
+      "ticaret-ve-dis-ticaret"
+    ],
+    "activityAreas": [
+      "İhracat"
+    ],
+    "productsAndServices": [
+      "Yurt Dışı Pazarlama",
+      "İhracat Belgelendirme",
+      "Uluslararası Sevkiyat"
+    ],
+    "membershipType": "individual",
+    "phone": "0554 516 80 20",
+    "companyAddress": "BAĞLICA MAH. MERMEROĞLU CAD. NO:45CB ETİMESGUT - ETİMESGUT / ANKARA / TÜRKİYE",
+    "isApproved": false
+  },
+  {
+    "fullName": "EREN BAYKAL",
+    "companyName": "EFM ALÜMİNYUM CEPHE SİS. İTH. İHR.",
+    "email": "efm-aluminyum-cephe-sis-ith-ih-56@example.com",
+    "sectors": [
+      "ticaret-ve-dis-ticaret"
+    ],
+    "activityAreas": [
+      "İhracat",
+      "İthalat"
+    ],
+    "productsAndServices": [
+      "Yurt Dışı Tedarik",
+      "Yurt Dışı Pazarlama"
+    ],
+    "membershipType": "individual",
+    "phone": "0554 233 15 07",
+    "companyAddress": "EFM Alüminyum Cephe Sistemleri Kompozit panel Isı cam Bina Kapıları Alüminyum Doğrama Kapılar fotoselli kapı Üretimleri, Alsancak Sokak, Alsancak, Mehmet Akif Ersoy Cd. No:15 D:b, 06790 Etimesgut/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "MERTCAN GÜLBEŞ",
+    "companyName": "FRESH HİJYEN",
+    "email": "fresh-hijyen-57@example.com",
+    "sectors": [
+      "ticaret-ve-dis-ticaret"
+    ],
+    "activityAreas": [
+      "Gümrük Müşavirliği",
+      "İthalat"
+    ],
+    "productsAndServices": [
+      "Antrepo İşlemleri",
+      "İthalat Lojistik Koordinasyonu",
+      "Yurt Dışı Tedarik"
+    ],
+    "membershipType": "individual",
+    "phone": "0544 587 17 10",
+    "companyAddress": "softhijyen, Maxi İvedik İş Merkezi, Yenimahalle/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "AHMET KÜÇÜKŞAHİN",
+    "companyName": "PANKEA GIDA TUR. İNŞ. İTH. İHR.",
+    "email": "pankea-gida-tur-ins-ith-ihr-58@example.com",
+    "sectors": [
+      "ticaret-ve-dis-ticaret",
+      "lojistik-ve-tasimacilik",
+      "gida-turizm-ve-hizmet"
+    ],
+    "activityAreas": [
+      "Etkinlik Yönetimi"
+    ],
+    "productsAndServices": [
+      "Konferans Yönetimi",
+      "Fuar Standı Kurulumu",
+      "Lansman Organizasyonu"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 777 53 57",
+    "companyAddress": "Mustafa Kemal Mahallesi, 2141. Cadde No:33/B, Çankaya / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "TEOMAN ATASOY",
+    "companyName": "PRİZMA DEPO",
+    "email": "prizma-depo-59@example.com",
+    "sectors": [
+      "ticaret-ve-dis-ticaret",
+      "lojistik-ve-tasimacilik"
+    ],
+    "activityAreas": [
+      "Perakende Ticaret",
+      "Gümrük Müşavirliği"
+    ],
+    "productsAndServices": [
+      "Ürün Sergileme ve Satış",
+      "Antrepo İşlemleri",
+      "Mağazacılık Hizmeti"
+    ],
+    "membershipType": "individual",
+    "phone": "0539 580 40 90",
+    "companyAddress": "Prizma Depo A.Ş., Altın Örnek Sanayi Sitesi, 1519. Sokak No: 104 İvedik OSB, 06378 Yenimahalle/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "İSMAİL TUNÇ PORTAKAL",
+    "companyName": "PORTAKAL A.Ş.",
+    "email": "portakal-a-s-60@example.com",
+    "sectors": [
+      "ticaret-ve-dis-ticaret"
+    ],
+    "activityAreas": [
+      "İhracat"
+    ],
+    "productsAndServices": [
+      "Yurt Dışı Pazarlama",
+      "Uluslararası Sevkiyat",
+      "İhracat Belgelendirme"
+    ],
+    "membershipType": "individual",
+    "phone": "0533 435 38 70",
+    "companyAddress": "Portakal A.Ş. - Merkez, Etlik, Gen. Dr. Tevfik Sağlam Cd No:145, 06010 Keçiören/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "ARİF GÜLBEŞ",
+    "companyName": "FRD ENDÜSTRİYEL TOPTAN TEMİZLİK",
+    "email": "frd-endustriyel-toptan-temizli-61@example.com",
+    "sectors": [
+      "ticaret-ve-dis-ticaret"
+    ],
+    "activityAreas": [
+      "İthalat"
+    ],
+    "productsAndServices": [
+      "Tedarik Zinciri Yönetimi",
+      "Gümrükleme ve Vergilendirme",
+      "Yurt Dışı Tedarik"
+    ],
+    "membershipType": "corporate",
+    "phone": "0532 322 75 78",
+    "companyAddress": "FRD ENDÜSTRİYEL TOPTAN TEMİZLİK AMBALAJ GIDA ÜRÜNLERİ PAZARLAMA, 19 Mayıs, Gün Sazak Cd. No:79/B, 06290 Keçiören/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "ONUR BALOĞLU",
+    "companyName": "BALOĞLU SERAMİK",
+    "email": "baloglu-seramik-62@example.com",
+    "sectors": [
+      "ticaret-ve-dis-ticaret"
+    ],
+    "activityAreas": [
+      "İthalat",
+      "İhracat"
+    ],
+    "productsAndServices": [
+      "İhracat Belgelendirme",
+      "Dış Ticaret Danışmanlığı",
+      "Yurt Dışı Pazarlama",
+      "Yurt Dışı Tedarik"
+    ],
+    "membershipType": "corporate",
+    "phone": "0542 729 90 06",
+    "companyAddress": "BALOĞLU SERAMİK | BİEN SERAMİK | QUA GRANİT | GROHE | DURAVİT | ECA | SEREL | WEBER | SİKA |, Çamlıca, Anadolu Blv 145. Sk, 06200 Yenimahalle/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "CENGİZ CİNGİL",
+    "companyName": "UMUT FİLM REKLAM TANITIM",
+    "email": "umut-film-reklam-tanitim-63@example.com",
+    "sectors": [
+      "reklam-medya-ve-matbaa",
+      "otomotiv"
+    ],
+    "activityAreas": [
+      "Araç Kaplama"
+    ],
+    "productsAndServices": [
+      "Kurumsal Araç Giydirme",
+      "Cam Filmi Uygulaması"
+    ],
+    "membershipType": "corporate",
+    "phone": "0532 408 10 91",
+    "companyAddress": "Ümit Reklam Tabela Cam filmi Araç kaplama, Cumhuriyet mahallesi, Saray Cumhuriyet, Belediye Cd. 31’e, 06145 Pursaklar/Ankara",
+    "isApproved": true,
+    "notes": {
+      "otomotiv": "araç kaplama"
+    }
+  },
+  {
+    "fullName": "NECMİ TÜRKER",
+    "companyName": "KÖMEN DİJİTAL",
+    "email": "komen-dijital-64@example.com",
+    "sectors": [
+      "reklam-medya-ve-matbaa",
+      "bilisim-ve-teknoloji"
+    ],
+    "activityAreas": [
+      "Organizasyon Hizmetleri"
+    ],
+    "productsAndServices": [
+      "Protokol Yönetimi",
+      "Kurumsal Etkinlik Organizasyonu",
+      "Davet ve Tören Organizasyonu"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 352 51 62",
+    "companyAddress": "Kömen Dijital Baskı, Ağaç İşleri Sanayi Sitesi, Ostim, 1375. Sk. No: 4, 06378 Yenimahalle/Ankara",
+    "isApproved": false,
+    "notes": {
+      "bilisim-ve-teknoloji": "dijital baskı olduğu için sınırda, ana sektöre almak tercihe bağlı"
+    }
+  },
+  {
+    "fullName": "EYÜP OZAN OYMAK",
+    "companyName": "KUPA MADALYA EVİ REKLAM TANITIM ORGANİZASYON MATBAA",
+    "email": "kupa-madalya-evi-reklam-taniti-65@example.com",
+    "sectors": [
+      "reklam-medya-ve-matbaa"
+    ],
+    "activityAreas": [
+      "Baskı ve Matbaa Hizmetleri",
+      "Organizasyon Hizmetleri"
+    ],
+    "productsAndServices": [
+      "Ofset Baskı",
+      "Sahne ve Ses Sistemi Kurulumu",
+      "Davet ve Tören Organizasyonu"
+    ],
+    "membershipType": "corporate",
+    "phone": "0541 691 58 10",
+    "companyAddress": "Kupa ve Madalya Evi, Ostim Mh., 1472. Sokak (Ankara İvedik Organize Sanayi Bölgesi), 06374 Yenimahalle/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "SERTAÇ KANTARCI",
+    "companyName": "KANTARCI MEDYA / ANKARA LIFE DERGİSİ",
+    "email": "kantarci-medya-ankara-life-der-66@example.com",
+    "sectors": [
+      "reklam-medya-ve-matbaa"
+    ],
+    "activityAreas": [
+      "Marka Danışmanlığı",
+      "Medya Prodüksiyon"
+    ],
+    "productsAndServices": [
+      "Video Kurgu ve Montaj",
+      "Logo ve Marka Tescili",
+      "Reklam Filmi Çekimi",
+      "Marka Kimliği Tasarımı"
+    ],
+    "membershipType": "individual",
+    "phone": "0533 474 81 17",
+    "companyAddress": "Ankara Life Dergisi, Yukarı Öveçler, Lizbon Cd. No:38/13, 06530 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "ÇETİN CUDAL",
+    "companyName": "İLK ÖZ MATBAASI",
+    "email": "ilk-oz-matbaasi-67@example.com",
+    "sectors": [
+      "reklam-medya-ve-matbaa"
+    ],
+    "activityAreas": [
+      "Organizasyon Hizmetleri",
+      "Marka Danışmanlığı"
+    ],
+    "productsAndServices": [
+      "Sahne ve Ses Sistemi Kurulumu",
+      "Davet ve Tören Organizasyonu",
+      "Kurumsal Etkinlik Organizasyonu"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 236 45 44",
+    "companyAddress": "En Uygun Kopyalama Kırtasiye ve Baskı Merkezi, Konutkent, 2983. Cd. No: 47/2, 06810 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "SEBAHATTİN İNCE",
+    "companyName": "TURKUAZ GRUP AMBALAJ VE MATBAA",
+    "email": "turkuaz-grup-ambalaj-ve-matbaa-68@example.com",
+    "sectors": [
+      "reklam-medya-ve-matbaa"
+    ],
+    "activityAreas": [
+      "Baskı ve Matbaa Hizmetleri"
+    ],
+    "productsAndServices": [
+      "Ambalaj Baskısı",
+      "Kartvizit ve Broşür Baskısı",
+      "Dijital Baskı"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 546 10 46",
+    "companyAddress": "Turkuaz Grup Ambalaj ve Matbacılık San. Ltd.Şti., Saray, 2780. Cd. Gimat Depolama Sitesi No:18, 06340 Kahramankazan/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "HAYDAR KAYA",
+    "companyName": "KAYA GLOBAL MOTORLU ARAÇLAR",
+    "email": "kaya-global-motorlu-araclar-69@example.com",
+    "sectors": [
+      "otomotiv"
+    ],
+    "activityAreas": [
+      "Araç Bakım ve Onarım"
+    ],
+    "productsAndServices": [
+      "Fren Sistemi Onarımı",
+      "Periyodik Bakım",
+      "Kaporta ve Boya",
+      "Motor Revizyonu"
+    ],
+    "membershipType": "corporate",
+    "phone": "0553 378 71 17",
+    "companyAddress": "Kaya Global Motorlu Araçlar, Bahçekapı, 2474. Cd NO:6 D D:13, 06010 Etimesgut/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "SÜLEYMAN SEVEN",
+    "companyName": "KARDEŞLER TEKNİK OTOMOTİV",
+    "email": "kardesler-teknik-otomotiv-70@example.com",
+    "sectors": [
+      "otomotiv"
+    ],
+    "activityAreas": [
+      "Araç Bakım ve Onarım",
+      "Yedek Parça"
+    ],
+    "productsAndServices": [
+      "Motor Revizyonu",
+      "Orijinal Yedek Parça Satışı"
+    ],
+    "membershipType": "individual",
+    "phone": "0505 514 97 55",
+    "companyAddress": "Zet Garden, Önder, Taşdelen Cd. No:26 D:E, 06160 Siteler/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "FURKAN VARLI",
+    "companyName": "FKV OTOMOTİV",
+    "email": "fkv-otomotiv-71@example.com",
+    "sectors": [
+      "otomotiv"
+    ],
+    "activityAreas": [
+      "Araç Bakım ve Onarım"
+    ],
+    "productsAndServices": [
+      "Kaporta ve Boya",
+      "Periyodik Bakım",
+      "Fren Sistemi Onarımı"
+    ],
+    "membershipType": "individual",
+    "phone": "0530 419 68 92",
+    "companyAddress": "FKV OTOMOTİV: Mehmet Akif Ersoy Mahallesi, Anadolu Bulvarı No:61, Yenimahalle / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "UĞUR AYVAZ ŞENTÜRK",
+    "companyName": "HUGG MICE TURİZM EĞİTİM DANIŞMANLIK TAŞIMACILIK ORGANİZASYON",
+    "email": "hugg-mice-turizm-egitim-danism-72@example.com",
+    "sectors": [
+      "lojistik-ve-tasimacilik",
+      "gida-turizm-ve-hizmet"
+    ],
+    "activityAreas": [
+      "Yurt İçi Nakliye"
+    ],
+    "productsAndServices": [
+      "Evden Eve Nakliyat",
+      "Şehir İçi Taşımacılık"
+    ],
+    "membershipType": "corporate",
+    "phone": "0545 928 70 08",
+    "companyAddress": "Çankaya Mahallesi, Cemal Nadir Sokak No:4/3, Çankaya / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "YUNUS EMRE KÜÇÜK",
+    "companyName": "PEKERLER PAZARLAMA / İNŞAAT / ENERJİ / TAŞIMACILIK / TURİZM",
+    "email": "pekerler-pazarlama-insaat-ener-73@example.com",
+    "sectors": [
+      "lojistik-ve-tasimacilik"
+    ],
+    "activityAreas": [
+      "Yurt İçi Nakliye"
+    ],
+    "productsAndServices": [
+      "Şehirler Arası Nakliye",
+      "Evden Eve Nakliyat",
+      "Parsiyel Yük Taşımacılığı"
+    ],
+    "membershipType": "individual",
+    "phone": "0542 494 51 30",
+    "companyAddress": "Pekerler İnşaat Enerji Taşımacılık Turizm San. ve Tic. Ltd. Şti., İlkbahar, 596. Sk. No:71, 06550 Çankaya/Ankara",
+    "isApproved": false
+  },
+  {
+    "fullName": "ÖZGÜR AYDIN",
+    "companyName": "POWER REAL ESTATE INVESTMENT / KRC GAYRİMENKUL",
+    "email": "power-real-estate-investment-k-74@example.com",
+    "sectors": [
+      "gayrimenkul-ve-finans"
+    ],
+    "activityAreas": [
+      "Yatırım Danışmanlığı"
+    ],
+    "productsAndServices": [
+      "Risk Değerlendirmesi",
+      "Gayrimenkul Yatırım Danışmanlığı",
+      "Yatırım Fizibilite Raporu"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 766 82 29",
+    "companyAddress": "KRC GAYRİMENKUL (Merkez-İsmail KARACA), Çağlayan, Tıp Fakültesi Cd. No:252/C, 06260 Mamak/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "FATMA MEHTAP ABİŞ",
+    "companyName": "EMAX GAYRİMENKUL",
+    "email": "emax-gayrimenkul-75@example.com",
+    "sectors": [
+      "gayrimenkul-ve-finans"
+    ],
+    "activityAreas": [
+      "Kiralama Hizmetleri"
+    ],
+    "productsAndServices": [
+      "Kısa Dönem Kiralama",
+      "Ticari Alan Kiralama",
+      "Konut Kiralama"
+    ],
+    "membershipType": "individual",
+    "phone": "0537 835 15 99",
+    "companyAddress": "EMAKS EMLAK, Gökkuşağı, Ceyhun Atuf Kansu Cd. 203/A, 06450 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "YETER DURLANIK YILDIZ",
+    "companyName": "GRUP ES SİGORTA",
+    "email": "grup-es-sigorta-76@example.com",
+    "sectors": [
+      "gayrimenkul-ve-finans",
+      "saglik-ve-profesyonel-hizmetler"
+    ],
+    "activityAreas": [
+      "Kiralama Hizmetleri"
+    ],
+    "productsAndServices": [
+      "Konut Kiralama",
+      "Ticari Alan Kiralama",
+      "Ofis Kiralama"
+    ],
+    "membershipType": "individual",
+    "phone": "0541 801 19 91",
+    "companyAddress": "Grup Es Sigorta Aracilik Hizmetleri, Ayrancı, Kuzgun Cd NO:4/B, 06540 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "HAKAN AKÇA",
+    "companyName": "AKÇA GRUP SİGORTA",
+    "email": "akca-grup-sigorta-77@example.com",
+    "sectors": [
+      "gayrimenkul-ve-finans",
+      "saglik-ve-profesyonel-hizmetler"
+    ],
+    "activityAreas": [
+      "Emlak Portföy Yönetimi",
+      "Sigortacılık"
+    ],
+    "productsAndServices": [
+      "Gayrimenkul Pazarlama",
+      "Sağlık Sigortası",
+      "Portföy Değerleme",
+      "Kira Yönetimi"
+    ],
+    "membershipType": "corporate",
+    "phone": "0553 678 14 34",
+    "companyAddress": "Akça Grup Sigorta, Barbaros, Güniz Sk. No:29/3, 06680 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "SÜLEYMAN SURURİ ÇİFTÇİOĞLU",
+    "companyName": "SİGORTA BİRİMİ",
+    "email": "sigorta-birimi-78@example.com",
+    "sectors": [
+      "gayrimenkul-ve-finans"
+    ],
+    "activityAreas": [
+      "Kiralama Hizmetleri"
+    ],
+    "productsAndServices": [
+      "Konut Kiralama",
+      "Kısa Dönem Kiralama",
+      "Ofis Kiralama"
+    ],
+    "membershipType": "individual",
+    "phone": "0533 302 66 73",
+    "companyAddress": "Aşağı Öveçler Mahallesi, 1324. Cadde No:15/5, 06460 Çankaya / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "MURAT YÖNEY",
+    "companyName": "THE WEST WİNG",
+    "email": "the-west-wing-79@example.com",
+    "sectors": [
+      "gayrimenkul-ve-finans",
+      "gida-turizm-ve-hizmet"
+    ],
+    "activityAreas": [
+      "Emlak Portföy Yönetimi",
+      "Catering Hizmetleri"
+    ],
+    "productsAndServices": [
+      "Kurumsal Yemek Hizmeti",
+      "İkram Servisi"
+    ],
+    "membershipType": "individual",
+    "phone": "0544 835 08 35",
+    "companyAddress": "WEST GATE RESIDENCE, Konutkent, Dumlupınar Blv. No:391, 06810 Çankaya/Ankara",
+    "isApproved": true,
+    "notes": {
+      "gayrimenkul-ve-finans": "gayrimenkul/konaklama bağlantısı nedeniyle kontrol edilmeli",
+      "gida-turizm-ve-hizmet": "konaklama/hizmet ise"
+    }
+  },
+  {
+    "fullName": "BURAK ATİLA",
+    "companyName": "JOVEN HOLDİNG / COLDWELL BANKER JOVEN",
+    "email": "joven-holding-coldwell-banker--80@example.com",
+    "sectors": [
+      "gayrimenkul-ve-finans"
+    ],
+    "activityAreas": [
+      "Sigorta Acenteliği",
+      "Gayrimenkul Danışmanlığı"
+    ],
+    "productsAndServices": [
+      "Konut Sigortası",
+      "Konut Alım-Satım Danışmanlığı",
+      "Trafik ve Kasko Sigortası",
+      "Yatırımlık Arsa Danışmanlığı"
+    ],
+    "membershipType": "individual",
+    "phone": "0533 486 60 74",
+    "companyAddress": "Fabrika Mahallesi, Çubuk / Ankara. JOVEN HOLDİNG",
+    "isApproved": true
+  },
+  {
+    "fullName": "EKİN BULUT",
+    "companyName": "EKHA MOBİLYA AĞAÇ İNŞ. YAZILIM",
+    "email": "ekha-mobilya-agac-ins-yazilim-81@example.com",
+    "sectors": [
+      "bilisim-ve-teknoloji"
+    ],
+    "activityAreas": [
+      "Dijital Dönüşüm Danışmanlığı"
+    ],
+    "productsAndServices": [
+      "Süreç Otomasyonu",
+      "Kurumsal Yazılım Entegrasyonu",
+      "Dijitalleşme Yol Haritası"
+    ],
+    "membershipType": "individual",
+    "phone": "0554 516 80 20",
+    "companyAddress": "BAĞLICA MAH. MERMEROĞLU CAD. NO:45CB ETİMESGUT - ETİMESGUT / ANKARA / TÜRKİYE",
+    "isApproved": true
+  },
+  {
+    "fullName": "ÖZGÜL ÖZDAMAR AĞBUĞA",
+    "companyName": "ÖZDAMAR BİLGİSAYAR BİLİŞİM TEKNOLOJİLERİ",
+    "email": "ozdamar-bilgisayar-bilisim-tek-82@example.com",
+    "sectors": [
+      "bilisim-ve-teknoloji"
+    ],
+    "activityAreas": [
+      "Dijital Dönüşüm Danışmanlığı",
+      "Ar-Ge"
+    ],
+    "productsAndServices": [
+      "Kurumsal Yazılım Entegrasyonu",
+      "Teknoloji Fizibilite Raporu",
+      "Patent Ön Araştırması",
+      "Dijitalleşme Yol Haritası"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 635 96 35",
+    "companyAddress": "Kültür Mahallesi, İçel Sokak No:7/5, Kızılay, Çankaya / Ankara",
+    "isApproved": false
+  },
+  {
+    "fullName": "MUSTAFA AKDAŞ",
+    "companyName": "ATLAS NESTOR DANIŞMANLIK",
+    "email": "atlas-nestor-danismanlik-83@example.com",
+    "sectors": [
+      "bilisim-ve-teknoloji",
+      "saglik-ve-profesyonel-hizmetler"
+    ],
+    "activityAreas": [
+      "Yazılım Geliştirme",
+      "Bilişim Sistemleri Danışmanlığı"
+    ],
+    "productsAndServices": [
+      "API Entegrasyonu",
+      "Siber Güvenlik Danışmanlığı",
+      "Kurumsal Yazılım Çözümleri"
+    ],
+    "membershipType": "corporate",
+    "phone": "0543 272 25 41",
+    "companyAddress": "Ankara Teknopark, Gazi Üniversitesi Teknoloji Geliştirme Bölgesi, Yenimahalle / Ankara",
+    "isApproved": true,
+    "notes": {
+      "bilisim-ve-teknoloji": "Ankara Teknopark"
+    }
+  },
+  {
+    "fullName": "ÖMER AKSOY KALAYCIOĞLU",
+    "companyName": "KALAYCIOĞLU KLC MAKİNE",
+    "email": "kalaycioglu-klc-makine-84@example.com",
+    "sectors": [
+      "bilisim-ve-teknoloji"
+    ],
+    "activityAreas": [
+      "Dijital Dönüşüm Danışmanlığı"
+    ],
+    "productsAndServices": [
+      "Dijitalleşme Yol Haritası",
+      "Süreç Otomasyonu",
+      "Kurumsal Yazılım Entegrasyonu",
+      "ERP Danışmanlığı"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 203 77 25",
+    "companyAddress": "Kalaycıoğlu KLC Makina, Dempa Sanayi Sitesi, Susuz, Çaldıran Caddesi No:31, 06105 Yenimahalle/Ankara",
+    "isApproved": true,
+    "notes": {
+      "bilisim-ve-teknoloji": "teknoloji/makine tarafı"
+    }
+  },
+  {
+    "fullName": "MESUT AKHAN",
+    "companyName": "SAFİE MEYHANE",
+    "email": "safie-meyhane-85@example.com",
+    "sectors": [
+      "gida-turizm-ve-hizmet"
+    ],
+    "activityAreas": [
+      "Restoran İşletmeciliği",
+      "Turizm Organizasyonu"
+    ],
+    "productsAndServices": [
+      "Etkinlik Turizmi",
+      "Şef Menüsü",
+      "Catering ve Dışarı Servis"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 422 34 62",
+    "companyAddress": "Safie Meyhane, Kavaklıdere, Güvenlik Cd. No:13, 06540 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "AHMET KARASLAN",
+    "companyName": "PAŞA SULTAN RESTORAN HİZMETLERİ",
+    "email": "pasa-sultan-restoran-hizmetler-86@example.com",
+    "sectors": [
+      "gida-turizm-ve-hizmet"
+    ],
+    "activityAreas": [
+      "Turizm Organizasyonu"
+    ],
+    "productsAndServices": [
+      "Etkinlik Turizmi",
+      "Tur Paketleri"
+    ],
+    "membershipType": "individual",
+    "phone": "0535 526 60 88",
+    "companyAddress": "Sultan Restaurant, İnönü, 1729. Sk. No:4/14 D:17, 06370 Yenimahalle/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "ENDER ERGELEN",
+    "companyName": "TETRA KAHVE",
+    "email": "tetra-kahve-87@example.com",
+    "sectors": [
+      "gida-turizm-ve-hizmet"
+    ],
+    "activityAreas": [
+      "Turizm Organizasyonu",
+      "Kahve ve İçecek"
+    ],
+    "productsAndServices": [
+      "Tur Paketleri",
+      "Soğuk İçecek Menüsü",
+      "Kahve Makinesi Kurulumu"
+    ],
+    "membershipType": "individual",
+    "phone": "0533 426 88 03",
+    "companyAddress": "Erzurum Mahallesi, Dumlupınar Caddesi No:38/B, Çankaya / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "VEYSEL ÜRÜN",
+    "companyName": "AÇELYA ÇİÇEK",
+    "email": "acelya-cicek-88@example.com",
+    "sectors": [
+      "gida-turizm-ve-hizmet"
+    ],
+    "activityAreas": [
+      "Catering Hizmetleri"
+    ],
+    "productsAndServices": [
+      "Etkinlik Catering",
+      "İkram Servisi",
+      "Kurumsal Yemek Hizmeti",
+      "Düğün Organizasyon Menüsü"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 207 60 09",
+    "companyAddress": "Beştepe Mahallesi, Dumlupınar Bulvarı No:6, Yenimahalle / Ankara",
+    "isApproved": true,
+    "notes": {
+      "gida-turizm-ve-hizmet": "hizmet/ticaret tarafında değerlendirilebilir"
+    }
+  },
+  {
+    "fullName": "HABİBULLAH HALİL ÖSER",
+    "companyName": "DOKTOR / Uzm. Dr. Dt. Tuğba Çınar Türk Diş Kliniği",
+    "email": "doktor-uzm-dr-dt-tugba-cinar-t-89@example.com",
+    "sectors": [
+      "saglik-ve-profesyonel-hizmetler"
+    ],
+    "activityAreas": [
+      "Hukuki Danışmanlık",
+      "Ağız ve Diş Sağlığı"
+    ],
+    "productsAndServices": [
+      "İmplant Tedavisi",
+      "Sözleşme Hazırlama",
+      "Dava Takibi"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 489 73 13",
+    "companyAddress": "Uzm. Dr. Dt. Tuğba Çınar Türk Diş Kliniği /Sedasyonla Diş Tedavisi/Ankara Çocuk Diş Doktoru, Konutkent mah 2945 cadde Hayal sitesi 25/2 çayyolu, 06810 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "SEVGİ AKBAŞ",
+    "companyName": "SMİLE HARMONY / Özel Sevgi Savaş Akbaş Ağız Diş Sağlığı Polikliniği",
+    "email": "smile-harmony-ozel-sevgi-savas-90@example.com",
+    "sectors": [
+      "saglik-ve-profesyonel-hizmetler"
+    ],
+    "activityAreas": [
+      "Mühendislik Danışmanlığı",
+      "Ağız ve Diş Sağlığı"
+    ],
+    "productsAndServices": [
+      "Kanal Tedavisi",
+      "Statik Hesap Raporu",
+      "İmplant Tedavisi"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 280 86 43",
+    "companyAddress": "Smile Harmony Sağlık Hiz. Ltd. Şti. / Özel Sevgi Savaş Akbaş Ağız Diş Sağlığı Polikliniği: Adres doğrulanamadı.",
+    "isApproved": true
+  },
+  {
+    "fullName": "RUKİYE ASLAN",
+    "companyName": "HAYAT HUKUK VE DANIŞMANLIK BÜROSU",
+    "email": "hayat-hukuk-ve-danismanlik-bur-91@example.com",
+    "sectors": [
+      "saglik-ve-profesyonel-hizmetler"
+    ],
+    "activityAreas": [
+      "Mühendislik Danışmanlığı"
+    ],
+    "productsAndServices": [
+      "Fizibilite Etüdü",
+      "Statik Hesap Raporu"
+    ],
+    "membershipType": "individual",
+    "phone": "0532 614 98 15",
+    "companyAddress": "Hayat Hukuk & Danışmanlık Bürosu, Anıttepe, Tuncer Sk. NO:18/13, 06590 Çankaya/Ankara",
+    "isApproved": false
+  },
+  {
+    "fullName": "CEREN ÖZGE DEMİRCİ",
+    "companyName": "OFİS HUKUK VE ARABULUCULUK",
+    "email": "ofis-hukuk-ve-arabuluculuk-92@example.com",
+    "sectors": [
+      "saglik-ve-profesyonel-hizmetler"
+    ],
+    "activityAreas": [
+      "Ağız ve Diş Sağlığı"
+    ],
+    "productsAndServices": [
+      "İmplant Tedavisi",
+      "Diş Beyazlatma",
+      "Kanal Tedavisi"
+    ],
+    "membershipType": "individual",
+    "phone": "0530 494 17 44",
+    "companyAddress": "Ofis Hukuk ve Arabuluculuk: Koç Kuleleri A Blok, Söğütözü, Çankaya / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "ÇAĞLAR ÖZDEN",
+    "companyName": "ETİKET MARKA PATENT DANIŞMANLIK",
+    "email": "etiket-marka-patent-danismanli-93@example.com",
+    "sectors": [
+      "saglik-ve-profesyonel-hizmetler"
+    ],
+    "activityAreas": [
+      "Hukuki Danışmanlık"
+    ],
+    "productsAndServices": [
+      "Dava Takibi",
+      "Sözleşme Hazırlama",
+      "Ticaret Hukuku Danışmanlığı",
+      "Şirketler Hukuku Danışmanlığı"
+    ],
+    "membershipType": "individual",
+    "phone": "0507 941 30 06",
+    "companyAddress": "Etiket Patent, Kızılırmak, Dumlupınar Blv. No:3/C1 D:160, 06520 Çankaya/Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "SÜLEYMAN SURURİ ÇİFTÇİOĞLU",
+    "companyName": "SİGORTA BİRİMİ SİGORTA",
+    "email": "sigorta-birimi-sigorta-94@example.com",
+    "sectors": [
+      "saglik-ve-profesyonel-hizmetler"
+    ],
+    "activityAreas": [
+      "Sigortacılık",
+      "Mühendislik Danışmanlığı"
+    ],
+    "productsAndServices": [
+      "Hayat Sigortası",
+      "Statik Hesap Raporu",
+      "DASK Poliçesi"
+    ],
+    "membershipType": "individual",
+    "phone": "0533 302 66 73",
+    "companyAddress": "Aşağı Öveçler Mahallesi, 1324. Cadde No:15/5, 06460 Çankaya / Ankara",
+    "isApproved": true
+  },
+  {
+    "fullName": "İBRAHİM TAHA ÇINAR",
+    "companyName": "İTC MÜHENDİSLİK",
+    "email": "itc-muhendislik-95@example.com",
+    "sectors": [
+      "saglik-ve-profesyonel-hizmetler"
+    ],
+    "activityAreas": [
+      "Sigortacılık"
+    ],
+    "productsAndServices": [
+      "DASK Poliçesi",
+      "Sorumluluk Sigortası"
+    ],
+    "membershipType": "individual",
+    "phone": "0536 724 24 03",
+    "companyAddress": "Itc Mühendislik, Güvercintepe, 5. Sk. 25 Blok No:25 D:5, 34494 Şamlar/Başakşehir/Istanbul - Europe",
+    "isApproved": true
+  },
+  {
+    "fullName": "FATİH DURMUŞ",
+    "companyName": "FERDİ BOYA",
+    "email": "ferdi-boya-96@example.com",
+    "sectors": [
+      "insaat-ve-yapi"
+    ],
+    "activityAreas": [],
+    "productsAndServices": [],
+    "membershipType": "individual",
+    "phone": "0535 403 46 86",
+    "companyAddress": "Ferdi Boya, Önder, Çalım Sk. No:24/C, 06160 Altındağ/Ankara",
+    "isApproved": true,
+    "notes": {
+      "insaat-ve-yapi": "sektör tahmini, kontrol edilmeli"
+    }
+  },
+  {
+    "fullName": "İSMAİL HAKKI ALTUNDAĞ",
+    "companyName": "ALTUNDAĞ PARKE",
+    "email": "altundag-parke-97@example.com",
+    "sectors": [
+      "insaat-ve-yapi"
+    ],
+    "activityAreas": [],
+    "productsAndServices": [],
+    "membershipType": "individual",
+    "phone": "0555 238 33 88",
+    "companyAddress": "ALTUNDAĞ PARKE, 21. CAD. ALTUNDAĞ İŞ MERKEZİ NO:1, 06140 Altındağ/Ankara",
+    "isApproved": true,
+    "notes": {
+      "insaat-ve-yapi": "sektör tahmini, kontrol edilmeli"
+    }
+  },
+  {
+    "fullName": "DOĞAN KARAKILIÇ",
+    "companyName": "DOĞAN SANAT ATÖLYESİ",
+    "email": "dogan-sanat-atolyesi-98@example.com",
+    "sectors": [
+      "gida-turizm-ve-hizmet"
+    ],
+    "activityAreas": [],
+    "productsAndServices": [],
+    "membershipType": "individual",
+    "phone": "0544 774 75 53",
+    "companyAddress": "T.C. M.E.B. Mehmet Ali Doğan Sanat Evi Resim Kursu, Kızılay, Fevzi Çakmak-1 Sk. No:17 D:8, 06420 Çankaya/Ankara",
+    "isApproved": true,
+    "notes": {
+      "gida-turizm-ve-hizmet": "sektör tahmini, kontrol edilmeli"
+    }
+  },
+  {
+    "fullName": "FATİH HALİL GÜNGÖR",
+    "companyName": "BİLGİNS MİMARLIK",
+    "email": "bilgins-mimarlik-99@example.com",
+    "sectors": [
+      "mimarlik-ve-tasarim"
+    ],
+    "activityAreas": [],
+    "productsAndServices": [],
+    "membershipType": "individual",
+    "phone": "0532 270 14 38",
+    "companyAddress": "Bilgins Mimarlık ltd., Fidanlık, Mithatpaşa Cd. No:31 D:18, 06420 Çankaya/Ankara",
+    "isApproved": true,
+    "notes": {
+      "mimarlik-ve-tasarim": "sektör tahmini, kontrol edilmeli"
+    }
+  },
+  {
+    "fullName": "ERHAN AYDIN",
+    "companyName": "AYDINLAR GERİ DÖNÜŞÜM",
+    "email": "aydinlar-geri-donusum-100@example.com",
+    "sectors": [
+      "uretim-ve-sanayi"
+    ],
+    "activityAreas": [],
+    "productsAndServices": [],
+    "membershipType": "individual",
+    "phone": "0532 433 04 41",
+    "companyAddress": "Aydınlar Geri Dönüşüm, Atatürk Caddesi, İvedik, İvedikköy, Hurdacılar Sitesi No:1108, 06378 Ankara",
+    "isApproved": false,
+    "notes": {
+      "uretim-ve-sanayi": "sektör tahmini, kontrol edilmeli"
+    }
+  },
+  {
+    "fullName": "OZAN ERTÜRK",
+    "companyName": "MAYPAK KURUMSAL TEMİZLİK",
+    "email": "maypak-kurumsal-temizlik-101@example.com",
+    "sectors": [
+      "gida-turizm-ve-hizmet"
+    ],
+    "activityAreas": [],
+    "productsAndServices": [],
+    "membershipType": "individual",
+    "phone": "0542 404 28 88",
+    "companyAddress": "Maypak Ticaret, Macun, Timko İşyerleri Sitesi D:19D blok içkapı no:3, 06374 Yenimahalle/Ankara",
+    "isApproved": true,
+    "notes": {
+      "gida-turizm-ve-hizmet": "sektör tahmini, kontrol edilmeli"
+    }
+  },
+  {
+    "fullName": "ABDULLAH BAYKAL",
+    "companyName": "BLUE GREEN HALI YIKAMA",
+    "email": "blue-green-hali-yikama-102@example.com",
+    "sectors": [
+      "gida-turizm-ve-hizmet"
+    ],
+    "activityAreas": [],
+    "productsAndServices": [],
+    "membershipType": "individual",
+    "phone": "0533 305 26 22",
+    "companyAddress": "Blue Green Halı Yıkama, Şenlik, Buket Sk. 26/12, 06310 Keçiören/Ankara",
+    "isApproved": true,
+    "notes": {
+      "gida-turizm-ve-hizmet": "sektör tahmini, kontrol edilmeli"
+    }
+  },
+  {
+    "fullName": "İLKER ŞAHİN",
+    "companyName": "DOORMAN KAPI SİSTEMLERİ",
+    "email": "doorman-kapi-sistemleri-103@example.com",
+    "sectors": [
+      "insaat-ve-yapi"
+    ],
+    "activityAreas": [],
+    "productsAndServices": [],
+    "membershipType": "individual",
+    "phone": "0541 471 01 01",
+    "companyAddress": "Seyranbağları Mahallesi, Bağlar Caddesi No:119, Çankaya / Ankara",
+    "isApproved": true,
+    "notes": {
+      "insaat-ve-yapi": "sektör tahmini, kontrol edilmeli"
+    }
+  },
+  {
+    "fullName": "İLKER BAŞAR",
+    "companyName": "SADİ USTA",
+    "email": "sadi-usta-104@example.com",
+    "sectors": [
+      "mobilya-ve-dekorasyon"
+    ],
+    "activityAreas": [],
+    "productsAndServices": [],
+    "membershipType": "individual",
+    "phone": "0532 632 22 55",
+    "companyAddress": "Ulubey Mahallesi, Yalınç Sokak No:42, Siteler, Altındağ / Ankara",
+    "isApproved": true,
+    "notes": {
+      "mobilya-ve-dekorasyon": "sektör tahmini, kontrol edilmeli"
+    }
+  }
+]

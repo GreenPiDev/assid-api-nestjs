@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Dijital dönüşüm yol haritası üyelerle paylaşıldı",
+    "summary": "Yeni portal, firma rehberi ve B2B iş birliği altyapısı için görüşler alınmaya devam ediyor.",
+    "content": "Derneğimiz, dijital dönüşüm sürecinde attığı adımları ve önümüzdeki dönem hedeflerini üyeleriyle paylaştı. Yeni dijital firma rehberi, sektörel filtreleme ve üyeler arası iş birliği altyapısı üzerinde çalışmalar sürüyor.",
+    "category": "Dernek Gündemi",
+    "imageUrl": "https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=1200&q=80",
+    "sectors": [],
+    "isFeatured": true,
+    "isPublished": true
+  },
+  {
+    "title": "Yeni üye firma kayıtları için veri güncelleme dönemi başladı",
+    "summary": "Firma profillerinizi güncelleyerek dijital rehberde öne çıkabilirsiniz.",
+    "content": "Üyelerimizin firma profillerini (logo, faaliyet alanları, ürün ve hizmetler) güncel tutmaları, dijital firma rehberinde daha görünür olmalarını sağlayacak.",
+    "category": "Duyuru",
+    "imageUrl": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=900&q=80",
+    "sectors": [],
+    "isFeatured": false,
+    "isPublished": true
+  },
+  {
+    "title": "Üretim teknolojileri toplantısı yoğun katılımla gerçekleşti",
+    "summary": "Sanayide verimlilik ve iş geliştirme başlıkları ele alındı.",
+    "content": "Üretim ve sanayi sektöründe faaliyet gösteren üyelerimizin katılımıyla gerçekleşen toplantıda verimlilik artırıcı uygulamalar konuşuldu.",
+    "category": "Etkinlik",
+    "imageUrl": "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=900&q=80",
+    "sectors": ["uretim-ve-sanayi", "metal-ve-makine"],
+    "isFeatured": false,
+    "isPublished": true
+  },
+  {
+    "title": "Mobilya sektöründe ihracat fırsatları büyüyor",
+    "summary": "Siteler mobilya üreticileri için yeni pazar araştırması tamamlandı.",
+    "content": "Mobilya ve dekorasyon sektöründeki üyelerimiz için hazırlanan ihracat pazar araştırması, önümüzdeki dönem hedef pazarları ortaya koyuyor.",
+    "category": "Sektör Haberi",
+    "imageUrl": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+    "sectors": ["mobilya-ve-dekorasyon"],
+    "isFeatured": false,
+    "isPublished": true
+  },
+  {
+    "title": "İnşaat sektöründe yeni yönetmelik değişiklikleri",
+    "summary": "İnşaat ve yapı sektörü üyelerimizi ilgilendiren mevzuat güncellemeleri.",
+    "content": "İlgili bakanlık tarafından yayımlanan yönetmelik değişikliklerinin sektör üyelerine olası etkileri değerlendirildi.",
+    "category": "Sektör Haberi",
+    "imageUrl": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=900&q=80",
+    "sectors": ["insaat-ve-yapi", "mimarlik-ve-tasarim"],
+    "isFeatured": false,
+    "isPublished": true
+  },
+  {
+    "title": "Bilişim ve teknoloji üyeleri için dijitalleşme desteği",
+    "summary": "KOBİ'lere yönelik dijitalleşme destek programı başvuruları açıldı.",
+    "content": "Bilişim ve teknoloji sektöründeki üyelerimiz, dijitalleşme destek programına dernek aracılığıyla başvurabilecek.",
+    "category": "Sektör Haberi",
+    "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80",
+    "sectors": ["bilisim-ve-teknoloji"],
+    "isFeatured": false,
+    "isPublished": true
+  },
+  {
+    "title": "Genel Kurul toplantı tarihi duyuruldu",
+    "summary": "Yıllık olağan genel kurul toplantısı için tarih ve gündem paylaşıldı.",
+    "content": "Derneğimizin yıllık olağan genel kurul toplantısı önümüzdeki dönemde gerçekleştirilecek. Gündem ve detaylar üyelerimize ayrıca iletilecektir.",
+    "category": "Duyuru",
+    "imageUrl": "https://images.unsplash.com/photo-1560439514-4e9645039924?auto=format&fit=crop&w=900&q=80",
+    "sectors": [],
+    "isFeatured": false,
+    "isPublished": true
+  },
+  {
+    "title": "Lojistik ve taşımacılık üyeleri için yakıt maliyeti anketi",
+    "summary": "Sektör üyelerinin görüşleri yol haritasını şekillendirecek.",
+    "content": "Lojistik ve taşımacılık sektöründeki üyelerimizin katılımıyla düzenlenen anket sonuçları değerlendirmeye alındı.",
+    "category": "Sektör Haberi",
+    "imageUrl": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=900&q=80",
+    "sectors": ["lojistik-ve-tasimacilik"],
+    "isFeatured": false,
+    "isPublished": true
+  }
+]
