@@ -12,14 +12,16 @@ export class StatsController {
 
   @Get()
   async get() {
-    const [approvedMembersCount, eventsCount] = await Promise.all([
+    const [approvedMembersCount, activityAreasCount, eventsCount] = await Promise.all([
       this.membersService.countApproved(),
+      this.membersService.countDistinctActivityAreas(),
       this.eventsService.count(),
     ]);
 
     return {
       approvedMembersCount,
       sectorsCount: SECTORS.length,
+      activityAreasCount,
       eventsCount,
     };
   }

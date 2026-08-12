@@ -36,6 +36,11 @@ export class MembersService {
     return this.memberModel.countDocuments({ isApproved: true }).exec();
   }
 
+  async countDistinctActivityAreas() {
+    const areas = await this.memberModel.distinct('activityAreas', { isApproved: true }).exec();
+    return areas.length;
+  }
+
   async findAll(query: FindMembersQuery = {}) {
     const filter: Record<string, unknown> = {};
 
