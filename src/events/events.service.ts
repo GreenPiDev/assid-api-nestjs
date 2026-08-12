@@ -27,6 +27,10 @@ export class EventsService {
     return cursor.exec();
   }
 
+  count() {
+    return this.eventModel.countDocuments().exec();
+  }
+
   async findOne(id: string) {
     const item = await this.eventModel.findById(id).exec();
     if (!item) throw new NotFoundException('Event not found');

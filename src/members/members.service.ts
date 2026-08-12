@@ -32,6 +32,10 @@ export class MembersService {
     }
   }
 
+  countApproved() {
+    return this.memberModel.countDocuments({ isApproved: true }).exec();
+  }
+
   async findAll(query: FindMembersQuery = {}) {
     const filter: Record<string, unknown> = {};
 
