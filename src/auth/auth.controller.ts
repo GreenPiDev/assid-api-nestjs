@@ -4,7 +4,9 @@ import type { Response } from 'express';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { LoginDto } from './dto/login.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import type { AuthenticatedUser } from './auth.types';
 
@@ -32,6 +34,20 @@ export class AuthController {
     });
 
     return { user };
+  }
+
+  @Post('forgot-password')
+  @HttpCode(200)
+  async forgotPassword(@Body() dto: ForgotPasswordDto) {
+    await this.authService.forgotPassword(dto.email);
+    return { success: true };
+  }
+
+  @Post('reset-password')
+  @HttpCode(200)
+  async resetPassword(@Body() dto: ResetPasswordDto) {
+    await this.authService.resetPassword(dto.token, dto.newPassword);
+    return { success: true };
   }
 
   @Post('logout')

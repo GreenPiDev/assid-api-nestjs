@@ -32,4 +32,8 @@ export class OrganizationSettingsService {
     }
     return this.settingsModel.create({ name: 'Yeni Dernek', ...dto });
   }
+
+  setLogo(logoUrl: string) {
+    return this.update({ logo: logoUrl });
+  }
 }

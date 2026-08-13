@@ -99,6 +99,12 @@ export class MembersService {
     return member;
   }
 
+  async setLogo(id: string, logoUrl: string) {
+    const member = await this.memberModel.findByIdAndUpdate(id, { logo: logoUrl }, { new: true }).exec();
+    if (!member) throw new NotFoundException('Member not found');
+    return member;
+  }
+
   async remove(id: string) {
     const member = await this.memberModel.findByIdAndDelete(id).exec();
     if (!member) throw new NotFoundException('Member not found');
