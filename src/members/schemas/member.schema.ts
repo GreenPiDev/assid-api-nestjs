@@ -10,6 +10,17 @@ import { SECTOR_SLUGS } from '../../common/constants/sector.constant';
 
 export type MemberDocument = HydratedDocument<Member>;
 
+@Schema({ _id: false })
+export class MemberFile {
+  @Prop({ required: true, trim: true })
+  label: string;
+
+  @Prop({ required: true, trim: true })
+  url: string;
+}
+
+export const MemberFileSchema = SchemaFactory.createForClass(MemberFile);
+
 /**
  * Fields below are grouped to mirror the paper membership application form
  * (general info / membership class / personal info), plus fields the member
@@ -90,6 +101,19 @@ export class Member {
 
   @Prop({ default: true })
   isActive: boolean;
+
+  // --- Consent captured at application time (timestamps are set by the
+  // server when the applicant checks the corresponding box, never trusted
+  // from client input directly, so they double as an audit trail) ---
+  @Prop()
+  kvkkConsentAt?: Date;
+
+  @Prop()
+  bylawsAcknowledgedAt?: Date;
+
+  // --- Documents uploaded with the application (photos, kimlik, vs.) ---
+  @Prop({ type: [MemberFileSchema], default: [] })
+  documents: MemberFile[];
 
   // --- Managed later by the member from their own panel ---
   @Prop({ trim: true })

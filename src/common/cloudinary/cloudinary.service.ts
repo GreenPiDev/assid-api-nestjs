@@ -19,9 +19,16 @@ export class CloudinaryService {
     this.envFolder = config.get<string>('NODE_ENV') === 'production' ? 'production' : 'development';
   }
 
-  async uploadImage(file: Express.Multer.File, folder: string): Promise<string> {
+  async uploadImage(
+    file: Express.Multer.File,
+    folder: string,
+    resourceType: 'image' | 'auto' = 'image',
+  ): Promise<string> {
     const dataUri = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
-    const result = await cloudinary.uploader.upload(dataUri, { folder: `ASSID/${this.envFolder}/${folder}` });
+    const result = await cloudinary.uploader.upload(dataUri, {
+      folder: `ASSID/${this.envFolder}/${folder}`,
+      resource_type: resourceType,
+    });
     return result.secure_url;
   }
 }
