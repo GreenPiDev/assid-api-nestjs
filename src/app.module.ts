@@ -7,6 +7,8 @@ import { EventsModule } from './events/events.module';
 import { OrganizationSettingsModule } from './organization-settings/organization-settings.module';
 import { StatsModule } from './stats/stats.module';
 import { SectorsController } from './common/sectors.controller';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { SectorsController } from './common/sectors.controller';
     EventsModule,
     OrganizationSettingsModule,
     StatsModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [SectorsController],
 })
