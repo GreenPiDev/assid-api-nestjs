@@ -17,10 +17,16 @@ NestJS + MongoDB (Mongoose) ile yazılmış, dernekler için beyaz etiketli (whi
 ```bash
 npm install
 cp .env.example .env   # MONGODB_URI ve PORT'u kendi ortamına göre düzenle
-npm run start:dev
+npm run dev
 ```
 
-API varsayılan olarak `http://localhost:3000/api` altında çalışır.
+API varsayılan olarak `http://localhost:3000/api` altında çalışır. `npm run dev` uygulamayı tek seferlik başlatır (watch modu değildir); backendde değişiklik yaptıktan sonra yeniden başlatman gerekir. Watch modu (dosya değişince otomatik yeniden başlatma) istersen `npm run start:dev` kullanabilirsin.
+
+MongoDB'nin lokalde çalışıyor olması gerekir (`.env` içindeki `MONGODB_URI` ile eşleşen host/port'ta). Örneğin Homebrew ile kurulduysa:
+
+```bash
+brew services start mongodb-community
+```
 
 ## Ortam Değişkenleri
 
