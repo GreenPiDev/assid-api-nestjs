@@ -1,5 +1,11 @@
 import { Type } from 'class-transformer';
-import { IsObject, IsOptional, IsString, ValidateNested } from 'class-validator';
+import {
+  IsBoolean,
+  IsObject,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 
 class SocialLinksDto {
   @IsOptional()
@@ -77,4 +83,20 @@ export class UpdateOrganizationSettingsDto {
   @IsOptional()
   @IsString()
   privacyPolicyText?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  showKvkkConsent?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  requireKvkkConsent?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  showBylawsConsent?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  requireBylawsConsent?: boolean;
 }

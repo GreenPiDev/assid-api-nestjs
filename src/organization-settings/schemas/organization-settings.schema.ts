@@ -69,6 +69,18 @@ export class OrganizationSettings {
 
   @Prop({ trim: true })
   privacyPolicyText?: string;
+
+  @Prop({ default: true })
+  showKvkkConsent?: boolean;
+
+  @Prop({ default: true })
+  requireKvkkConsent?: boolean;
+
+  @Prop({ default: true })
+  showBylawsConsent?: boolean;
+
+  @Prop({ default: true })
+  requireBylawsConsent?: boolean;
 }
 
 export const OrganizationSettingsSchema = SchemaFactory.createForClass(OrganizationSettings);
