@@ -57,6 +57,18 @@ export class OrganizationSettings {
 
   @Prop({ trim: true })
   footerText?: string;
+
+  @Prop({ trim: true })
+  kvkkText?: string;
+
+  @Prop({ trim: true })
+  bylawsText?: string;
+
+  @Prop({ trim: true })
+  cookiePolicyText?: string;
+
+  @Prop({ trim: true })
+  privacyPolicyText?: string;
 }
 
 export const OrganizationSettingsSchema = SchemaFactory.createForClass(OrganizationSettings);
