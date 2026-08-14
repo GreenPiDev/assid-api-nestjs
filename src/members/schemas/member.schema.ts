@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import {
+  ApplicationStatus,
   BusinessActivityType,
   ContactPreference,
   MaritalStatus,
@@ -26,7 +27,7 @@ export const MemberFileSchema = SchemaFactory.createForClass(MemberFile);
  * Fields below are grouped to mirror the paper membership application form
  * (general info / membership class / personal info), plus fields the member
  * manages later from their own panel (logo, activityAreas, productsAndServices),
- * plus the admin-approval gate (isApproved).
+ * plus the admin-approval gate (applicationStatus).
  */
 @Schema({ timestamps: true })
 export class Member {
@@ -100,8 +101,8 @@ export class Member {
   @Prop({ default: Date.now })
   applicationDate: Date;
 
-  @Prop({ default: false })
-  isApproved: boolean;
+  @Prop({ enum: ApplicationStatus, default: ApplicationStatus.PENDING })
+  applicationStatus: ApplicationStatus;
 
   @Prop()
   approvedAt?: Date;

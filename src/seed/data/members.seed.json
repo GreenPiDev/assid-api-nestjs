@@ -18,7 +18,7 @@
     "membershipType": "corporate",
     "phone": "0532 492 71 99",
     "companyAddress": "Mehmet Akif ersoy Mahallesi 286.sokak Profis Sitesi A Blok No 6 İç Kapı No 11 Yenimahalle Ankara",
-    "isApproved": false
+    "applicationStatus": "pending"
   },
   {
     "fullName": "YUNUS CİHAN ÖZER",
@@ -38,7 +38,7 @@
     "membershipType": "individual",
     "phone": "0532 274 72 54",
     "companyAddress": "Mebusevleri, Önder Cd. 12/6, 06570 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "İBRAHİM DÜVENCİ",
@@ -60,7 +60,7 @@
     "membershipType": "individual",
     "phone": "0533 337 78 95",
     "companyAddress": "Organize Sanayi Bölgesi İbrahim Şenlikçi Cad. No:1, 26110 Odunpazarı/Eskişehir",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "HALİL KAPUCU",
@@ -81,7 +81,7 @@
     "membershipType": "individual",
     "phone": "0543 669 42 35",
     "companyAddress": "Sujetim Fason Kesim Atölyesi, Beylikdüzü OSB, 2. Cd. Birlik sanayi sitesi No: 36 / B, 34520 Beylikdüzü/İstanbul",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "OKTAY AKÇAM",
@@ -102,7 +102,7 @@
     "membershipType": "individual",
     "phone": "0532 276 40 33",
     "companyAddress": "Renew Home, Birlik, 435. Cd. No:25, 06830 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "YİĞİT BERK EĞRİDERE",
@@ -124,7 +124,7 @@
     "membershipType": "individual",
     "phone": "0539 543 44 44",
     "companyAddress": "Merkez Mah, Göktürk Cad. No:48/H Göktürk/Eyüpsultan-İSTANBUL",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "GÖZDE AKYÜZ",
@@ -144,7 +144,7 @@
     "membershipType": "individual",
     "phone": "0530 886 64 56",
     "companyAddress": "BG MİMARLIK VE İNŞAAT LTD. ŞTİ, No:3, Konutkent, 3029 Sokak Azel Kule, 06810 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ALİ HAN KARABİNA",
@@ -164,7 +164,7 @@
     "membershipType": "individual",
     "phone": "0532 306 97 61",
     "companyAddress": "AYK Mimarlık, Konutkent, 3028 Cd. NO:8/C, 06000 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "EKİN BULUT",
@@ -186,7 +186,7 @@
     "membershipType": "individual",
     "phone": "0554 516 80 20",
     "companyAddress": "BAĞLICA MAH. MERMEROĞLU CAD. NO:45CB ETİMESGUT - ETİMESGUT / ANKARA / TÜRKİYE",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "MEHMET ATİLLA İNAN",
@@ -207,7 +207,7 @@
     "membershipType": "individual",
     "phone": "0533 208 33 96",
     "companyAddress": "Asp Kapı, Çankaya, Çankaya Cd. No:18, 06690 Çankaya/Ankara",
-    "isApproved": false
+    "applicationStatus": "pending"
   },
   {
     "fullName": "YAVUZ CEVHER",
@@ -229,7 +229,7 @@
     "membershipType": "individual",
     "phone": "0507 756 17 89",
     "companyAddress": "Next Level Loft Ofis, Kat: 23, No: 65 Çukurambar / Çankaya / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "RÜSTEM YILDIZ",
@@ -250,7 +250,7 @@
     "membershipType": "individual",
     "phone": "0545 261 28 28",
     "companyAddress": "BEŞTEPE MAH. MERHALE CAD. ŞEN YUVA APT. NO:65 İÇ KAPI NO:2 YENİMAHALLE - YENİMAHALLE / ANKARA / TÜRKİYE",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "BELKİZ TÜLÜN ERDEN AYDINLAR",
@@ -270,7 +270,7 @@
     "membershipType": "individual",
     "phone": "0532 632 81 77",
     "companyAddress": "Beta Yapı Zemin Kaplamaları: Hilal Mahallesi, 701. Sokak No:30/A, Çankaya / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "EGEMEN DERNEK",
@@ -292,7 +292,7 @@
     "membershipType": "individual",
     "phone": "0541 813 05 30",
     "companyAddress": "Mutlukent Mahallesi, Angora Bulvarı No:31/A, Çankaya / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "BURAK ATİLA",
@@ -313,7 +313,7 @@
     "membershipType": "individual",
     "phone": "0533 486 60 74",
     "companyAddress": "Fabrika Mahallesi, Çubuk / Ankara. JOVEN HOLDİNG",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "MEHMET ÖZCAN",
@@ -336,7 +336,7 @@
     "membershipType": "individual",
     "phone": "0530 521 12 70",
     "companyAddress": "Hiss Design, Önder, Dolantı Sk. NO : 10, 06160 Altındağ/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "MERVE YOLCU",
@@ -357,7 +357,7 @@
     "membershipType": "individual",
     "phone": "0533 599 15 20",
     "companyAddress": "Mi Concept Mimari Tasarım Dekorasyon, Cemil Meriç, Alemdağ Cd No: 319A, 34771 Ümraniye/İstanbul",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ALİ HAN KARABİNA",
@@ -377,7 +377,7 @@
     "membershipType": "individual",
     "phone": "0532 306 97 61",
     "companyAddress": "AYK Mimarlık, Konutkent, 3028 Cd. NO:8/C, 06000 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "MURAT GÖKALP",
@@ -398,7 +398,7 @@
     "membershipType": "individual",
     "phone": "0531 224 99 69",
     "companyAddress": "Murat Gökalp Mimarlık, YDA CENTER, Kızılırmak, Dumlupınar Blv. KAT:12, NO:530, 06510 Çankaya/Ankara",
-    "isApproved": false
+    "applicationStatus": "pending"
   },
   {
     "fullName": "İSMAİL GEMİŞ",
@@ -420,7 +420,7 @@
     "membershipType": "individual",
     "phone": "0532 511 02 34",
     "companyAddress": "KALENN DESIGN, Karacakaya caddesi 37 siteler Karacakaya caddesi 37-1, siteler, Karacakaya Cd. No:37, 06700 Altındağ/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "CEM ÖZAĞAR",
@@ -440,7 +440,7 @@
     "membershipType": "corporate",
     "phone": "0530 541 69 46",
     "companyAddress": "AVANDOOR KAPI KAPAK MODÜLER CEM ÖZAĞAR PROJE TASARIM, Önder, Ereğli Cd. no:37, 06165 Altındağ/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ÖMER UYSAL",
@@ -461,7 +461,7 @@
     "membershipType": "individual",
     "phone": "0538 822 57 06",
     "companyAddress": "Öveçler Mahallesi, Ahmet Haşim Caddesi No:46/16, Çankaya / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "SEVİM TEKİN",
@@ -484,7 +484,7 @@
     "membershipType": "individual",
     "phone": "0532 172 18 12",
     "companyAddress": "Önder Mahallesi, Akbal Caddesi No:11",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "MURAT KOPAN",
@@ -505,7 +505,7 @@
     "membershipType": "individual",
     "phone": "0532 727 38 36",
     "companyAddress": "Capilon Mobilya, Topçu, 06796 Etimesgu",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "YASİN DENİZLİ",
@@ -526,7 +526,7 @@
     "membershipType": "individual",
     "phone": "0554 729 83 53",
     "companyAddress": "Önder, siteler, Yapıcı Sk. No:3 /7, 06360 Altındağ/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "SABİT AKCAN",
@@ -547,7 +547,7 @@
     "membershipType": "individual",
     "phone": "0533 636 57 39",
     "companyAddress": "Ayata Halıcılık, Gülveren, Plevne Cd. No:42, 06340 Mamak/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "HALİT KARACA",
@@ -569,7 +569,7 @@
     "membershipType": "individual",
     "phone": "0532 550 36 36",
     "companyAddress": "Lazer Mart Dekorasyon A.Ş., Ulubey mahallesi Çamlıtepe Caddesi, Siteler - 2 Kavşağı no 159/A, 06165 Altındağ",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "HASAN YILMAZ",
@@ -591,7 +591,7 @@
     "membershipType": "corporate",
     "phone": "0532 505 39 85",
     "companyAddress": "Massa Office, Önder, Kareli Sk. No:15, 06160 Altındağ/Ankara",
-    "isApproved": false
+    "applicationStatus": "pending"
   },
   {
     "fullName": "CEM ÖZAĞAR",
@@ -611,7 +611,7 @@
     "membershipType": "corporate",
     "phone": "0530 541 69 46",
     "companyAddress": "AVANDOOR KAPI KAPAK MODÜLER CEM ÖZAĞAR PROJE TASARIM, Önder, Ereğli Cd. no:37, 06165 Altındağ/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "HASAN KAYA",
@@ -633,7 +633,7 @@
     "membershipType": "corporate",
     "phone": "0533 643 63 56",
     "companyAddress": "önnur şömine, Yuvaköy, 3708. Sk. No:9, 06105 İvedik Osb/Yenimahalle/Yenimahalle/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "AYBER İPEK",
@@ -655,7 +655,7 @@
     "membershipType": "individual",
     "phone": "0541 350 60 06",
     "companyAddress": "Çocukça Mobilya - Kids Furniture, Önder, Karacakaya Cad., Çalım Sok. No:13, 06160 Siteler/Altındağ/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ULAŞ KAPLAN",
@@ -675,7 +675,7 @@
     "membershipType": "individual",
     "phone": "0532 625 82 87",
     "companyAddress": "Klas İstanbul - Furniture, Decoration & Home Art, Önder, Atılgan Sokağı No: 15/5, 06160 Altındağ/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "AHMET AYKOL",
@@ -696,7 +696,7 @@
     "membershipType": "individual",
     "phone": "0532 604 45 86",
     "companyAddress": "Ahmet Taner Kışlalı Mah. Alacaatlı Cad Anchor İş Merkezi 18/CA, Çayyolu, 06810 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "FURKAN TAŞCI",
@@ -716,7 +716,7 @@
     "membershipType": "individual",
     "phone": "0532 135 63 71",
     "companyAddress": "Taşcıoğlu Furniture, Altınpark Mh, Dikmeli Sk. No:15 D:8, 06140 Altındağ/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "UĞUR GEDİK",
@@ -737,7 +737,7 @@
     "membershipType": "individual",
     "phone": "0536 673 72 53",
     "companyAddress": "Gediksan, Önder, Kalım Sk. No:10/1-2, 06360 Altındağ/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "HAMDULLAH KORAY DURŞEN",
@@ -758,7 +758,7 @@
     "membershipType": "individual",
     "phone": "0530 233 27 43",
     "companyAddress": "Önder, Demirhendek Cd. No:184, 06165 Altındağ/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ÖMER AKSOY KALAYCIOĞLU",
@@ -781,7 +781,7 @@
     "membershipType": "individual",
     "phone": "0532 203 77 25",
     "companyAddress": "Kalaycıoğlu KLC Makina, Dempa Sanayi Sitesi, Susuz, Çaldıran Caddesi No:31, 06105 Yenimahalle/Ankara",
-    "isApproved": false
+    "applicationStatus": "pending"
   },
   {
     "fullName": "EYÜP OZAN OYMAK",
@@ -802,7 +802,7 @@
     "membershipType": "corporate",
     "phone": "0541 691 58 10",
     "companyAddress": "Kupa ve Madalya Evi, Ostim Mh., 1472. Sokak (Ankara İvedik Organize Sanayi Bölgesi), 06374 Yenimahalle/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "TEOMAN ATASOY",
@@ -824,7 +824,7 @@
     "membershipType": "individual",
     "phone": "0539 580 40 90",
     "companyAddress": "Prizma Depo A.Ş., Altın Örnek Sanayi Sitesi, 1519. Sokak No: 104 İvedik OSB, 06378 Yenimahalle/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ALATTİN YÜKSEL",
@@ -846,7 +846,7 @@
     "membershipType": "individual",
     "phone": "0536 921 85 73",
     "companyAddress": "Kavi Ahşap Pelet Cips Yakıt, Pancar organize sanayi 3. cad no: 3, 35865 Torbalı/İzmir",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "TURGAY TOPBAŞ",
@@ -867,7 +867,7 @@
     "membershipType": "individual",
     "phone": "0543 953 35 34",
     "companyAddress": "SAHİ METAL TASARIM İMALAT SANAYİ VE TİC. LTD.ŞTİ, Önder, Dolantı Sk. no:37/c, 06320 Altındağ/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "SEBAHATTİN İNCE",
@@ -888,7 +888,7 @@
     "membershipType": "individual",
     "phone": "0532 546 10 46",
     "companyAddress": "Turkuaz Grup Ambalaj ve Matbacılık San. Ltd.Şti., Saray, 2780. Cd. Gimat Depolama Sitesi No:18, 06340 Kahramankazan/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "TURGUT KILINÇSARI",
@@ -909,7 +909,7 @@
     "membershipType": "individual",
     "phone": "0553 160 80 40",
     "companyAddress": "Jitpol Poliüretan Ltd Sti, Tahtalı, Dereboyu Caddesi No:4, 16110 Ni̇lüfer/Bursa",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "KADİR KÖROĞLU",
@@ -931,7 +931,7 @@
     "membershipType": "individual",
     "phone": "0532 382 52 47",
     "companyAddress": "Ostim OSB, Enerji Caddesi, Yenimahalle / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ERSEL SAÇAN",
@@ -952,7 +952,7 @@
     "membershipType": "individual",
     "phone": "0545 941 90 71",
     "companyAddress": "Önder Mahallesi, Çamlıtepe Caddesi No:149, Altındağ / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "EREN BAYKAL",
@@ -973,7 +973,7 @@
     "membershipType": "individual",
     "phone": "0554 233 15 07",
     "companyAddress": "EFM Alüminyum Cephe Sistemleri Kompozit panel Isı cam Bina Kapıları Alüminyum Doğrama Kapılar fotoselli kapı Üretimleri, Alsancak Sokak, Alsancak, Mehmet Akif Ersoy Cd. No:15 D:b, 06790 Etimesgut/Ankara",
-    "isApproved": false
+    "applicationStatus": "pending"
   },
   {
     "fullName": "ÖMER KILINÇ",
@@ -993,7 +993,7 @@
     "membershipType": "individual",
     "phone": "0532 706 16 65",
     "companyAddress": "Devlet Mahallesi İnönü Bulvarı No:18 06420 Çankaya/ANKARA",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "RAHMİ DEMİR",
@@ -1014,7 +1014,7 @@
     "membershipType": "individual",
     "phone": "0541 352 51 51",
     "companyAddress": "Sleeper Ankara Mamak, Cengizhan, 816. Sk. No:17 D:18, 06270 Mamak/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "RUKİYE ERGİN",
@@ -1035,7 +1035,7 @@
     "membershipType": "individual",
     "phone": "0541 670 88 07",
     "companyAddress": "DİZAYN BRANDS, Mesih Paşa, Laleli Cd. no:21, 34130 Fatih/İstanbul",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ALİ GÖRÜCÜ",
@@ -1056,7 +1056,7 @@
     "membershipType": "individual",
     "phone": "0532 695 23 41",
     "companyAddress": "Ulubey Mahallesi, Yapıcı Sokak No:12, 06360 Altındağ / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "MURAT TETİK",
@@ -1077,7 +1077,7 @@
     "membershipType": "individual",
     "phone": "0531 602 49 48",
     "companyAddress": "Necatibey Mahallesi, Saraçlar Sokak No:46, Altındağ / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ERAY ŞAHİN",
@@ -1099,7 +1099,7 @@
     "membershipType": "individual",
     "phone": "0506 951 42 12",
     "companyAddress": "STA GÜMRÜK MÜŞAVİRLİĞİ, Aşağı Öveçler, 1322. Cd. 13/2, 06460 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "MERT KORAY ASLANBAŞ",
@@ -1120,7 +1120,7 @@
     "membershipType": "corporate",
     "phone": "0543 263 19 94",
     "companyAddress": "KEBO OVACIK, Yayla, Yozgat Blv. NO:20C D:23, 06280 Keçiören/Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "gida-turizm-ve-hizmet": "faaliyetinin niteliği ayrıca kontrol edilmeli"
     }
@@ -1143,7 +1143,7 @@
     "membershipType": "corporate",
     "phone": "0542 446 17 40",
     "companyAddress": "Güzeltepe Mahallesi, Hoşdere Caddesi No:192, Daire:8, Çankaya / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "EKİN BULUT",
@@ -1163,7 +1163,7 @@
     "membershipType": "individual",
     "phone": "0554 516 80 20",
     "companyAddress": "BAĞLICA MAH. MERMEROĞLU CAD. NO:45CB ETİMESGUT - ETİMESGUT / ANKARA / TÜRKİYE",
-    "isApproved": false
+    "applicationStatus": "pending"
   },
   {
     "fullName": "EREN BAYKAL",
@@ -1183,7 +1183,7 @@
     "membershipType": "individual",
     "phone": "0554 233 15 07",
     "companyAddress": "EFM Alüminyum Cephe Sistemleri Kompozit panel Isı cam Bina Kapıları Alüminyum Doğrama Kapılar fotoselli kapı Üretimleri, Alsancak Sokak, Alsancak, Mehmet Akif Ersoy Cd. No:15 D:b, 06790 Etimesgut/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "MERTCAN GÜLBEŞ",
@@ -1204,7 +1204,7 @@
     "membershipType": "individual",
     "phone": "0544 587 17 10",
     "companyAddress": "softhijyen, Maxi İvedik İş Merkezi, Yenimahalle/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "AHMET KÜÇÜKŞAHİN",
@@ -1226,7 +1226,7 @@
     "membershipType": "individual",
     "phone": "0532 777 53 57",
     "companyAddress": "Mustafa Kemal Mahallesi, 2141. Cadde No:33/B, Çankaya / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "TEOMAN ATASOY",
@@ -1248,7 +1248,7 @@
     "membershipType": "individual",
     "phone": "0539 580 40 90",
     "companyAddress": "Prizma Depo A.Ş., Altın Örnek Sanayi Sitesi, 1519. Sokak No: 104 İvedik OSB, 06378 Yenimahalle/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "İSMAİL TUNÇ PORTAKAL",
@@ -1268,7 +1268,7 @@
     "membershipType": "individual",
     "phone": "0533 435 38 70",
     "companyAddress": "Portakal A.Ş. - Merkez, Etlik, Gen. Dr. Tevfik Sağlam Cd No:145, 06010 Keçiören/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ARİF GÜLBEŞ",
@@ -1288,7 +1288,7 @@
     "membershipType": "corporate",
     "phone": "0532 322 75 78",
     "companyAddress": "FRD ENDÜSTRİYEL TOPTAN TEMİZLİK AMBALAJ GIDA ÜRÜNLERİ PAZARLAMA, 19 Mayıs, Gün Sazak Cd. No:79/B, 06290 Keçiören/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ONUR BALOĞLU",
@@ -1310,7 +1310,7 @@
     "membershipType": "corporate",
     "phone": "0542 729 90 06",
     "companyAddress": "BALOĞLU SERAMİK | BİEN SERAMİK | QUA GRANİT | GROHE | DURAVİT | ECA | SEREL | WEBER | SİKA |, Çamlıca, Anadolu Blv 145. Sk, 06200 Yenimahalle/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "CENGİZ CİNGİL",
@@ -1330,7 +1330,7 @@
     "membershipType": "corporate",
     "phone": "0532 408 10 91",
     "companyAddress": "Ümit Reklam Tabela Cam filmi Araç kaplama, Cumhuriyet mahallesi, Saray Cumhuriyet, Belediye Cd. 31’e, 06145 Pursaklar/Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "otomotiv": "araç kaplama"
     }
@@ -1354,7 +1354,7 @@
     "membershipType": "individual",
     "phone": "0532 352 51 62",
     "companyAddress": "Kömen Dijital Baskı, Ağaç İşleri Sanayi Sitesi, Ostim, 1375. Sk. No: 4, 06378 Yenimahalle/Ankara",
-    "isApproved": false,
+    "applicationStatus": "pending",
     "notes": {
       "bilisim-ve-teknoloji": "dijital baskı olduğu için sınırda, ana sektöre almak tercihe bağlı"
     }
@@ -1378,7 +1378,7 @@
     "membershipType": "corporate",
     "phone": "0541 691 58 10",
     "companyAddress": "Kupa ve Madalya Evi, Ostim Mh., 1472. Sokak (Ankara İvedik Organize Sanayi Bölgesi), 06374 Yenimahalle/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "SERTAÇ KANTARCI",
@@ -1400,7 +1400,7 @@
     "membershipType": "individual",
     "phone": "0533 474 81 17",
     "companyAddress": "Ankara Life Dergisi, Yukarı Öveçler, Lizbon Cd. No:38/13, 06530 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ÇETİN CUDAL",
@@ -1421,7 +1421,7 @@
     "membershipType": "individual",
     "phone": "0532 236 45 44",
     "companyAddress": "En Uygun Kopyalama Kırtasiye ve Baskı Merkezi, Konutkent, 2983. Cd. No: 47/2, 06810 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "SEBAHATTİN İNCE",
@@ -1441,7 +1441,7 @@
     "membershipType": "individual",
     "phone": "0532 546 10 46",
     "companyAddress": "Turkuaz Grup Ambalaj ve Matbacılık San. Ltd.Şti., Saray, 2780. Cd. Gimat Depolama Sitesi No:18, 06340 Kahramankazan/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "HAYDAR KAYA",
@@ -1462,7 +1462,7 @@
     "membershipType": "corporate",
     "phone": "0553 378 71 17",
     "companyAddress": "Kaya Global Motorlu Araçlar, Bahçekapı, 2474. Cd NO:6 D D:13, 06010 Etimesgut/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "SÜLEYMAN SEVEN",
@@ -1482,7 +1482,7 @@
     "membershipType": "individual",
     "phone": "0505 514 97 55",
     "companyAddress": "Zet Garden, Önder, Taşdelen Cd. No:26 D:E, 06160 Siteler/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "FURKAN VARLI",
@@ -1502,7 +1502,7 @@
     "membershipType": "individual",
     "phone": "0530 419 68 92",
     "companyAddress": "FKV OTOMOTİV: Mehmet Akif Ersoy Mahallesi, Anadolu Bulvarı No:61, Yenimahalle / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "UĞUR AYVAZ ŞENTÜRK",
@@ -1522,7 +1522,7 @@
     "membershipType": "corporate",
     "phone": "0545 928 70 08",
     "companyAddress": "Çankaya Mahallesi, Cemal Nadir Sokak No:4/3, Çankaya / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "YUNUS EMRE KÜÇÜK",
@@ -1542,7 +1542,7 @@
     "membershipType": "individual",
     "phone": "0542 494 51 30",
     "companyAddress": "Pekerler İnşaat Enerji Taşımacılık Turizm San. ve Tic. Ltd. Şti., İlkbahar, 596. Sk. No:71, 06550 Çankaya/Ankara",
-    "isApproved": false
+    "applicationStatus": "pending"
   },
   {
     "fullName": "ÖZGÜR AYDIN",
@@ -1562,7 +1562,7 @@
     "membershipType": "individual",
     "phone": "0532 766 82 29",
     "companyAddress": "KRC GAYRİMENKUL (Merkez-İsmail KARACA), Çağlayan, Tıp Fakültesi Cd. No:252/C, 06260 Mamak/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "FATMA MEHTAP ABİŞ",
@@ -1582,7 +1582,7 @@
     "membershipType": "individual",
     "phone": "0537 835 15 99",
     "companyAddress": "EMAKS EMLAK, Gökkuşağı, Ceyhun Atuf Kansu Cd. 203/A, 06450 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "YETER DURLANIK YILDIZ",
@@ -1603,7 +1603,7 @@
     "membershipType": "individual",
     "phone": "0541 801 19 91",
     "companyAddress": "Grup Es Sigorta Aracilik Hizmetleri, Ayrancı, Kuzgun Cd NO:4/B, 06540 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "HAKAN AKÇA",
@@ -1626,7 +1626,7 @@
     "membershipType": "corporate",
     "phone": "0553 678 14 34",
     "companyAddress": "Akça Grup Sigorta, Barbaros, Güniz Sk. No:29/3, 06680 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "SÜLEYMAN SURURİ ÇİFTÇİOĞLU",
@@ -1646,7 +1646,7 @@
     "membershipType": "individual",
     "phone": "0533 302 66 73",
     "companyAddress": "Aşağı Öveçler Mahallesi, 1324. Cadde No:15/5, 06460 Çankaya / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "MURAT YÖNEY",
@@ -1667,7 +1667,7 @@
     "membershipType": "individual",
     "phone": "0544 835 08 35",
     "companyAddress": "WEST GATE RESIDENCE, Konutkent, Dumlupınar Blv. No:391, 06810 Çankaya/Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "gayrimenkul-ve-finans": "gayrimenkul/konaklama bağlantısı nedeniyle kontrol edilmeli",
       "gida-turizm-ve-hizmet": "konaklama/hizmet ise"
@@ -1693,7 +1693,7 @@
     "membershipType": "individual",
     "phone": "0533 486 60 74",
     "companyAddress": "Fabrika Mahallesi, Çubuk / Ankara. JOVEN HOLDİNG",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "EKİN BULUT",
@@ -1713,7 +1713,7 @@
     "membershipType": "individual",
     "phone": "0554 516 80 20",
     "companyAddress": "BAĞLICA MAH. MERMEROĞLU CAD. NO:45CB ETİMESGUT - ETİMESGUT / ANKARA / TÜRKİYE",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ÖZGÜL ÖZDAMAR AĞBUĞA",
@@ -1735,7 +1735,7 @@
     "membershipType": "individual",
     "phone": "0532 635 96 35",
     "companyAddress": "Kültür Mahallesi, İçel Sokak No:7/5, Kızılay, Çankaya / Ankara",
-    "isApproved": false
+    "applicationStatus": "pending"
   },
   {
     "fullName": "MUSTAFA AKDAŞ",
@@ -1757,7 +1757,7 @@
     "membershipType": "corporate",
     "phone": "0543 272 25 41",
     "companyAddress": "Ankara Teknopark, Gazi Üniversitesi Teknoloji Geliştirme Bölgesi, Yenimahalle / Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "bilisim-ve-teknoloji": "Ankara Teknopark"
     }
@@ -1781,7 +1781,7 @@
     "membershipType": "individual",
     "phone": "0532 203 77 25",
     "companyAddress": "Kalaycıoğlu KLC Makina, Dempa Sanayi Sitesi, Susuz, Çaldıran Caddesi No:31, 06105 Yenimahalle/Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "bilisim-ve-teknoloji": "teknoloji/makine tarafı"
     }
@@ -1805,7 +1805,7 @@
     "membershipType": "individual",
     "phone": "0532 422 34 62",
     "companyAddress": "Safie Meyhane, Kavaklıdere, Güvenlik Cd. No:13, 06540 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "AHMET KARASLAN",
@@ -1824,7 +1824,7 @@
     "membershipType": "individual",
     "phone": "0535 526 60 88",
     "companyAddress": "Sultan Restaurant, İnönü, 1729. Sk. No:4/14 D:17, 06370 Yenimahalle/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ENDER ERGELEN",
@@ -1845,7 +1845,7 @@
     "membershipType": "individual",
     "phone": "0533 426 88 03",
     "companyAddress": "Erzurum Mahallesi, Dumlupınar Caddesi No:38/B, Çankaya / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "VEYSEL ÜRÜN",
@@ -1866,7 +1866,7 @@
     "membershipType": "individual",
     "phone": "0532 207 60 09",
     "companyAddress": "Beştepe Mahallesi, Dumlupınar Bulvarı No:6, Yenimahalle / Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "gida-turizm-ve-hizmet": "hizmet/ticaret tarafında değerlendirilebilir"
     }
@@ -1890,7 +1890,7 @@
     "membershipType": "individual",
     "phone": "0532 489 73 13",
     "companyAddress": "Uzm. Dr. Dt. Tuğba Çınar Türk Diş Kliniği /Sedasyonla Diş Tedavisi/Ankara Çocuk Diş Doktoru, Konutkent mah 2945 cadde Hayal sitesi 25/2 çayyolu, 06810 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "SEVGİ AKBAŞ",
@@ -1911,7 +1911,7 @@
     "membershipType": "individual",
     "phone": "0532 280 86 43",
     "companyAddress": "Smile Harmony Sağlık Hiz. Ltd. Şti. / Özel Sevgi Savaş Akbaş Ağız Diş Sağlığı Polikliniği: Adres doğrulanamadı.",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "RUKİYE ASLAN",
@@ -1930,7 +1930,7 @@
     "membershipType": "individual",
     "phone": "0532 614 98 15",
     "companyAddress": "Hayat Hukuk & Danışmanlık Bürosu, Anıttepe, Tuncer Sk. NO:18/13, 06590 Çankaya/Ankara",
-    "isApproved": false
+    "applicationStatus": "pending"
   },
   {
     "fullName": "CEREN ÖZGE DEMİRCİ",
@@ -1950,7 +1950,7 @@
     "membershipType": "individual",
     "phone": "0530 494 17 44",
     "companyAddress": "Ofis Hukuk ve Arabuluculuk: Koç Kuleleri A Blok, Söğütözü, Çankaya / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "ÇAĞLAR ÖZDEN",
@@ -1971,7 +1971,7 @@
     "membershipType": "individual",
     "phone": "0507 941 30 06",
     "companyAddress": "Etiket Patent, Kızılırmak, Dumlupınar Blv. No:3/C1 D:160, 06520 Çankaya/Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "SÜLEYMAN SURURİ ÇİFTÇİOĞLU",
@@ -1992,7 +1992,7 @@
     "membershipType": "individual",
     "phone": "0533 302 66 73",
     "companyAddress": "Aşağı Öveçler Mahallesi, 1324. Cadde No:15/5, 06460 Çankaya / Ankara",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "İBRAHİM TAHA ÇINAR",
@@ -2011,7 +2011,7 @@
     "membershipType": "individual",
     "phone": "0536 724 24 03",
     "companyAddress": "Itc Mühendislik, Güvercintepe, 5. Sk. 25 Blok No:25 D:5, 34494 Şamlar/Başakşehir/Istanbul - Europe",
-    "isApproved": true
+    "applicationStatus": "approved"
   },
   {
     "fullName": "FATİH DURMUŞ",
@@ -2025,7 +2025,7 @@
     "membershipType": "individual",
     "phone": "0535 403 46 86",
     "companyAddress": "Ferdi Boya, Önder, Çalım Sk. No:24/C, 06160 Altındağ/Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "insaat-ve-yapi": "sektör tahmini, kontrol edilmeli"
     }
@@ -2042,7 +2042,7 @@
     "membershipType": "individual",
     "phone": "0555 238 33 88",
     "companyAddress": "ALTUNDAĞ PARKE, 21. CAD. ALTUNDAĞ İŞ MERKEZİ NO:1, 06140 Altındağ/Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "insaat-ve-yapi": "sektör tahmini, kontrol edilmeli"
     }
@@ -2059,7 +2059,7 @@
     "membershipType": "individual",
     "phone": "0544 774 75 53",
     "companyAddress": "T.C. M.E.B. Mehmet Ali Doğan Sanat Evi Resim Kursu, Kızılay, Fevzi Çakmak-1 Sk. No:17 D:8, 06420 Çankaya/Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "gida-turizm-ve-hizmet": "sektör tahmini, kontrol edilmeli"
     }
@@ -2076,7 +2076,7 @@
     "membershipType": "individual",
     "phone": "0532 270 14 38",
     "companyAddress": "Bilgins Mimarlık ltd., Fidanlık, Mithatpaşa Cd. No:31 D:18, 06420 Çankaya/Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "mimarlik-ve-tasarim": "sektör tahmini, kontrol edilmeli"
     }
@@ -2093,7 +2093,7 @@
     "membershipType": "individual",
     "phone": "0532 433 04 41",
     "companyAddress": "Aydınlar Geri Dönüşüm, Atatürk Caddesi, İvedik, İvedikköy, Hurdacılar Sitesi No:1108, 06378 Ankara",
-    "isApproved": false,
+    "applicationStatus": "pending",
     "notes": {
       "uretim-ve-sanayi": "sektör tahmini, kontrol edilmeli"
     }
@@ -2110,7 +2110,7 @@
     "membershipType": "individual",
     "phone": "0542 404 28 88",
     "companyAddress": "Maypak Ticaret, Macun, Timko İşyerleri Sitesi D:19D blok içkapı no:3, 06374 Yenimahalle/Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "gida-turizm-ve-hizmet": "sektör tahmini, kontrol edilmeli"
     }
@@ -2127,7 +2127,7 @@
     "membershipType": "individual",
     "phone": "0533 305 26 22",
     "companyAddress": "Blue Green Halı Yıkama, Şenlik, Buket Sk. 26/12, 06310 Keçiören/Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "gida-turizm-ve-hizmet": "sektör tahmini, kontrol edilmeli"
     }
@@ -2144,7 +2144,7 @@
     "membershipType": "individual",
     "phone": "0541 471 01 01",
     "companyAddress": "Seyranbağları Mahallesi, Bağlar Caddesi No:119, Çankaya / Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "insaat-ve-yapi": "sektör tahmini, kontrol edilmeli"
     }
@@ -2161,7 +2161,7 @@
     "membershipType": "individual",
     "phone": "0532 632 22 55",
     "companyAddress": "Ulubey Mahallesi, Yalınç Sokak No:42, Siteler, Altındağ / Ankara",
-    "isApproved": true,
+    "applicationStatus": "approved",
     "notes": {
       "mobilya-ve-dekorasyon": "sektör tahmini, kontrol edilmeli"
     }

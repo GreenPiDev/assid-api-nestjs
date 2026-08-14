@@ -1,7 +1,6 @@
 import { Type } from 'class-transformer';
 import {
   IsArray,
-  IsBoolean,
   IsDateString,
   IsEmail,
   IsEnum,
@@ -12,6 +11,7 @@ import {
   MinLength,
 } from 'class-validator';
 import {
+  ApplicationStatus,
   BusinessActivityType,
   ContactPreference,
   MaritalStatus,
@@ -105,8 +105,8 @@ export class CreateMemberDto {
   contactPreference?: ContactPreference;
 
   @IsOptional()
-  @IsBoolean()
-  isApproved?: boolean;
+  @IsEnum(ApplicationStatus)
+  applicationStatus?: ApplicationStatus;
 
   @IsOptional()
   @IsString()

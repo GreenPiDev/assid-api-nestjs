@@ -21,7 +21,7 @@ import { SECTOR_SLUGS, SectorSlug } from '../../common/constants/sector.constant
 
 /**
  * Public membership-application payload. Deliberately narrower than
- * CreateMemberDto: it omits isApproved, logo and notes so a public,
+ * CreateMemberDto: it omits applicationStatus, logo and notes so a public,
  * unauthenticated submitter can never set those (class-validator's global
  * whitelist:true strips any such fields from the request body).
  */

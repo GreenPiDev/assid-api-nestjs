@@ -26,3 +26,9 @@ export enum MaritalStatus {
   MARRIED = 'married',
   SINGLE = 'single',
 }
+
+export enum ApplicationStatus {
+  PENDING = 'pending',
+  APPROVED = 'approved',
+  REJECTED = 'rejected',
+}
