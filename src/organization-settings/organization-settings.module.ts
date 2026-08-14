@@ -6,12 +6,14 @@ import {
   OrganizationSettings,
   OrganizationSettingsSchema,
 } from './schemas/organization-settings.schema';
+import { CloudinaryModule } from '../common/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: OrganizationSettings.name, schema: OrganizationSettingsSchema },
     ]),
+    CloudinaryModule,
   ],
   controllers: [OrganizationSettingsController],
   providers: [OrganizationSettingsService],

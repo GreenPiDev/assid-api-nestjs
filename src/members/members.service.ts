@@ -1,7 +1,8 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Member, MemberDocument } from './schemas/member.schema';
+import { Member, MemberDocument, MemberFile } from './schemas/member.schema';
+import { ApplyMemberDto } from './dto/apply-member.dto';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { getSectorName, normalizeTr, textIncludes } from '../common/utils/search.util';
@@ -21,7 +22,7 @@ export interface FindMembersQuery {
 export class MembersService {
   constructor(@InjectModel(Member.name) private memberModel: Model<MemberDocument>) {}
 
-  async create(dto: CreateMemberDto) {
+  async create(dto: CreateMemberDto | ApplyMemberDto | Partial<Member>) {
     try {
       return await this.memberModel.create(dto);
     } catch (error) {
@@ -95,6 +96,18 @@ export class MembersService {
         { new: true },
       )
       .exec();
+    if (!member) throw new NotFoundException('Member not found');
+    return member;
+  }
+
+  async setLogo(id: string, logoUrl: string) {
+    const member = await this.memberModel.findByIdAndUpdate(id, { logo: logoUrl }, { new: true }).exec();
+    if (!member) throw new NotFoundException('Member not found');
+    return member;
+  }
+
+  async setDocuments(id: string, documents: MemberFile[]) {
+    const member = await this.memberModel.findByIdAndUpdate(id, { documents }, { new: true }).exec();
     if (!member) throw new NotFoundException('Member not found');
     return member;
   }

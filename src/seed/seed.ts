@@ -4,6 +4,8 @@ import { MembersService } from '../members/members.service';
 import { NewsService } from '../news/news.service';
 import { EventsService } from '../events/events.service';
 import { OrganizationSettingsService } from '../organization-settings/organization-settings.service';
+import { UsersService } from '../users/users.service';
+import { Role } from '../common/enums/role.enum';
 import { getModelToken } from '@nestjs/mongoose';
 import { Member } from '../members/schemas/member.schema';
 import { News } from '../news/schemas/news.schema';
@@ -21,6 +23,7 @@ async function run() {
   const newsService = app.get(NewsService);
   const eventsService = app.get(EventsService);
   const settingsService = app.get(OrganizationSettingsService);
+  const usersService = app.get(UsersService);
 
   const memberModel = app.get<Model<Member>>(getModelToken(Member.name));
   const newsModel = app.get<Model<News>>(getModelToken(News.name));
@@ -63,6 +66,17 @@ async function run() {
     },
     footerText: '© 2026. Tüm hakları saklıdır.',
   });
+
+  const adminEmail = 'admin@assid.org.tr';
+  const existingAdmin = await usersService.findByEmail(adminEmail);
+  if (!existingAdmin) {
+    console.log(`Seeding default admin user (${adminEmail})...`);
+    await usersService.create({
+      email: adminEmail,
+      password: 'ChangeMe123!',
+      role: Role.ADMIN,
+    });
+  }
 
   console.log('Seed completed.');
   await app.close();
