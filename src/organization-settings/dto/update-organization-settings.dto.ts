@@ -61,4 +61,20 @@ export class UpdateOrganizationSettingsDto {
   @IsOptional()
   @IsString()
   footerText?: string;
+
+  @IsOptional()
+  @IsString()
+  kvkkText?: string;
+
+  @IsOptional()
+  @IsString()
+  bylawsText?: string;
+
+  @IsOptional()
+  @IsString()
+  cookiePolicyText?: string;
+
+  @IsOptional()
+  @IsString()
+  privacyPolicyText?: string;
 }
