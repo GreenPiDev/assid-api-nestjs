@@ -81,6 +81,9 @@ export class OrganizationSettings {
 
   @Prop({ default: true })
   requireBylawsConsent?: boolean;
+
+  @Prop({ default: true })
+  showLoginMembershipCta?: boolean;
 }
 
 export const OrganizationSettingsSchema = SchemaFactory.createForClass(OrganizationSettings);
