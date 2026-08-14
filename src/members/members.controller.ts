@@ -18,6 +18,7 @@ import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express
 import { validate } from 'class-validator';
 import { memoryStorage } from 'multer';
 import { MembersService } from './members.service';
+import { Member } from './schemas/member.schema';
 import { ApplyMemberDto } from './dto/apply-member.dto';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
@@ -154,12 +155,14 @@ export class MembersController {
       infoAccuracyConfirmed: _infoAccuracyConfirmed,
       ...memberFields
     } = dto;
-    const member = await this.membersService.create({
+    const payload: Partial<Member> = {
       ...memberFields,
+      birthDate: memberFields.birthDate ? new Date(memberFields.birthDate) : undefined,
       kvkkConsentAt: new Date(),
       bylawsAcknowledgedAt: new Date(),
       infoAccuracyConfirmedAt: new Date(),
-    });
+    };
+    const member = await this.membersService.create(payload);
 
     const documents: { label: string; url: string }[] = [];
     for (const [field, fileList] of Object.entries(files ?? {}) as [ApplicationDocumentField, Express.Multer.File[]][]) {

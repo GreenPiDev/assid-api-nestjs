@@ -66,8 +66,9 @@ export class ApplyMemberDto {
   @IsString()
   references?: string;
 
+  @IsOptional()
   @IsEnum(MembershipType)
-  membershipType: MembershipType;
+  membershipType?: MembershipType;
 
   @IsOptional()
   @IsEnum(SectorStatus)

@@ -107,4 +107,12 @@ export class UpdateOrganizationSettingsDto {
   @IsOptional()
   @IsBoolean()
   showMembershipFeesTable?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  showAttachmentsSection?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  showMembershipClassSection?: boolean;
 }

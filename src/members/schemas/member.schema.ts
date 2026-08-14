@@ -62,8 +62,8 @@ export class Member {
   references?: string;
 
   // --- Membership class (final classification is set by the board/admin) ---
-  @Prop({ required: true, enum: MembershipType })
-  membershipType: MembershipType;
+  @Prop({ enum: MembershipType })
+  membershipType?: MembershipType;
 
   @Prop({ enum: SectorStatus })
   sectorStatus?: SectorStatus;
