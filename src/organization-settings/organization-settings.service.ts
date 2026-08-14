@@ -25,12 +25,18 @@ export class OrganizationSettingsService {
   }
 
   async update(dto: UpdateOrganizationSettingsDto) {
+    // dto alanları class field'ı olarak tanımlandığından, gönderilmeyen
+    // alanlar bile instance üzerinde `undefined` değerle mevcut olabilir.
+    // Bunları filtrelemeden Object.assign yapmak, PATCH'te yollanmayan
+    // mevcut alanları (ör. logo) sıfırlar.
+    const updates = Object.fromEntries(Object.entries(dto).filter(([, value]) => value !== undefined));
+
     const existing = await this.settingsModel.findOne().exec();
     if (existing) {
-      Object.assign(existing, dto);
+      Object.assign(existing, updates);
       return existing.save();
     }
-    return this.settingsModel.create({ name: 'Yeni Dernek', ...dto });
+    return this.settingsModel.create({ name: 'Yeni Dernek', ...updates });
   }
 
   setLogo(logoUrl: string) {

@@ -28,8 +28,8 @@ export const SocialLinksSchema = SchemaFactory.createForClass(SocialLinks);
  */
 @Schema({ timestamps: true })
 export class OrganizationSettings {
-  @Prop({ required: true, trim: true })
-  name: string;
+  @Prop({ trim: true })
+  name?: string;
 
   @Prop({ trim: true })
   shortName?: string;
