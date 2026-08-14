@@ -84,6 +84,9 @@ export class OrganizationSettings {
 
   @Prop({ default: true })
   showLoginMembershipCta?: boolean;
+
+  @Prop({ default: true })
+  showMembershipFeesTable?: boolean;
 }
 
 export const OrganizationSettingsSchema = SchemaFactory.createForClass(OrganizationSettings);

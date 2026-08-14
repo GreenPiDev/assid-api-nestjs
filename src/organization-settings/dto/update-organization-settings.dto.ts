@@ -103,4 +103,8 @@ export class UpdateOrganizationSettingsDto {
   @IsOptional()
   @IsBoolean()
   showLoginMembershipCta?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  showMembershipFeesTable?: boolean;
 }
