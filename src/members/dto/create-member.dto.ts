@@ -8,11 +8,13 @@ import {
   IsIn,
   IsOptional,
   IsString,
+  Matches,
   MinLength,
 } from 'class-validator';
 import {
   BusinessActivityType,
   ContactPreference,
+  MaritalStatus,
   MembershipType,
   SectorStatus,
 } from '../../common/enums/membership.enum';
@@ -79,12 +81,20 @@ export class CreateMemberDto {
   nationality?: string;
 
   @IsOptional()
-  @IsString()
+  @Matches(/^[0-9]{11}$/, { message: 'TC Kimlik No 11 haneli sayısal olmalıdır' })
   nationalId?: string;
 
   @IsOptional()
+  @IsEnum(MaritalStatus)
+  maritalStatus?: MaritalStatus;
+
+  @IsOptional()
   @IsString()
-  maritalStatus?: string;
+  faxPhone?: string;
+
+  @IsOptional()
+  @IsString()
+  personalMobilePhone?: string;
 
   @IsOptional()
   @IsString()

@@ -3,6 +3,7 @@ import { HydratedDocument } from 'mongoose';
 import {
   BusinessActivityType,
   ContactPreference,
+  MaritalStatus,
   MembershipType,
   SectorStatus,
 } from '../../common/enums/membership.enum';
@@ -80,8 +81,14 @@ export class Member {
   @Prop({ trim: true, select: false })
   nationalId?: string;
 
+  @Prop({ enum: MaritalStatus })
+  maritalStatus?: MaritalStatus;
+
   @Prop({ trim: true })
-  maritalStatus?: string;
+  faxPhone?: string;
+
+  @Prop({ trim: true })
+  personalMobilePhone?: string;
 
   @Prop({ trim: true })
   affiliatedOrganizations?: string;
@@ -110,6 +117,9 @@ export class Member {
 
   @Prop()
   bylawsAcknowledgedAt?: Date;
+
+  @Prop()
+  infoAccuracyConfirmedAt?: Date;
 
   // --- Documents uploaded with the application (photos, kimlik, vs.) ---
   @Prop({ type: [MemberFileSchema], default: [] })

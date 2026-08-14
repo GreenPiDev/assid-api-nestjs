@@ -86,13 +86,17 @@ function buildApplyDto(raw: Record<string, unknown>): ApplyMemberDto {
   dto.birthPlace = raw.birthPlace as string | undefined;
   dto.birthDate = raw.birthDate as string | undefined;
   dto.nationality = raw.nationality as string | undefined;
-  dto.maritalStatus = raw.maritalStatus as string | undefined;
+  dto.nationalId = raw.nationalId as string | undefined;
+  dto.maritalStatus = raw.maritalStatus as ApplyMemberDto['maritalStatus'];
+  dto.faxPhone = raw.faxPhone as string | undefined;
+  dto.personalMobilePhone = raw.personalMobilePhone as string | undefined;
   dto.affiliatedOrganizations = raw.affiliatedOrganizations as string | undefined;
   dto.contactPreference = raw.contactPreference as ApplyMemberDto['contactPreference'];
   dto.activityAreas = raw.activityAreas as string[] | undefined;
   dto.productsAndServices = raw.productsAndServices as string[] | undefined;
   dto.kvkkConsent = raw.kvkkConsent as boolean;
   dto.bylawsAcknowledged = raw.bylawsAcknowledged as boolean;
+  dto.infoAccuracyConfirmed = raw.infoAccuracyConfirmed as boolean;
   return dto;
 }
 
@@ -144,11 +148,17 @@ export class MembersController {
       }
     }
 
-    const { kvkkConsent: _kvkkConsent, bylawsAcknowledged: _bylawsAcknowledged, ...memberFields } = dto;
+    const {
+      kvkkConsent: _kvkkConsent,
+      bylawsAcknowledged: _bylawsAcknowledged,
+      infoAccuracyConfirmed: _infoAccuracyConfirmed,
+      ...memberFields
+    } = dto;
     const member = await this.membersService.create({
       ...memberFields,
       kvkkConsentAt: new Date(),
       bylawsAcknowledgedAt: new Date(),
+      infoAccuracyConfirmedAt: new Date(),
     });
 
     const documents: { label: string; url: string }[] = [];

@@ -7,11 +7,13 @@ import {
   IsIn,
   IsOptional,
   IsString,
+  Matches,
   MinLength,
 } from 'class-validator';
 import {
   BusinessActivityType,
   ContactPreference,
+  MaritalStatus,
   MembershipType,
   SectorStatus,
 } from '../../common/enums/membership.enum';
@@ -84,8 +86,20 @@ export class ApplyMemberDto {
   nationality?: string;
 
   @IsOptional()
+  @Matches(/^[0-9]{11}$/, { message: 'TC Kimlik No 11 haneli sayısal olmalıdır' })
+  nationalId?: string;
+
+  @IsOptional()
+  @IsEnum(MaritalStatus)
+  maritalStatus?: MaritalStatus;
+
+  @IsOptional()
   @IsString()
-  maritalStatus?: string;
+  faxPhone?: string;
+
+  @IsOptional()
+  @IsString()
+  personalMobilePhone?: string;
 
   @IsOptional()
   @IsString()
@@ -110,4 +124,7 @@ export class ApplyMemberDto {
 
   @Equals(true, { message: 'Dernek tüzüğü onaylanmalıdır' })
   bylawsAcknowledged: boolean;
+
+  @Equals(true, { message: 'Bilgilerin doğruluğu onaylanmalıdır' })
+  infoAccuracyConfirmed: boolean;
 }
