@@ -7,11 +7,13 @@ import {
   IsIn,
   IsOptional,
   IsString,
+  Matches,
   MinLength,
 } from 'class-validator';
 import {
   BusinessActivityType,
   ContactPreference,
+  MaritalStatus,
   MembershipType,
   SectorStatus,
 } from '../../common/enums/membership.enum';
@@ -19,7 +21,7 @@ import { SECTOR_SLUGS, SectorSlug } from '../../common/constants/sector.constant
 
 /**
  * Public membership-application payload. Deliberately narrower than
- * CreateMemberDto: it omits isApproved, logo and notes so a public,
+ * CreateMemberDto: it omits applicationStatus, logo and notes so a public,
  * unauthenticated submitter can never set those (class-validator's global
  * whitelist:true strips any such fields from the request body).
  */
@@ -64,8 +66,9 @@ export class ApplyMemberDto {
   @IsString()
   references?: string;
 
+  @IsOptional()
   @IsEnum(MembershipType)
-  membershipType: MembershipType;
+  membershipType?: MembershipType;
 
   @IsOptional()
   @IsEnum(SectorStatus)
@@ -84,8 +87,20 @@ export class ApplyMemberDto {
   nationality?: string;
 
   @IsOptional()
+  @Matches(/^[0-9]{11}$/, { message: 'TC Kimlik No 11 haneli sayısal olmalıdır' })
+  nationalId?: string;
+
+  @IsOptional()
+  @IsEnum(MaritalStatus)
+  maritalStatus?: MaritalStatus;
+
+  @IsOptional()
   @IsString()
-  maritalStatus?: string;
+  faxPhone?: string;
+
+  @IsOptional()
+  @IsString()
+  personalMobilePhone?: string;
 
   @IsOptional()
   @IsString()
@@ -110,4 +125,7 @@ export class ApplyMemberDto {
 
   @Equals(true, { message: 'Dernek tüzüğü onaylanmalıdır' })
   bylawsAcknowledged: boolean;
+
+  @Equals(true, { message: 'Bilgilerin doğruluğu onaylanmalıdır' })
+  infoAccuracyConfirmed: boolean;
 }

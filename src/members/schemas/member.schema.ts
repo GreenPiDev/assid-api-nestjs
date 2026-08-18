@@ -1,8 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import {
+  ApplicationStatus,
   BusinessActivityType,
   ContactPreference,
+  MaritalStatus,
   MembershipType,
   SectorStatus,
 } from '../../common/enums/membership.enum';
@@ -25,7 +27,7 @@ export const MemberFileSchema = SchemaFactory.createForClass(MemberFile);
  * Fields below are grouped to mirror the paper membership application form
  * (general info / membership class / personal info), plus fields the member
  * manages later from their own panel (logo, activityAreas, productsAndServices),
- * plus the admin-approval gate (isApproved).
+ * plus the admin-approval gate (applicationStatus).
  */
 @Schema({ timestamps: true })
 export class Member {
@@ -61,8 +63,8 @@ export class Member {
   references?: string;
 
   // --- Membership class (final classification is set by the board/admin) ---
-  @Prop({ required: true, enum: MembershipType })
-  membershipType: MembershipType;
+  @Prop({ enum: MembershipType })
+  membershipType?: MembershipType;
 
   @Prop({ enum: SectorStatus })
   sectorStatus?: SectorStatus;
@@ -80,8 +82,14 @@ export class Member {
   @Prop({ trim: true, select: false })
   nationalId?: string;
 
+  @Prop({ enum: MaritalStatus })
+  maritalStatus?: MaritalStatus;
+
   @Prop({ trim: true })
-  maritalStatus?: string;
+  faxPhone?: string;
+
+  @Prop({ trim: true })
+  personalMobilePhone?: string;
 
   @Prop({ trim: true })
   affiliatedOrganizations?: string;
@@ -93,8 +101,8 @@ export class Member {
   @Prop({ default: Date.now })
   applicationDate: Date;
 
-  @Prop({ default: false })
-  isApproved: boolean;
+  @Prop({ enum: ApplicationStatus, default: ApplicationStatus.PENDING })
+  applicationStatus: ApplicationStatus;
 
   @Prop()
   approvedAt?: Date;
@@ -110,6 +118,9 @@ export class Member {
 
   @Prop()
   bylawsAcknowledgedAt?: Date;
+
+  @Prop()
+  infoAccuracyConfirmedAt?: Date;
 
   // --- Documents uploaded with the application (photos, kimlik, vs.) ---
   @Prop({ type: [MemberFileSchema], default: [] })

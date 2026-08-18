@@ -99,4 +99,20 @@ export class UpdateOrganizationSettingsDto {
   @IsOptional()
   @IsBoolean()
   requireBylawsConsent?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  showLoginMembershipCta?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  showMembershipFeesTable?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  showAttachmentsSection?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  showMembershipClassSection?: boolean;
 }

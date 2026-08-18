@@ -21,3 +21,14 @@ export enum ContactPreference {
   SMS = 'sms',
   PHONE = 'phone',
 }
+
+export enum MaritalStatus {
+  MARRIED = 'married',
+  SINGLE = 'single',
+}
+
+export enum ApplicationStatus {
+  PENDING = 'pending',
+  APPROVED = 'approved',
+  REJECTED = 'rejected',
+}

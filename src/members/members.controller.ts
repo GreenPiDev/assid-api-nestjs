@@ -18,11 +18,12 @@ import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express
 import { validate } from 'class-validator';
 import { memoryStorage } from 'multer';
 import { MembersService } from './members.service';
+import { Member } from './schemas/member.schema';
 import { ApplyMemberDto } from './dto/apply-member.dto';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { UpdateMemberProfileDto } from './dto/update-member-profile.dto';
-import { ApproveMemberDto } from './dto/approve-member.dto';
+import { SetApplicationStatusDto } from './dto/set-application-status.dto';
 import { ParseObjectIdPipe } from '../common/pipes/parse-object-id.pipe';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -30,6 +31,7 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../auth/auth.types';
 import { Role } from '../common/enums/role.enum';
+import { ApplicationStatus } from '../common/enums/membership.enum';
 import { CloudinaryService } from '../common/cloudinary/cloudinary.service';
 
 const MAX_LOGO_SIZE_BYTES = 5 * 1024 * 1024;
@@ -65,7 +67,7 @@ function requireOwnMemberId(user: AuthenticatedUser): string {
 }
 
 // Built field-by-field from the raw parsed JSON — never via spread/assign —
-// so a malicious payload can't sneak in properties (e.g. isApproved) that
+// so a malicious payload can't sneak in properties (e.g. applicationStatus) that
 // aren't explicitly read here. This is the multipart-endpoint equivalent of
 // the global ValidationPipe's whitelist:true, which only applies to normal
 // (non-multipart) request bodies.
@@ -86,13 +88,17 @@ function buildApplyDto(raw: Record<string, unknown>): ApplyMemberDto {
   dto.birthPlace = raw.birthPlace as string | undefined;
   dto.birthDate = raw.birthDate as string | undefined;
   dto.nationality = raw.nationality as string | undefined;
-  dto.maritalStatus = raw.maritalStatus as string | undefined;
+  dto.nationalId = raw.nationalId as string | undefined;
+  dto.maritalStatus = raw.maritalStatus as ApplyMemberDto['maritalStatus'];
+  dto.faxPhone = raw.faxPhone as string | undefined;
+  dto.personalMobilePhone = raw.personalMobilePhone as string | undefined;
   dto.affiliatedOrganizations = raw.affiliatedOrganizations as string | undefined;
   dto.contactPreference = raw.contactPreference as ApplyMemberDto['contactPreference'];
   dto.activityAreas = raw.activityAreas as string[] | undefined;
   dto.productsAndServices = raw.productsAndServices as string[] | undefined;
   dto.kvkkConsent = raw.kvkkConsent as boolean;
   dto.bylawsAcknowledged = raw.bylawsAcknowledged as boolean;
+  dto.infoAccuracyConfirmed = raw.infoAccuracyConfirmed as boolean;
   return dto;
 }
 
@@ -144,12 +150,20 @@ export class MembersController {
       }
     }
 
-    const { kvkkConsent: _kvkkConsent, bylawsAcknowledged: _bylawsAcknowledged, ...memberFields } = dto;
-    const member = await this.membersService.create({
+    const {
+      kvkkConsent: _kvkkConsent,
+      bylawsAcknowledged: _bylawsAcknowledged,
+      infoAccuracyConfirmed: _infoAccuracyConfirmed,
+      ...memberFields
+    } = dto;
+    const payload: Partial<Member> = {
       ...memberFields,
+      birthDate: memberFields.birthDate ? new Date(memberFields.birthDate) : undefined,
       kvkkConsentAt: new Date(),
       bylawsAcknowledgedAt: new Date(),
-    });
+      infoAccuracyConfirmedAt: new Date(),
+    };
+    const member = await this.membersService.create(payload);
 
     const documents: { label: string; url: string }[] = [];
     for (const [field, fileList] of Object.entries(files ?? {}) as [ApplicationDocumentField, Express.Multer.File[]][]) {
@@ -177,7 +191,7 @@ export class MembersController {
     return this.membersService.findAll({
       sector,
       q,
-      isApproved: true,
+      applicationStatus: ApplicationStatus.APPROVED,
       limit: limit ? Number(limit) : undefined,
     });
   }
@@ -188,13 +202,13 @@ export class MembersController {
   findAllForAdmin(
     @Query('sector') sector?: string,
     @Query('q') q?: string,
-    @Query('isApproved') isApproved?: string,
+    @Query('status') status?: ApplicationStatus,
     @Query('limit') limit?: string,
   ) {
     return this.membersService.findAll({
       sector,
       q,
-      isApproved: isApproved === undefined ? undefined : isApproved === 'true',
+      applicationStatus: status,
       limit: limit ? Number(limit) : undefined,
     });
   }
@@ -233,6 +247,14 @@ export class MembersController {
     return this.membersService.findOne(id);
   }
 
+  @Get(':id/national-id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  async getMaskedNationalId(@Param('id', ParseObjectIdPipe) id: string) {
+    const maskedNationalId = await this.membersService.getMaskedNationalId(id);
+    return { maskedNationalId };
+  }
+
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
@@ -240,11 +262,11 @@ export class MembersController {
     return this.membersService.update(id, dto);
   }
 
-  @Patch(':id/approval')
+  @Patch(':id/status')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
-  setApproval(@Param('id', ParseObjectIdPipe) id: string, @Body() dto: ApproveMemberDto) {
-    return this.membersService.setApproval(id, dto.isApproved ?? true);
+  setApplicationStatus(@Param('id', ParseObjectIdPipe) id: string, @Body() dto: SetApplicationStatusDto) {
+    return this.membersService.setApplicationStatus(id, dto.applicationStatus);
   }
 
   @Delete(':id')

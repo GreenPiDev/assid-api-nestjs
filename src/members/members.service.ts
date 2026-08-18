@@ -6,6 +6,7 @@ import { ApplyMemberDto } from './dto/apply-member.dto';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { getSectorName, normalizeTr, textIncludes } from '../common/utils/search.util';
+import { ApplicationStatus } from '../common/enums/membership.enum';
 
 function isDuplicateKeyError(error: unknown): boolean {
   return typeof error === 'object' && error !== null && (error as { code?: number }).code === 11000;
@@ -14,7 +15,7 @@ function isDuplicateKeyError(error: unknown): boolean {
 export interface FindMembersQuery {
   sector?: string;
   q?: string;
-  isApproved?: boolean;
+  applicationStatus?: ApplicationStatus;
   limit?: number;
 }
 
@@ -34,11 +35,13 @@ export class MembersService {
   }
 
   countApproved() {
-    return this.memberModel.countDocuments({ isApproved: true }).exec();
+    return this.memberModel.countDocuments({ applicationStatus: ApplicationStatus.APPROVED }).exec();
   }
 
   async countDistinctActivityAreas() {
-    const areas = await this.memberModel.distinct('activityAreas', { isApproved: true }).exec();
+    const areas = await this.memberModel
+      .distinct('activityAreas', { applicationStatus: ApplicationStatus.APPROVED })
+      .exec();
     return areas.length;
   }
 
@@ -46,7 +49,7 @@ export class MembersService {
     const filter: Record<string, unknown> = {};
 
     if (query.sector) filter.sectors = query.sector;
-    if (query.isApproved !== undefined) filter.isApproved = query.isApproved;
+    if (query.applicationStatus !== undefined) filter.applicationStatus = query.applicationStatus;
 
     let members = await this.memberModel.find(filter).sort({ createdAt: -1 }).exec();
 
@@ -75,6 +78,16 @@ export class MembersService {
     return member;
   }
 
+  // nationalId is select:false on the schema so it never leaks through the
+  // public GET /members/:id route; this admin-only lookup masks the middle
+  // digits before returning it, so even admins never see the raw value here.
+  async getMaskedNationalId(id: string): Promise<string | null> {
+    const member = await this.memberModel.findById(id).select('+nationalId').exec();
+    if (!member?.nationalId) return null;
+    const digits = member.nationalId;
+    return `${digits.slice(0, 3)}${'*'.repeat(Math.max(digits.length - 5, 0))}${digits.slice(-2)}`;
+  }
+
   async update(id: string, dto: UpdateMemberDto) {
     try {
       const member = await this.memberModel.findByIdAndUpdate(id, dto, { new: true }).exec();
@@ -88,11 +101,11 @@ export class MembersService {
     }
   }
 
-  async setApproval(id: string, isApproved: boolean) {
+  async setApplicationStatus(id: string, status: ApplicationStatus) {
     const member = await this.memberModel
       .findByIdAndUpdate(
         id,
-        { isApproved, approvedAt: isApproved ? new Date() : undefined },
+        { applicationStatus: status, approvedAt: status === ApplicationStatus.APPROVED ? new Date() : undefined },
         { new: true },
       )
       .exec();
