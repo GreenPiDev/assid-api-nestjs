@@ -1,5 +1,4 @@
 import { Body, Controller, Get, HttpCode, Post, Res, UseGuards } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import type { Response } from 'express';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
@@ -13,12 +12,20 @@ import type { AuthenticatedUser } from './auth.types';
 const COOKIE_NAME = 'access_token';
 const COOKIE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 
+// Frontend (Vercel) ve backend (Render) farklı origin'lerde olduğu için
+// cookie cross-site sayılıyor; tarayıcılar SameSite=Lax cookie'leri
+// cross-site fetch/XHR isteklerinde göndermiyor, bu yüzden None + Secure şart.
+const COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none' as const,
+};
+
 @Controller('auth')
 export class AuthController {
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
-    private config: ConfigService,
   ) {}
 
   @Post('login')
@@ -27,9 +34,7 @@ export class AuthController {
     const { token, user } = await this.authService.login(dto.email, dto.password);
 
     res.cookie(COOKIE_NAME, token, {
-      httpOnly: true,
-      secure: this.config.get<string>('NODE_ENV') === 'production',
-      sameSite: 'lax',
+      ...COOKIE_OPTIONS,
       maxAge: COOKIE_MAX_AGE_MS,
     });
 
@@ -53,7 +58,7 @@ export class AuthController {
   @Post('logout')
   @HttpCode(200)
   logout(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie(COOKIE_NAME);
+    res.clearCookie(COOKIE_NAME, COOKIE_OPTIONS);
     return { success: true };
   }
 
