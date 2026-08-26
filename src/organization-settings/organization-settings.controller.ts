@@ -21,7 +21,7 @@ import { CloudinaryService } from '../common/cloudinary/cloudinary.service';
 
 const MAX_LOGO_SIZE_BYTES = 5 * 1024 * 1024;
 const ALLOWED_LOGO_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'];
-
+//deneme
 @Controller('organization-settings')
 export class OrganizationSettingsController {
   constructor(
