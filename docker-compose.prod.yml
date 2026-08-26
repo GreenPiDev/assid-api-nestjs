@@ -1,0 +1,21 @@
+# Production backend container.
+#
+# PostgreSQL runs as a separate, already-existing container on the VPS
+# (container name: postgres, network: backend) and is NOT managed here.
+# This file must never define/recreate a postgres service.
+services:
+  assid:
+    build: .
+    image: assid-api-nestjs:latest
+    container_name: assid
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - '4000:4000'
+    networks:
+      - backend
+
+networks:
+  backend:
+    external: true
