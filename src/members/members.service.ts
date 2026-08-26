@@ -1,16 +1,12 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Member, MemberDocument, MemberFile } from './schemas/member.schema';
+import { ApplicationStatus, Prisma } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 import { ApplyMemberDto } from './dto/apply-member.dto';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { getSectorName, normalizeTr, textIncludes } from '../common/utils/search.util';
-import { ApplicationStatus } from '../common/enums/membership.enum';
-
-function isDuplicateKeyError(error: unknown): boolean {
-  return typeof error === 'object' && error !== null && (error as { code?: number }).code === 11000;
-}
+import { withMongoId, withMongoIdList } from '../common/utils/prisma-response.util';
+import { isPrismaNotFound, isPrismaUniqueViolation } from '../common/utils/prisma-errors.util';
 
 export interface FindMembersQuery {
   sector?: string;
@@ -19,15 +15,31 @@ export interface FindMembersQuery {
   limit?: number;
 }
 
+export interface MemberFile {
+  label: string;
+  url: string;
+}
+
+type MemberInput = CreateMemberDto | ApplyMemberDto | UpdateMemberDto | Record<string, unknown>;
+
+function toMemberData(dto: MemberInput) {
+  const { birthDate, ...rest } = dto as Record<string, unknown> & { birthDate?: string | Date };
+  return {
+    ...rest,
+    birthDate: birthDate ? new Date(birthDate) : undefined,
+  } as Prisma.MemberCreateInput;
+}
+
 @Injectable()
 export class MembersService {
-  constructor(@InjectModel(Member.name) private memberModel: Model<MemberDocument>) {}
+  constructor(private prisma: PrismaService) {}
 
-  async create(dto: CreateMemberDto | ApplyMemberDto | Partial<Member>) {
+  async create(dto: MemberInput) {
     try {
-      return await this.memberModel.create(dto);
+      const member = await this.prisma.member.create({ data: toMemberData(dto) });
+      return withMongoId(member);
     } catch (error) {
-      if (isDuplicateKeyError(error)) {
+      if (isPrismaUniqueViolation(error)) {
         throw new ConflictException('A member with this email already exists');
       }
       throw error;
@@ -35,28 +47,34 @@ export class MembersService {
   }
 
   countApproved() {
-    return this.memberModel.countDocuments({ applicationStatus: ApplicationStatus.APPROVED }).exec();
+    return this.prisma.member.count({ where: { applicationStatus: ApplicationStatus.approved } });
   }
 
   async countDistinctActivityAreas() {
-    const areas = await this.memberModel
-      .distinct('activityAreas', { applicationStatus: ApplicationStatus.APPROVED })
-      .exec();
-    return areas.length;
+    const members = await this.prisma.member.findMany({
+      where: { applicationStatus: ApplicationStatus.approved },
+      select: { activityAreas: true },
+    });
+    const areas = new Set<string>();
+    for (const member of members) {
+      for (const area of member.activityAreas) areas.add(area);
+    }
+    return areas.size;
   }
 
   async findAll(query: FindMembersQuery = {}) {
-    const filter: Record<string, unknown> = {};
-
-    if (query.sector) filter.sectors = query.sector;
-    if (query.applicationStatus !== undefined) filter.applicationStatus = query.applicationStatus;
-
-    let members = await this.memberModel.find(filter).sort({ createdAt: -1 }).exec();
+    let members = await this.prisma.member.findMany({
+      where: {
+        sectors: query.sector ? { has: query.sector } : undefined,
+        applicationStatus: query.applicationStatus,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
 
     // Turkish text needs locale-aware lowercasing to match correctly (a
     // plain case-insensitive regex mishandles İ/ı), and "sector" search
     // means matching the sector's display name, not the stored slug — so
-    // this runs in application code instead of a Mongo regex filter.
+    // this runs in application code instead of a query filter.
     if (query.q) {
       const q = normalizeTr(query.q);
       members = members.filter((m) => {
@@ -69,20 +87,21 @@ export class MembersService {
     }
 
     if (query.limit) members = members.slice(0, query.limit);
-    return members;
+    return withMongoIdList(members);
   }
 
   async findOne(id: string) {
-    const member = await this.memberModel.findById(id).exec();
+    const member = await this.prisma.member.findUnique({ where: { id } });
     if (!member) throw new NotFoundException('Member not found');
-    return member;
+    return withMongoId(member);
   }
 
-  // nationalId is select:false on the schema so it never leaks through the
-  // public GET /members/:id route; this admin-only lookup masks the middle
-  // digits before returning it, so even admins never see the raw value here.
+  // nationalId is excluded from the default select above so it never leaks
+  // through the public GET /members/:id route; this admin-only lookup masks
+  // the middle digits before returning it, so even admins never see the raw
+  // value here.
   async getMaskedNationalId(id: string): Promise<string | null> {
-    const member = await this.memberModel.findById(id).select('+nationalId').exec();
+    const member = await this.prisma.member.findUnique({ where: { id }, select: { nationalId: true } });
     if (!member?.nationalId) return null;
     const digits = member.nationalId;
     return `${digits.slice(0, 3)}${'*'.repeat(Math.max(digits.length - 5, 0))}${digits.slice(-2)}`;
@@ -90,11 +109,14 @@ export class MembersService {
 
   async update(id: string, dto: UpdateMemberDto) {
     try {
-      const member = await this.memberModel.findByIdAndUpdate(id, dto, { new: true }).exec();
-      if (!member) throw new NotFoundException('Member not found');
-      return member;
+      const member = await this.prisma.member.update({
+        where: { id },
+        data: toMemberData(dto) as Prisma.MemberUpdateInput,
+      });
+      return withMongoId(member);
     } catch (error) {
-      if (isDuplicateKeyError(error)) {
+      if (isPrismaNotFound(error)) throw new NotFoundException('Member not found');
+      if (isPrismaUniqueViolation(error)) {
         throw new ConflictException('A member with this email already exists');
       }
       throw error;
@@ -102,32 +124,51 @@ export class MembersService {
   }
 
   async setApplicationStatus(id: string, status: ApplicationStatus) {
-    const member = await this.memberModel
-      .findByIdAndUpdate(
-        id,
-        { applicationStatus: status, approvedAt: status === ApplicationStatus.APPROVED ? new Date() : undefined },
-        { new: true },
-      )
-      .exec();
-    if (!member) throw new NotFoundException('Member not found');
-    return member;
+    try {
+      const member = await this.prisma.member.update({
+        where: { id },
+        data: {
+          applicationStatus: status,
+          approvedAt: status === ApplicationStatus.approved ? new Date() : undefined,
+        },
+      });
+      return withMongoId(member);
+    } catch (error) {
+      if (isPrismaNotFound(error)) throw new NotFoundException('Member not found');
+      throw error;
+    }
   }
 
   async setLogo(id: string, logoUrl: string) {
-    const member = await this.memberModel.findByIdAndUpdate(id, { logo: logoUrl }, { new: true }).exec();
-    if (!member) throw new NotFoundException('Member not found');
-    return member;
+    try {
+      const member = await this.prisma.member.update({ where: { id }, data: { logo: logoUrl } });
+      return withMongoId(member);
+    } catch (error) {
+      if (isPrismaNotFound(error)) throw new NotFoundException('Member not found');
+      throw error;
+    }
   }
 
   async setDocuments(id: string, documents: MemberFile[]) {
-    const member = await this.memberModel.findByIdAndUpdate(id, { documents }, { new: true }).exec();
-    if (!member) throw new NotFoundException('Member not found');
-    return member;
+    try {
+      const member = await this.prisma.member.update({
+        where: { id },
+        data: { documents: documents as unknown as Prisma.InputJsonValue },
+      });
+      return withMongoId(member);
+    } catch (error) {
+      if (isPrismaNotFound(error)) throw new NotFoundException('Member not found');
+      throw error;
+    }
   }
 
   async remove(id: string) {
-    const member = await this.memberModel.findByIdAndDelete(id).exec();
-    if (!member) throw new NotFoundException('Member not found');
-    return member;
+    try {
+      const member = await this.prisma.member.delete({ where: { id } });
+      return withMongoId(member);
+    } catch (error) {
+      if (isPrismaNotFound(error)) throw new NotFoundException('Member not found');
+      throw error;
+    }
   }
 }

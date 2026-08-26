@@ -1,31 +1,42 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
-import { Model } from 'mongoose';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User, UserDocument } from './schemas/user.schema';
+import { isPrismaNotFound, isPrismaUniqueViolation } from '../common/utils/prisma-errors.util';
 
 const SALT_ROUNDS = 10;
 
-function isDuplicateKeyError(error: unknown): boolean {
-  return typeof error === 'object' && error !== null && (error as { code?: number }).code === 11000;
-}
+// passwordHash / resetPassword* mirror the old Mongoose `select: false`
+// fields: excluded by default, only pulled in by the methods that need them.
+const SAFE_SELECT = {
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  email: true,
+  role: true,
+  memberId: true,
+  isActive: true,
+} satisfies Prisma.UserSelect;
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  constructor(private prisma: PrismaService) {}
 
   async create(dto: CreateUserDto) {
     try {
       const passwordHash = await bcrypt.hash(dto.password, SALT_ROUNDS);
-      return await this.userModel.create({
-        email: dto.email,
-        passwordHash,
-        role: dto.role,
-        memberId: dto.memberId,
+      return await this.prisma.user.create({
+        data: {
+          email: dto.email,
+          passwordHash,
+          role: dto.role,
+          memberId: dto.memberId,
+        },
+        select: SAFE_SELECT,
       });
     } catch (error) {
-      if (isDuplicateKeyError(error)) {
+      if (isPrismaUniqueViolation(error)) {
         throw new ConflictException('A user with this email already exists');
       }
       throw error;
@@ -33,27 +44,36 @@ export class UsersService {
   }
 
   findAll() {
-    return this.userModel.find().sort({ createdAt: -1 }).exec();
+    return this.prisma.user.findMany({ orderBy: { createdAt: 'desc' }, select: SAFE_SELECT });
   }
 
   findByEmail(email: string) {
-    return this.userModel.findOne({ email: email.toLowerCase() }).select('+passwordHash').exec();
+    return this.prisma.user.findUnique({
+      where: { email: email.toLowerCase() },
+      select: { ...SAFE_SELECT, passwordHash: true },
+    });
   }
 
   findById(id: string) {
-    return this.userModel.findById(id).exec();
+    return this.prisma.user.findUnique({ where: { id }, select: SAFE_SELECT });
   }
 
   async setPasswordHash(id: string, passwordHash: string) {
-    const user = await this.userModel.findByIdAndUpdate(id, { passwordHash }, { new: true }).exec();
-    if (!user) throw new NotFoundException('User not found');
-    return user;
+    try {
+      return await this.prisma.user.update({ where: { id }, data: { passwordHash }, select: SAFE_SELECT });
+    } catch (error) {
+      if (isPrismaNotFound(error)) throw new NotFoundException('User not found');
+      throw error;
+    }
   }
 
   async setActive(id: string, isActive: boolean) {
-    const user = await this.userModel.findByIdAndUpdate(id, { isActive }, { new: true }).exec();
-    if (!user) throw new NotFoundException('User not found');
-    return user;
+    try {
+      return await this.prisma.user.update({ where: { id }, data: { isActive }, select: SAFE_SELECT });
+    } catch (error) {
+      if (isPrismaNotFound(error)) throw new NotFoundException('User not found');
+      throw error;
+    }
   }
 
   async adminResetPassword(id: string, newPassword: string) {
@@ -62,29 +82,32 @@ export class UsersService {
   }
 
   findByIdWithPassword(id: string) {
-    return this.userModel.findById(id).select('+passwordHash').exec();
+    return this.prisma.user.findUnique({ where: { id }, select: { ...SAFE_SELECT, passwordHash: true } });
   }
 
   async setResetToken(id: string, tokenHash: string, expiresAt: Date) {
-    await this.userModel
-      .findByIdAndUpdate(id, { resetPasswordTokenHash: tokenHash, resetPasswordExpiresAt: expiresAt })
-      .exec();
+    await this.prisma.user.update({
+      where: { id },
+      data: { resetPasswordTokenHash: tokenHash, resetPasswordExpiresAt: expiresAt },
+    });
   }
 
   findByResetTokenHash(tokenHash: string) {
-    return this.userModel
-      .findOne({ resetPasswordTokenHash: tokenHash, resetPasswordExpiresAt: { $gt: new Date() } })
-      .select('+resetPasswordTokenHash +resetPasswordExpiresAt')
-      .exec();
+    return this.prisma.user.findFirst({
+      where: { resetPasswordTokenHash: tokenHash, resetPasswordExpiresAt: { gt: new Date() } },
+      select: { ...SAFE_SELECT, resetPasswordTokenHash: true, resetPasswordExpiresAt: true },
+    });
   }
 
   async consumeResetToken(id: string, newPasswordHash: string) {
-    await this.userModel
-      .findByIdAndUpdate(id, {
+    await this.prisma.user.update({
+      where: { id },
+      data: {
         passwordHash: newPasswordHash,
-        $unset: { resetPasswordTokenHash: 1, resetPasswordExpiresAt: 1 },
-      })
-      .exec();
+        resetPasswordTokenHash: null,
+        resetPasswordExpiresAt: null,
+      },
+    });
   }
 
   static hashPassword(password: string) {

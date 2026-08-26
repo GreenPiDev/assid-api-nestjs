@@ -1,5 +1,5 @@
-import { IsEmail, IsEnum, IsMongoId, IsOptional, IsString, MinLength } from 'class-validator';
-import { Role } from '../../common/enums/role.enum';
+import { IsEmail, IsEnum, IsOptional, IsString, IsUUID, MinLength } from 'class-validator';
+import { Role } from '@prisma/client';
 
 export class CreateUserDto {
   @IsEmail()
@@ -13,6 +13,6 @@ export class CreateUserDto {
   role: Role;
 
   @IsOptional()
-  @IsMongoId()
+  @IsUUID()
   memberId?: string;
 }

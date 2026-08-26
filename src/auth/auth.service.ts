@@ -31,19 +31,19 @@ export class AuthService {
     if (!passwordMatches) throw new UnauthorizedException('Invalid credentials');
 
     const payload: JwtPayload = {
-      sub: user._id.toString(),
+      sub: user.id,
       role: user.role,
-      memberId: user.memberId?.toString(),
+      memberId: user.memberId ?? undefined,
     };
     const token = this.jwtService.sign(payload);
 
     return {
       token,
       user: {
-        id: user._id.toString(),
+        id: user.id,
         email: user.email,
         role: user.role,
-        memberId: user.memberId?.toString(),
+        memberId: user.memberId ?? undefined,
       },
     };
   }
@@ -57,7 +57,7 @@ export class AuthService {
     const rawToken = randomBytes(RESET_TOKEN_BYTES).toString('hex');
     const tokenHash = hashToken(rawToken);
     const expiresAt = new Date(Date.now() + RESET_TOKEN_TTL_MS);
-    await this.usersService.setResetToken(user._id.toString(), tokenHash, expiresAt);
+    await this.usersService.setResetToken(user.id, tokenHash, expiresAt);
 
     const frontendUrl = this.config.get<string>('FRONTEND_URL') ?? 'http://localhost:5173';
     const resetUrl = `${frontendUrl}/reset-password?token=${rawToken}`;
@@ -73,6 +73,6 @@ export class AuthService {
     if (!user) throw new BadRequestException('Bağlantının süresi dolmuş veya geçersiz');
 
     const passwordHash = await bcrypt.hash(newPassword, 10);
-    await this.usersService.consumeResetToken(user._id.toString(), passwordHash);
+    await this.usersService.consumeResetToken(user.id, passwordHash);
   }
 }

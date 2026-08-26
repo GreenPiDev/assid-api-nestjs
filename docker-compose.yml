@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: assid
+      POSTGRES_USER: assid
+      POSTGRES_PASSWORD: assid
+    ports:
+      - '5434:5432'
+    volumes:
+      - assid_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  assid_postgres_data:

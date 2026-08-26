@@ -2,11 +2,11 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } f
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
-import { ParseObjectIdPipe } from '../common/pipes/parse-object-id.pipe';
+import { ParseIdPipe } from '../common/pipes/parse-id.pipe';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { Role } from '../common/enums/role.enum';
+import { Role } from '@prisma/client';
 
 @Controller('news')
 export class NewsController {
@@ -14,7 +14,7 @@ export class NewsController {
 
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.admin)
   create(@Body() dto: CreateNewsDto) {
     return this.newsService.create(dto);
   }
@@ -33,21 +33,21 @@ export class NewsController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseObjectIdPipe) id: string) {
+  findOne(@Param('id', ParseIdPipe) id: string) {
     return this.newsService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  update(@Param('id', ParseObjectIdPipe) id: string, @Body() dto: UpdateNewsDto) {
+  @Roles(Role.admin)
+  update(@Param('id', ParseIdPipe) id: string, @Body() dto: UpdateNewsDto) {
     return this.newsService.update(id, dto);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  remove(@Param('id', ParseObjectIdPipe) id: string) {
+  @Roles(Role.admin)
+  remove(@Param('id', ParseIdPipe) id: string) {
     return this.newsService.remove(id);
   }
 }

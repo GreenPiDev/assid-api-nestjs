@@ -1,42 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import {
-  OrganizationSettings,
-  OrganizationSettingsDocument,
-} from './schemas/organization-settings.schema';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 import { UpdateOrganizationSettingsDto } from './dto/update-organization-settings.dto';
+import { withMongoId } from '../common/utils/prisma-response.util';
 
 /**
  * There is exactly one organization profile per deployment, so this service
- * always operates on a single document instead of exposing list/CRUD-by-id.
+ * always operates on a single row instead of exposing list/CRUD-by-id.
  */
 @Injectable()
 export class OrganizationSettingsService {
-  constructor(
-    @InjectModel(OrganizationSettings.name)
-    private settingsModel: Model<OrganizationSettingsDocument>,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async get() {
-    const existing = await this.settingsModel.findOne().exec();
-    if (existing) return existing;
-    return this.settingsModel.create({ name: 'Yeni Dernek' });
+    const existing = await this.prisma.organizationSettings.findFirst();
+    if (existing) return withMongoId(existing);
+    const created = await this.prisma.organizationSettings.create({ data: { name: 'Yeni Dernek' } });
+    return withMongoId(created);
   }
 
   async update(dto: UpdateOrganizationSettingsDto) {
-    // dto alanları class field'ı olarak tanımlandığından, gönderilmeyen
-    // alanlar bile instance üzerinde `undefined` değerle mevcut olabilir.
-    // Bunları filtrelemeden Object.assign yapmak, PATCH'te yollanmayan
-    // mevcut alanları (ör. logo) sıfırlar.
-    const updates = Object.fromEntries(Object.entries(dto).filter(([, value]) => value !== undefined));
-
-    const existing = await this.settingsModel.findOne().exec();
+    const data = dto as Prisma.OrganizationSettingsUpdateInput;
+    const existing = await this.prisma.organizationSettings.findFirst();
     if (existing) {
-      Object.assign(existing, updates);
-      return existing.save();
+      const updated = await this.prisma.organizationSettings.update({ where: { id: existing.id }, data });
+      return withMongoId(updated);
     }
-    return this.settingsModel.create({ name: 'Yeni Dernek', ...updates });
+    const created = await this.prisma.organizationSettings.create({
+      data: { name: 'Yeni Dernek', ...data } as Prisma.OrganizationSettingsCreateInput,
+    });
+    return withMongoId(created);
   }
 
   setLogo(logoUrl: string) {

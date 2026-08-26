@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../app.module';
 import { UsersService } from '../users/users.service';
-import { Role } from '../common/enums/role.enum';
+import { Role } from '@prisma/client';
 
 async function run() {
   const app = await NestFactory.createApplicationContext(AppModule);
@@ -15,7 +15,7 @@ async function run() {
     await usersService.create({
       email: adminEmail,
       password: 'ChangeMe123!',
-      role: Role.ADMIN,
+      role: Role.admin,
     });
     console.log(`Admin user created: ${adminEmail} / ChangeMe123!`);
   }

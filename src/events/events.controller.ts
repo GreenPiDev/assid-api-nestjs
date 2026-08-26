@@ -2,11 +2,11 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } f
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { ParseObjectIdPipe } from '../common/pipes/parse-object-id.pipe';
+import { ParseIdPipe } from '../common/pipes/parse-id.pipe';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { Role } from '../common/enums/role.enum';
+import { Role } from '@prisma/client';
 
 @Controller('events')
 export class EventsController {
@@ -14,7 +14,7 @@ export class EventsController {
 
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.admin)
   create(@Body() dto: CreateEventDto) {
     return this.eventsService.create(dto);
   }
@@ -28,21 +28,21 @@ export class EventsController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseObjectIdPipe) id: string) {
+  findOne(@Param('id', ParseIdPipe) id: string) {
     return this.eventsService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  update(@Param('id', ParseObjectIdPipe) id: string, @Body() dto: UpdateEventDto) {
+  @Roles(Role.admin)
+  update(@Param('id', ParseIdPipe) id: string, @Body() dto: UpdateEventDto) {
     return this.eventsService.update(id, dto);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  remove(@Param('id', ParseObjectIdPipe) id: string) {
+  @Roles(Role.admin)
+  remove(@Param('id', ParseIdPipe) id: string) {
     return this.eventsService.remove(id);
   }
 }

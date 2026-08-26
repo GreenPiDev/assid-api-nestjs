@@ -16,7 +16,7 @@ import {
   MaritalStatus,
   MembershipType,
   SectorStatus,
-} from '../../common/enums/membership.enum';
+} from '@prisma/client';
 import { SECTOR_SLUGS, SectorSlug } from '../../common/constants/sector.constant';
 
 /**

@@ -18,20 +18,18 @@ import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express
 import { validate } from 'class-validator';
 import { memoryStorage } from 'multer';
 import { MembersService } from './members.service';
-import { Member } from './schemas/member.schema';
 import { ApplyMemberDto } from './dto/apply-member.dto';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { UpdateMemberProfileDto } from './dto/update-member-profile.dto';
 import { SetApplicationStatusDto } from './dto/set-application-status.dto';
-import { ParseObjectIdPipe } from '../common/pipes/parse-object-id.pipe';
+import { ParseIdPipe } from '../common/pipes/parse-id.pipe';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../auth/auth.types';
-import { Role } from '../common/enums/role.enum';
-import { ApplicationStatus } from '../common/enums/membership.enum';
+import { ApplicationStatus, Role } from '@prisma/client';
 import { CloudinaryService } from '../common/cloudinary/cloudinary.service';
 
 const MAX_LOGO_SIZE_BYTES = 5 * 1024 * 1024;
@@ -111,7 +109,7 @@ export class MembersController {
 
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.admin)
   create(@Body() dto: CreateMemberDto) {
     return this.membersService.create(dto);
   }
@@ -156,7 +154,7 @@ export class MembersController {
       infoAccuracyConfirmed: _infoAccuracyConfirmed,
       ...memberFields
     } = dto;
-    const payload: Partial<Member> = {
+    const payload: Record<string, unknown> = {
       ...memberFields,
       birthDate: memberFields.birthDate ? new Date(memberFields.birthDate) : undefined,
       kvkkConsentAt: new Date(),
@@ -168,12 +166,12 @@ export class MembersController {
     const documents: { label: string; url: string }[] = [];
     for (const [field, fileList] of Object.entries(files ?? {}) as [ApplicationDocumentField, Express.Multer.File[]][]) {
       for (const file of fileList) {
-        const url = await this.cloudinaryService.uploadImage(file, `membershipDocs/${member._id.toString()}`, 'auto');
+        const url = await this.cloudinaryService.uploadImage(file, `membershipDocs/${member._id}`, 'auto');
         documents.push({ label: APPLICATION_DOCUMENT_LABELS[field], url });
       }
     }
     if (documents.length > 0) {
-      await this.membersService.setDocuments(member._id.toString(), documents);
+      await this.membersService.setDocuments(member._id, documents);
     }
 
     return { success: true };
@@ -191,14 +189,14 @@ export class MembersController {
     return this.membersService.findAll({
       sector,
       q,
-      applicationStatus: ApplicationStatus.APPROVED,
+      applicationStatus: ApplicationStatus.approved,
       limit: limit ? Number(limit) : undefined,
     });
   }
 
   @Get('admin')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.admin)
   findAllForAdmin(
     @Query('sector') sector?: string,
     @Query('q') q?: string,
@@ -215,21 +213,21 @@ export class MembersController {
 
   @Get('me')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.MEMBER)
+  @Roles(Role.member)
   findOwn(@CurrentUser() user: AuthenticatedUser) {
     return this.membersService.findOne(requireOwnMemberId(user));
   }
 
   @Patch('me')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.MEMBER)
+  @Roles(Role.member)
   updateOwn(@CurrentUser() user: AuthenticatedUser, @Body() dto: UpdateMemberProfileDto) {
     return this.membersService.update(requireOwnMemberId(user), dto);
   }
 
   @Post('me/logo')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.MEMBER)
+  @Roles(Role.member)
   @UseInterceptors(FileInterceptor('file', { storage: memoryStorage(), limits: { fileSize: MAX_LOGO_SIZE_BYTES } }))
   async uploadOwnLogo(@CurrentUser() user: AuthenticatedUser, @UploadedFile() file?: Express.Multer.File) {
     if (!file) throw new BadRequestException('Dosya bulunamadı');
@@ -243,36 +241,36 @@ export class MembersController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseObjectIdPipe) id: string) {
+  findOne(@Param('id', ParseIdPipe) id: string) {
     return this.membersService.findOne(id);
   }
 
   @Get(':id/national-id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  async getMaskedNationalId(@Param('id', ParseObjectIdPipe) id: string) {
+  @Roles(Role.admin)
+  async getMaskedNationalId(@Param('id', ParseIdPipe) id: string) {
     const maskedNationalId = await this.membersService.getMaskedNationalId(id);
     return { maskedNationalId };
   }
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  update(@Param('id', ParseObjectIdPipe) id: string, @Body() dto: UpdateMemberDto) {
+  @Roles(Role.admin)
+  update(@Param('id', ParseIdPipe) id: string, @Body() dto: UpdateMemberDto) {
     return this.membersService.update(id, dto);
   }
 
   @Patch(':id/status')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  setApplicationStatus(@Param('id', ParseObjectIdPipe) id: string, @Body() dto: SetApplicationStatusDto) {
+  @Roles(Role.admin)
+  setApplicationStatus(@Param('id', ParseIdPipe) id: string, @Body() dto: SetApplicationStatusDto) {
     return this.membersService.setApplicationStatus(id, dto.applicationStatus);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  remove(@Param('id', ParseObjectIdPipe) id: string) {
+  @Roles(Role.admin)
+  remove(@Param('id', ParseIdPipe) id: string) {
     return this.membersService.remove(id);
   }
 }

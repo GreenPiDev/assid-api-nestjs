@@ -68,10 +68,10 @@ export class AuthController {
     const user = await this.usersService.findById(currentUser.userId);
     if (!user) return null;
     return {
-      id: user._id.toString(),
+      id: user.id,
       email: user.email,
       role: user.role,
-      memberId: user.memberId?.toString(),
+      memberId: user.memberId ?? undefined,
     };
   }
 }

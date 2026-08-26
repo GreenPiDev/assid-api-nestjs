@@ -16,7 +16,7 @@ import { UpdateOrganizationSettingsDto } from './dto/update-organization-setting
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { Role } from '../common/enums/role.enum';
+import { Role } from '@prisma/client';
 import { CloudinaryService } from '../common/cloudinary/cloudinary.service';
 
 const MAX_LOGO_SIZE_BYTES = 5 * 1024 * 1024;
@@ -36,14 +36,14 @@ export class OrganizationSettingsController {
 
   @Patch()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.admin)
   update(@Body() dto: UpdateOrganizationSettingsDto) {
     return this.settingsService.update(dto);
   }
 
   @Post('logo')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.admin)
   @UseInterceptors(FileInterceptor('file', { storage: memoryStorage(), limits: { fileSize: MAX_LOGO_SIZE_BYTES } }))
   async uploadLogo(@UploadedFile() file?: Express.Multer.File) {
     if (!file) throw new BadRequestException('Dosya bulunamadı');

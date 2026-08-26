@@ -5,8 +5,8 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
-import { Role } from '../common/enums/role.enum';
-import { ParseObjectIdPipe } from '../common/pipes/parse-object-id.pipe';
+import { Role } from '@prisma/client';
+import { ParseIdPipe } from '../common/pipes/parse-id.pipe';
 import { AdminResetPasswordDto } from './dto/admin-reset-password.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -14,17 +14,17 @@ import { SetActiveDto } from './dto/set-active.dto';
 import { UsersService } from './users.service';
 
 function toUserResponse(user: {
-  _id: unknown;
+  id: string;
   email: string;
   role: Role;
-  memberId?: unknown;
+  memberId?: string | null;
   isActive: boolean;
 }) {
   return {
-    id: (user._id as { toString(): string }).toString(),
+    id: user.id,
     email: user.email,
     role: user.role,
-    memberId: (user.memberId as { toString(): string } | undefined)?.toString(),
+    memberId: user.memberId ?? undefined,
     isActive: user.isActive,
   };
 }
@@ -35,7 +35,7 @@ export class UsersController {
 
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.admin)
   async findAll() {
     const users = await this.usersService.findAll();
     return users.map(toUserResponse);
@@ -43,7 +43,7 @@ export class UsersController {
 
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.admin)
   async create(@Body() dto: CreateUserDto) {
     const user = await this.usersService.create(dto);
     return toUserResponse(user);
@@ -65,16 +65,16 @@ export class UsersController {
 
   @Patch(':id/active')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  async setActive(@Param('id', ParseObjectIdPipe) id: string, @Body() dto: SetActiveDto) {
+  @Roles(Role.admin)
+  async setActive(@Param('id', ParseIdPipe) id: string, @Body() dto: SetActiveDto) {
     const user = await this.usersService.setActive(id, dto.isActive);
     return toUserResponse(user);
   }
 
   @Patch(':id/password')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  async adminResetPassword(@Param('id', ParseObjectIdPipe) id: string, @Body() dto: AdminResetPasswordDto) {
+  @Roles(Role.admin)
+  async adminResetPassword(@Param('id', ParseIdPipe) id: string, @Body() dto: AdminResetPasswordDto) {
     await this.usersService.adminResetPassword(id, dto.newPassword);
     return { success: true };
   }

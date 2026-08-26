@@ -1,0 +1,190 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MembershipType {
+  individual
+  corporate
+}
+
+enum SectorStatus {
+  in_sector
+  out_of_sector
+}
+
+enum BusinessActivityType {
+  manufacturer
+  importer
+  exporter
+  seller
+  service_other
+}
+
+enum ContactPreference {
+  email
+  sms
+  phone
+}
+
+enum MaritalStatus {
+  married
+  single
+}
+
+enum ApplicationStatus {
+  pending
+  approved
+  rejected
+}
+
+enum Role {
+  admin
+  member
+}
+
+model Member {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // --- General info ---
+  fullName              String
+  companyName           String?
+  title                 String?
+  companyAddress        String?
+  phone                 String?
+  mobilePhone           String?
+  email                 String                 @unique
+  sectors               String[]               @default([])
+  businessActivityTypes BusinessActivityType[] @default([])
+  references            String?
+
+  // --- Membership class (final classification is set by the board/admin) ---
+  membershipType MembershipType?
+  sectorStatus   SectorStatus?
+
+  // --- Personal info ---
+  birthPlace              String?
+  birthDate               DateTime?
+  nationality             String?
+  nationalId              String?
+  maritalStatus           MaritalStatus?
+  faxPhone                String?
+  personalMobilePhone     String?
+  affiliatedOrganizations String?
+  contactPreference       ContactPreference?
+
+  // --- Application / approval workflow ---
+  applicationDate   DateTime          @default(now())
+  applicationStatus ApplicationStatus @default(pending)
+  approvedAt        DateTime?
+  isActive          Boolean           @default(true)
+
+  // --- Consent captured at application time ---
+  kvkkConsentAt           DateTime?
+  bylawsAcknowledgedAt    DateTime?
+  infoAccuracyConfirmedAt DateTime?
+
+  // --- Documents uploaded with the application: Json array of {label, url} ---
+  documents Json @default("[]")
+
+  // --- Managed later by the member from their own panel ---
+  logo                String?
+  activityAreas       String[] @default([])
+  productsAndServices String[] @default([])
+
+  // --- Free-form label/value notes, Json object of string -> string ---
+  notes Json?
+
+  users User[]
+}
+
+model News {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  summary     String?
+  content     String?
+  imageUrl    String?
+  category    String?
+  sectors     String[] @default([])
+  publishedAt DateTime @default(now())
+  isFeatured  Boolean  @default(false)
+  isPublished Boolean  @default(true)
+}
+
+model Event {
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  title       String
+  description String?
+  location    String?
+  startDate   DateTime
+  endDate     DateTime?
+  imageUrl    String?
+  isFeatured  Boolean   @default(false)
+}
+
+model MembershipFee {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  label     String
+  amount    Float
+}
+
+model OrganizationSettings {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String?
+  shortName   String?
+  logo        String?
+  description String?
+  address     String?
+  phone       String?
+  email       String?
+  website     String?
+
+  // Json object of {facebook?, instagram?, linkedin?, twitter?}
+  socialLinks Json?
+
+  footerText        String?
+  kvkkText          String?
+  bylawsText        String?
+  cookiePolicyText  String?
+  privacyPolicyText String?
+
+  showKvkkConsent            Boolean @default(true)
+  requireKvkkConsent         Boolean @default(true)
+  showBylawsConsent          Boolean @default(true)
+  requireBylawsConsent       Boolean @default(true)
+  showLoginMembershipCta     Boolean @default(true)
+  showMembershipFeesTable    Boolean @default(true)
+  showAttachmentsSection     Boolean @default(true)
+  showMembershipClassSection Boolean @default(true)
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email        String  @unique
+  passwordHash String
+  role         Role
+  memberId     String?
+  member       Member? @relation(fields: [memberId], references: [id], onDelete: SetNull)
+  isActive     Boolean @default(true)
+
+  resetPasswordTokenHash String?
+  resetPasswordExpiresAt DateTime?
+}

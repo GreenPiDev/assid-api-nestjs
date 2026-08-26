@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { MembershipFee, MembershipFeeDocument } from './schemas/membership-fee.schema';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateMembershipFeeDto } from './dto/create-membership-fee.dto';
 import { UpdateMembershipFeeDto } from './dto/update-membership-fee.dto';
+import { withMongoId, withMongoIdList } from '../common/utils/prisma-response.util';
+import { isPrismaNotFound } from '../common/utils/prisma-errors.util';
 
 const DEFAULT_FEES: CreateMembershipFeeDto[] = [
   { label: 'Sektör İçi Bireysel', amount: 10000 },
@@ -15,34 +15,42 @@ const DEFAULT_FEES: CreateMembershipFeeDto[] = [
 
 @Injectable()
 export class MembershipFeesService implements OnModuleInit {
-  constructor(
-    @InjectModel(MembershipFee.name) private membershipFeeModel: Model<MembershipFeeDocument>,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async onModuleInit() {
-    const count = await this.membershipFeeModel.countDocuments().exec();
+    const count = await this.prisma.membershipFee.count();
     if (count === 0) {
-      await this.membershipFeeModel.insertMany(DEFAULT_FEES);
+      await this.prisma.membershipFee.createMany({ data: DEFAULT_FEES });
     }
   }
 
-  create(dto: CreateMembershipFeeDto) {
-    return this.membershipFeeModel.create(dto);
+  async create(dto: CreateMembershipFeeDto) {
+    const fee = await this.prisma.membershipFee.create({ data: dto });
+    return withMongoId(fee);
   }
 
-  findAll() {
-    return this.membershipFeeModel.find().sort({ createdAt: 1 }).exec();
+  async findAll() {
+    const fees = await this.prisma.membershipFee.findMany({ orderBy: { createdAt: 'asc' } });
+    return withMongoIdList(fees);
   }
 
   async update(id: string, dto: UpdateMembershipFeeDto) {
-    const fee = await this.membershipFeeModel.findByIdAndUpdate(id, dto, { new: true }).exec();
-    if (!fee) throw new NotFoundException('Ücret kaydı bulunamadı');
-    return fee;
+    try {
+      const fee = await this.prisma.membershipFee.update({ where: { id }, data: dto });
+      return withMongoId(fee);
+    } catch (error) {
+      if (isPrismaNotFound(error)) throw new NotFoundException('Ücret kaydı bulunamadı');
+      throw error;
+    }
   }
 
   async remove(id: string) {
-    const fee = await this.membershipFeeModel.findByIdAndDelete(id).exec();
-    if (!fee) throw new NotFoundException('Ücret kaydı bulunamadı');
-    return fee;
+    try {
+      const fee = await this.prisma.membershipFee.delete({ where: { id } });
+      return withMongoId(fee);
+    } catch (error) {
+      if (isPrismaNotFound(error)) throw new NotFoundException('Ücret kaydı bulunamadı');
+      throw error;
+    }
   }
 }

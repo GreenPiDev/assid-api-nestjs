@@ -5,12 +5,8 @@ import { NewsService } from '../news/news.service';
 import { EventsService } from '../events/events.service';
 import { OrganizationSettingsService } from '../organization-settings/organization-settings.service';
 import { UsersService } from '../users/users.service';
-import { Role } from '../common/enums/role.enum';
-import { getModelToken } from '@nestjs/mongoose';
-import { Member } from '../members/schemas/member.schema';
-import { News } from '../news/schemas/news.schema';
-import { Event } from '../events/schemas/event.schema';
-import { Model } from 'mongoose';
+import { Role } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 
 import membersSeed from './data/members.seed.json';
 import newsSeed from './data/news.seed.json';
@@ -24,16 +20,13 @@ async function run() {
   const eventsService = app.get(EventsService);
   const settingsService = app.get(OrganizationSettingsService);
   const usersService = app.get(UsersService);
-
-  const memberModel = app.get<Model<Member>>(getModelToken(Member.name));
-  const newsModel = app.get<Model<News>>(getModelToken(News.name));
-  const eventModel = app.get<Model<Event>>(getModelToken(Event.name));
+  const prisma = app.get(PrismaService);
 
   console.log('Clearing existing members/news/events...');
   await Promise.all([
-    memberModel.deleteMany({}),
-    newsModel.deleteMany({}),
-    eventModel.deleteMany({}),
+    prisma.member.deleteMany({}),
+    prisma.news.deleteMany({}),
+    prisma.event.deleteMany({}),
   ]);
 
   console.log(`Seeding ${membersSeed.length} members...`);
@@ -74,7 +67,7 @@ async function run() {
     await usersService.create({
       email: adminEmail,
       password: 'ChangeMe123!',
-      role: Role.ADMIN,
+      role: Role.admin,
     });
   }
 

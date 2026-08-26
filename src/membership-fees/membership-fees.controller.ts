@@ -2,11 +2,11 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@n
 import { MembershipFeesService } from './membership-fees.service';
 import { CreateMembershipFeeDto } from './dto/create-membership-fee.dto';
 import { UpdateMembershipFeeDto } from './dto/update-membership-fee.dto';
-import { ParseObjectIdPipe } from '../common/pipes/parse-object-id.pipe';
+import { ParseIdPipe } from '../common/pipes/parse-id.pipe';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { Role } from '../common/enums/role.enum';
+import { Role } from '@prisma/client';
 
 @Controller('membership-fees')
 export class MembershipFeesController {
@@ -14,7 +14,7 @@ export class MembershipFeesController {
 
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.admin)
   create(@Body() dto: CreateMembershipFeeDto) {
     return this.membershipFeesService.create(dto);
   }
@@ -26,15 +26,15 @@ export class MembershipFeesController {
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  update(@Param('id', ParseObjectIdPipe) id: string, @Body() dto: UpdateMembershipFeeDto) {
+  @Roles(Role.admin)
+  update(@Param('id', ParseIdPipe) id: string, @Body() dto: UpdateMembershipFeeDto) {
     return this.membershipFeesService.update(id, dto);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  remove(@Param('id', ParseObjectIdPipe) id: string) {
+  @Roles(Role.admin)
+  remove(@Param('id', ParseIdPipe) id: string) {
     return this.membershipFeesService.remove(id);
   }
 }
