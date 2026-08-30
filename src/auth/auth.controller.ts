@@ -38,7 +38,9 @@ export class AuthController {
       maxAge: COOKIE_MAX_AGE_MS,
     });
 
-    return { user };
+    // Mobil istemci cookie'yi kullanamadığı için token'ı body'de de döner;
+    // web istemcisi bunu yok sayıp cookie'ye güvenmeye devam eder.
+    return { user, token };
   }
 
   @Post('forgot-password')
