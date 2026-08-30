@@ -4,6 +4,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { withMongoId, withMongoIdList } from '../common/utils/prisma-response.util';
 import { isPrismaNotFound } from '../common/utils/prisma-errors.util';
+import { NotificationsService } from '../notifications/notifications.service';
 
 export interface FindEventsQuery {
   upcoming?: boolean;
@@ -12,7 +13,10 @@ export interface FindEventsQuery {
 
 @Injectable()
 export class EventsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private notifications: NotificationsService,
+  ) {}
 
   async create(dto: CreateEventDto) {
     const item = await this.prisma.event.create({
@@ -22,6 +26,7 @@ export class EventsService {
         endDate: dto.endDate ? new Date(dto.endDate) : undefined,
       },
     });
+    void this.notifications.sendToAll('Yeni Etkinlik', item.title, { type: 'event', id: item.id });
     return withMongoId(item);
   }
 

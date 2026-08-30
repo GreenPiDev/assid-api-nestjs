@@ -10,6 +10,7 @@ import { StatsModule } from './stats/stats.module';
 import { SectorsController } from './common/sectors.controller';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AuthModule } from './auth/auth.module';
     StatsModule,
     UsersModule,
     AuthModule,
+    NotificationsModule,
   ],
   controllers: [SectorsController],
 })

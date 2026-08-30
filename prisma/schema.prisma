@@ -173,6 +173,15 @@ model OrganizationSettings {
   showMembershipClassSection Boolean @default(true)
 }
 
+model DeviceToken {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  token    String  @unique
+  platform String?
+}
+
 model User {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())

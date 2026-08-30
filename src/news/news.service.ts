@@ -4,6 +4,7 @@ import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
 import { withMongoId, withMongoIdList } from '../common/utils/prisma-response.util';
 import { isPrismaNotFound } from '../common/utils/prisma-errors.util';
+import { NotificationsService } from '../notifications/notifications.service';
 
 export interface FindNewsQuery {
   sector?: string;
@@ -13,10 +14,16 @@ export interface FindNewsQuery {
 
 @Injectable()
 export class NewsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private notifications: NotificationsService,
+  ) {}
 
   async create(dto: CreateNewsDto) {
     const item = await this.prisma.news.create({ data: dto });
+    if (item.isPublished) {
+      void this.notifications.sendToAll('Yeni Haber', item.title, { type: 'news', id: item.id });
+    }
     return withMongoId(item);
   }
 
