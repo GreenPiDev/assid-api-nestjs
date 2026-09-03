@@ -2,22 +2,17 @@ import {
   BadRequestException,
   Body,
   Controller,
-  Delete,
   Get,
-  Param,
   Patch,
   Post,
-  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
-import { EventsService } from './events.service';
-import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
-import { ParseIdPipe } from '../common/pipes/parse-id.pipe';
+import { AboutPageService } from './about-page.service';
+import { UpdateAboutPageDto } from './dto/update-about-page.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -27,58 +22,50 @@ import { CloudinaryService } from '../common/cloudinary/cloudinary.service';
 const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
 const ALLOWED_IMAGE_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 
-@Controller('events')
-export class EventsController {
+@Controller('about-page')
+export class AboutPageController {
   constructor(
-    private readonly eventsService: EventsService,
+    private readonly aboutPageService: AboutPageService,
     private readonly cloudinaryService: CloudinaryService,
   ) {}
 
-  @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin)
-  create(@Body() dto: CreateEventDto) {
-    return this.eventsService.create(dto);
+  @Get()
+  get() {
+    return this.aboutPageService.get();
   }
 
-  @Post('upload-image')
+  @Patch()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
+  update(@Body() dto: UpdateAboutPageDto) {
+    return this.aboutPageService.update(dto);
+  }
+
+  @Post('image1')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.admin)
   @UseInterceptors(FileInterceptor('file', { storage: memoryStorage(), limits: { fileSize: MAX_IMAGE_SIZE_BYTES } }))
-  async uploadImage(@UploadedFile() file?: Express.Multer.File) {
+  async uploadImage1(@UploadedFile() file?: Express.Multer.File) {
     if (!file) throw new BadRequestException('Dosya bulunamadı');
     if (!ALLOWED_IMAGE_MIME_TYPES.includes(file.mimetype)) {
       throw new BadRequestException('Sadece PNG, JPEG veya WEBP dosyaları yüklenebilir');
     }
 
-    const url = await this.cloudinaryService.uploadImage(file, 'events');
-    return { url };
+    const url = await this.cloudinaryService.uploadImage(file, 'about');
+    return this.aboutPageService.setImage1(url);
   }
 
-  @Get()
-  findAll(@Query('upcoming') upcoming?: string, @Query('limit') limit?: string) {
-    return this.eventsService.findAll({
-      upcoming: upcoming === 'true',
-      limit: limit ? Number(limit) : undefined,
-    });
-  }
-
-  @Get(':id')
-  findOne(@Param('id', ParseIdPipe) id: string) {
-    return this.eventsService.findOne(id);
-  }
-
-  @Patch(':id')
+  @Post('image2')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.admin)
-  update(@Param('id', ParseIdPipe) id: string, @Body() dto: UpdateEventDto) {
-    return this.eventsService.update(id, dto);
-  }
+  @UseInterceptors(FileInterceptor('file', { storage: memoryStorage(), limits: { fileSize: MAX_IMAGE_SIZE_BYTES } }))
+  async uploadImage2(@UploadedFile() file?: Express.Multer.File) {
+    if (!file) throw new BadRequestException('Dosya bulunamadı');
+    if (!ALLOWED_IMAGE_MIME_TYPES.includes(file.mimetype)) {
+      throw new BadRequestException('Sadece PNG, JPEG veya WEBP dosyaları yüklenebilir');
+    }
 
-  @Delete(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.admin)
-  remove(@Param('id', ParseIdPipe) id: string) {
-    return this.eventsService.remove(id);
+    const url = await this.cloudinaryService.uploadImage(file, 'about');
+    return this.aboutPageService.setImage2(url);
   }
 }

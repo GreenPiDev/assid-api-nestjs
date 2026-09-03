@@ -111,11 +111,8 @@ model News {
   title       String
   summary     String?
   content     String?
-  imageUrl    String?
-  category    String?
-  sectors     String[] @default([])
+  imageUrls   String[] @default([])
   publishedAt DateTime @default(now())
-  isFeatured  Boolean  @default(false)
   isPublished Boolean  @default(true)
 }
 
@@ -129,7 +126,6 @@ model Event {
   startDate   DateTime
   endDate     DateTime?
   imageUrl    String?
-  isFeatured  Boolean   @default(false)
 }
 
 model MembershipFee {
@@ -171,6 +167,30 @@ model OrganizationSettings {
   showMembershipFeesTable    Boolean @default(true)
   showAttachmentsSection     Boolean @default(true)
   showMembershipClassSection Boolean @default(true)
+}
+
+model AboutPage {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title          String?
+  subtitle       String?
+  bodyParagraph1 String?
+  bodyParagraph2 String?
+  visionText     String?
+  missionText    String?
+  image1         String?
+  image2         String?
+}
+
+model PresidentMessage {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  image       String?
+  messageHtml String?
 }
 
 model DeviceToken {

@@ -7,7 +7,6 @@ import { isPrismaNotFound } from '../common/utils/prisma-errors.util';
 import { NotificationsService } from '../notifications/notifications.service';
 
 export interface FindNewsQuery {
-  sector?: string;
   isPublished?: boolean;
   limit?: number;
 }
@@ -29,10 +28,7 @@ export class NewsService {
 
   async findAll(query: FindNewsQuery = {}) {
     const items = await this.prisma.news.findMany({
-      where: {
-        sectors: query.sector ? { has: query.sector } : undefined,
-        isPublished: query.isPublished,
-      },
+      where: { isPublished: query.isPublished },
       orderBy: { publishedAt: 'desc' },
       take: query.limit,
     });

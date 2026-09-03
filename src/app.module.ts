@@ -5,6 +5,8 @@ import { MembersModule } from './members/members.module';
 import { NewsModule } from './news/news.module';
 import { EventsModule } from './events/events.module';
 import { OrganizationSettingsModule } from './organization-settings/organization-settings.module';
+import { AboutPageModule } from './about-page/about-page.module';
+import { PresidentMessageModule } from './president-message/president-message.module';
 import { MembershipFeesModule } from './membership-fees/membership-fees.module';
 import { StatsModule } from './stats/stats.module';
 import { SectorsController } from './common/sectors.controller';
@@ -20,6 +22,8 @@ import { NotificationsModule } from './notifications/notifications.module';
     NewsModule,
     EventsModule,
     OrganizationSettingsModule,
+    AboutPageModule,
+    PresidentMessageModule,
     MembershipFeesModule,
     StatsModule,
     UsersModule,

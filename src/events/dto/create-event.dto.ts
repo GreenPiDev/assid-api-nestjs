@@ -1,4 +1,4 @@
-import { IsBoolean, IsDateString, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsDateString, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class CreateEventDto {
   @IsString()
@@ -23,8 +23,4 @@ export class CreateEventDto {
   @IsOptional()
   @IsString()
   imageUrl?: string;
-
-  @IsOptional()
-  @IsBoolean()
-  isFeatured?: boolean;
 }

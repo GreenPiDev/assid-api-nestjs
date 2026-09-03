@@ -1,5 +1,4 @@
-import { IsArray, IsBoolean, IsIn, IsOptional, IsString, MinLength } from 'class-validator';
-import { SECTOR_SLUGS, SectorSlug } from '../../common/constants/sector.constant';
+import { ArrayMaxSize, IsArray, IsBoolean, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class CreateNewsDto {
   @IsString()
@@ -15,21 +14,10 @@ export class CreateNewsDto {
   content?: string;
 
   @IsOptional()
-  @IsString()
-  imageUrl?: string;
-
-  @IsOptional()
-  @IsString()
-  category?: string;
-
-  @IsOptional()
   @IsArray()
-  @IsIn(SECTOR_SLUGS, { each: true })
-  sectors?: SectorSlug[];
-
-  @IsOptional()
-  @IsBoolean()
-  isFeatured?: boolean;
+  @ArrayMaxSize(5)
+  @IsString({ each: true })
+  imageUrls?: string[];
 
   @IsOptional()
   @IsBoolean()
