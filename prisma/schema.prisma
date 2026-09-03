@@ -193,6 +193,24 @@ model PresidentMessage {
   messageHtml String?
 }
 
+enum BoardMemberCategory {
+  yonetim_kurulu_asil
+  yonetim_kurulu_yedek
+  denetleme_kurulu_asil
+  denetleme_kurulu_yedek
+  disiplin_kurulu_asil
+  disiplin_kurulu_yedek
+}
+
+model BoardMember {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  category BoardMemberCategory
+  name     String
+  title    String?
+}
+
 model DeviceToken {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
