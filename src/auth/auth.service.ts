@@ -60,7 +60,7 @@ export class AuthService {
     await this.usersService.setResetToken(user.id, tokenHash, expiresAt);
 
     const frontendUrl = this.config.get<string>('FRONTEND_URL') ?? 'http://localhost:5173';
-    const resetUrl = `${frontendUrl}/reset-password?token=${rawToken}`;
+    const resetUrl = `${frontendUrl}/sifre-sifirla?token=${rawToken}`;
     // Swallow send failures here too: the response must stay identical to
     // the "no such account" path, and a transient SMTP error shouldn't turn
     // into a 500 that reveals the account exists.
