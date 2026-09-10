@@ -59,7 +59,7 @@ export class StorageService {
         ContentType: file.mimetype,
       }),
     );
-    return `${this.apiPublicUrl}/files?key=${encodeURIComponent(key)}`;
+    return `${this.apiPublicUrl}/api/files?key=${encodeURIComponent(key)}`;
   }
 
   async download(key: string): Promise<DownloadedFile> {
