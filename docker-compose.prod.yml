@@ -15,7 +15,25 @@ services:
       - '4000:4000'
     networks:
       - backend
+    depends_on:
+      - assid-redis
+
+  # assid'e özel, izole bir Redis instance'ı — VPS'te başka projelere ait
+  # (örn. pilens-redis) Redis container'larından bağımsız. Sadece "backend"
+  # network'ü üzerinden assid container'ına erişilebilir, host'a port
+  # açılmıyor.
+  assid-redis:
+    image: redis:7-alpine
+    container_name: assid-redis
+    restart: unless-stopped
+    volumes:
+      - assid_redis_data:/data
+    networks:
+      - backend
 
 networks:
   backend:
     external: true
+
+volumes:
+  assid_redis_data:

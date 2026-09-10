@@ -78,7 +78,7 @@ Production `.env` dosyası GitHub Secrets'a taşınmaz; VPS üzerinde zaten mevc
 - Aynı dizinde, git tarafından takip edilmeyen bir production `.env` dosyası bulunmalı (bkz. `.env.example` ve aşağıdaki liste).
 - `backend` adında bir Docker network'ü ve bu network'te çalışan `postgres` container'ı önceden var olmalı.
 
-Production `.env` içermesi gereken değişkenler: `NODE_ENV`, `PORT`, `DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `CORS_ORIGIN`, `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_PASS`, `FRONTEND_URL`.
+Production `.env` içermesi gereken değişkenler: `NODE_ENV`, `PORT`, `DATABASE_URL`, `REDIS_URL` (`redis://assid-redis:6379`, bkz. `docker-compose.prod.yml`'deki `assid-redis` servisi), `JWT_SECRET`, `JWT_EXPIRES_IN`, `CORS_ORIGIN`, `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `API_PUBLIC_URL`, `CARD_DATA_ENCRYPTION_KEY`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_PASS`, `FRONTEND_URL`.
 
 Production `DATABASE_URL` formatı (container'dan container'a, host portu değil Postgres'in container portu kullanılır):
 
