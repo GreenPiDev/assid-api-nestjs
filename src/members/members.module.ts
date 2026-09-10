@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MembersController } from './members.controller';
 import { MembersService } from './members.service';
-import { CloudinaryModule } from '../common/cloudinary/cloudinary.module';
+import { MembershipApplicationPdfService } from './membership-application-pdf.service';
+import { StorageModule } from '../common/storage/storage.module';
 
 @Module({
-  imports: [CloudinaryModule],
+  imports: [StorageModule],
   controllers: [MembersController],
-  providers: [MembersService],
+  providers: [MembersService, MembershipApplicationPdfService],
   exports: [MembersService],
 })
 export class MembersModule {}

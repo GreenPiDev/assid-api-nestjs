@@ -5,17 +5,20 @@ import {
   IsEmail,
   IsEnum,
   IsIn,
+  IsInt,
   IsOptional,
   IsString,
   Matches,
+  Max,
+  Min,
   MinLength,
 } from 'class-validator';
 import {
   BusinessActivityType,
+  CollectionType,
   ContactPreference,
   MaritalStatus,
   MembershipType,
-  SectorStatus,
 } from '@prisma/client';
 import { SECTOR_SLUGS, SectorSlug } from '../../common/constants/sector.constant';
 
@@ -70,9 +73,13 @@ export class ApplyMemberDto {
   @IsEnum(MembershipType)
   membershipType?: MembershipType;
 
+  // "Sektör Durumu" (Sektör İçi / Sektör Dışı) bilinçli olarak burada yok:
+  // fiziksel başvuru formunda "Bu kısım Yönetim Kurulu tarafından
+  // doldurulacaktır" notuyla ayrılmış — admin panelinden setlenir.
+
   @IsOptional()
-  @IsEnum(SectorStatus)
-  sectorStatus?: SectorStatus;
+  @IsString()
+  location?: string;
 
   @IsOptional()
   @IsString()
@@ -128,4 +135,42 @@ export class ApplyMemberDto {
 
   @Equals(true, { message: 'Bilgilerin doğruluğu onaylanmalıdır' })
   infoAccuracyConfirmed: boolean;
+
+  // --- Ödeme tercihi (opsiyonel) — ödeme entegrasyonu yok, çekim işlemini
+  // dernek yönetimi bu verilerle manuel yapar. Kart alanları sağlanmışsa
+  // paymentConsent zorunlu hale gelir (controller'da doğrulanır).
+  @IsOptional()
+  @IsEnum(CollectionType)
+  collectionType?: CollectionType;
+
+  // Giriş Aidatı (tek seferlik) seçildiğinde tam tarih; Aylık Aidat/Her
+  // İkisi (tekrarlayan) seçildiğinde ayın günü (1-31) kullanılır.
+  @IsOptional()
+  @IsDateString()
+  autoDebitDate?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(31)
+  autoDebitDayOfMonth?: number;
+
+  @IsOptional()
+  @IsString()
+  cardHolderName?: string;
+
+  @IsOptional()
+  @IsString()
+  cardNumber?: string;
+
+  @IsOptional()
+  @IsString()
+  cardExpiry?: string;
+
+  @IsOptional()
+  @IsString()
+  cardCvc?: string;
+
+  @IsOptional()
+  paymentConsent?: boolean;
 }

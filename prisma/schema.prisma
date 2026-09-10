@@ -17,6 +17,12 @@ enum SectorStatus {
   out_of_sector
 }
 
+enum CollectionType {
+  entry_fee
+  monthly_fee
+  both
+}
+
 enum BusinessActivityType {
   manufacturer
   importer
@@ -78,6 +84,19 @@ model Member {
   personalMobilePhone     String?
   affiliatedOrganizations String?
   contactPreference       ContactPreference?
+  location                String?
+
+  // --- Ödeme tercihi: ödeme entegrasyonu yok, dernek yönetimi bu verilerle
+  // manuel çekim yapar. Kart bilgileri (varsa) tek bir alanda şifrelenmiş
+  // olarak saklanır (bkz. common/crypto/encryption.service.ts).
+  collectionType      CollectionType?
+  // Giriş Aidatı (tek seferlik) için tam tarih; Aylık Aidat/Her İkisi
+  // (tekrarlayan) için ayın günü — ikisi de opsiyonel, Tahsilat Türü'ne
+  // göre hangisinin doldurulacağı frontend'de belirleniyor.
+  autoDebitDate       DateTime?
+  autoDebitDayOfMonth Int?
+  cardDataEncrypted   String?
+  paymentConsentAt    DateTime?
 
   // --- Application / approval workflow ---
   applicationDate   DateTime          @default(now())
@@ -102,6 +121,11 @@ model Member {
   notes Json?
 
   users User[]
+
+  conversationsAsA Conversation[]  @relation("ConversationsAsA")
+  conversationsAsB Conversation[]  @relation("ConversationsAsB")
+  sentMessages     Message[]
+  notifications    Notification[]
 }
 
 model News {
@@ -218,6 +242,59 @@ model DeviceToken {
 
   token    String  @unique
   platform String?
+}
+
+// İki firma (Member) arasındaki tüm yazışma tek Conversation altında birikir;
+// mesajlar ayrı kayıtlar olarak değil, bu conversation'a bağlı Message'lar
+// halinde tutulur (bkz. ikinci-tur-plan.md Faz 4).
+model Conversation {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  memberAId String
+  memberBId String
+  memberA   Member @relation("ConversationsAsA", fields: [memberAId], references: [id], onDelete: Cascade)
+  memberB   Member @relation("ConversationsAsB", fields: [memberBId], references: [id], onDelete: Cascade)
+
+  messages      Message[]
+  notifications Notification[]
+
+  @@unique([memberAId, memberBId])
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  senderMemberId String
+  senderMember   Member @relation(fields: [senderMemberId], references: [id], onDelete: Cascade)
+
+  body   String
+  readAt DateTime?
+}
+
+enum NotificationType {
+  new_message
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  recipientMemberId String
+  recipientMember   Member @relation(fields: [recipientMemberId], references: [id], onDelete: Cascade)
+
+  conversationId String?
+  conversation   Conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  type   NotificationType
+  title  String
+  body   String
+  isRead Boolean @default(false)
 }
 
 model User {

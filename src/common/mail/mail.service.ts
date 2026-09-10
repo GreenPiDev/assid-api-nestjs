@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
+import { emailButton, renderEmailTemplate } from './templates/base-email.template';
 
 @Injectable()
 export class MailService {
@@ -11,7 +12,7 @@ export class MailService {
   constructor(private readonly config: ConfigService) {
     const isProduction = this.config.get<string>('NODE_ENV') === 'production';
     // Same Zimbra mailbox password for both accounts; only the sending
-    // address switches with the environment (mirrors the Cloudinary
+    // address switches with the environment (mirrors the storage service's
     // dev/production folder split), so nothing extra needs to be set per
     // deployment beyond NODE_ENV and the shared SMTP_PASS.
     const defaultUser = isProduction ? 'support@greenpiworks.com' : 'developer@greenpiworks.com';
@@ -39,24 +40,20 @@ export class MailService {
   }
 
   async sendPasswordResetEmail(to: string, resetUrl: string) {
+    const html = renderEmailTemplate(`
+      <h2 style="margin-bottom:8px">Şifre Sıfırlama</h2>
+      <p>Hesabınız için bir şifre sıfırlama talebi aldık. Aşağıdaki butona tıklayarak yeni bir şifre belirleyebilirsiniz. Bu bağlantı 1 saat boyunca geçerlidir.</p>
+      ${emailButton(resetUrl, 'Şifremi Sıfırla')}
+      <p style="color:#62707d;font-size:0.85rem">Bu talebi siz oluşturmadıysanız bu e-postayı görmezden gelebilirsiniz.</p>
+    `);
+    await this.sendMail(to, 'ASSİD - Şifre Sıfırlama Talebi', html);
+  }
+
+  async sendMail(to: string, subject: string, html: string): Promise<void> {
     try {
-      await this.transporter.sendMail({
-        from: this.from,
-        to,
-        subject: 'ASSİD - Şifre Sıfırlama Talebi',
-        html: `
-          <div style="font-family:Arial,sans-serif;max-width:480px;margin:0 auto;color:#0d1b2a">
-            <h2 style="margin-bottom:8px">Şifre Sıfırlama</h2>
-            <p>Hesabınız için bir şifre sıfırlama talebi aldık. Aşağıdaki butona tıklayarak yeni bir şifre belirleyebilirsiniz. Bu bağlantı 1 saat boyunca geçerlidir.</p>
-            <p style="margin:24px 0">
-              <a href="${resetUrl}" style="background:#123a63;color:#fff;padding:12px 24px;border-radius:999px;text-decoration:none;font-weight:bold;display:inline-block">Şifremi Sıfırla</a>
-            </p>
-            <p style="color:#62707d;font-size:0.85rem">Bu talebi siz oluşturmadıysanız bu e-postayı görmezden gelebilirsiniz.</p>
-          </div>
-        `,
-      });
+      await this.transporter.sendMail({ from: this.from, to, subject, html });
     } catch (error) {
-      this.logger.error(`Failed to send password reset email to ${to}`, error as Error);
+      this.logger.error(`Failed to send email "${subject}" to ${to}`, error as Error);
       throw error;
     }
   }

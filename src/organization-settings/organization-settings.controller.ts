@@ -17,7 +17,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '@prisma/client';
-import { CloudinaryService } from '../common/cloudinary/cloudinary.service';
+import { StorageService } from '../common/storage/storage.service';
 
 const MAX_LOGO_SIZE_BYTES = 5 * 1024 * 1024;
 const ALLOWED_LOGO_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'];
@@ -26,7 +26,7 @@ const ALLOWED_LOGO_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image
 export class OrganizationSettingsController {
   constructor(
     private readonly settingsService: OrganizationSettingsService,
-    private readonly cloudinaryService: CloudinaryService,
+    private readonly storageService: StorageService,
   ) {}
 
   @Get()
@@ -51,7 +51,7 @@ export class OrganizationSettingsController {
       throw new BadRequestException('Sadece PNG, JPEG, WEBP veya SVG dosyaları yüklenebilir');
     }
 
-    const logoUrl = await this.cloudinaryService.uploadImage(file, 'organizationLogo');
+    const logoUrl = await this.storageService.uploadImage(file, 'organizationLogo');
     return this.settingsService.setLogo(logoUrl);
   }
 }

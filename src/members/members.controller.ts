@@ -9,6 +9,7 @@ import {
   Patch,
   Post,
   Query,
+  Res,
   UploadedFile,
   UploadedFiles,
   UseGuards,
@@ -17,7 +18,9 @@ import {
 import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { validate } from 'class-validator';
 import { memoryStorage } from 'multer';
+import type { Response } from 'express';
 import { MembersService } from './members.service';
+import { MembershipApplicationPdfService } from './membership-application-pdf.service';
 import { ApplyMemberDto } from './dto/apply-member.dto';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
@@ -30,7 +33,8 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../auth/auth.types';
 import { ApplicationStatus, Role } from '@prisma/client';
-import { CloudinaryService } from '../common/cloudinary/cloudinary.service';
+import { StorageService } from '../common/storage/storage.service';
+import { EncryptionService } from '../common/crypto/encryption.service';
 
 const MAX_LOGO_SIZE_BYTES = 5 * 1024 * 1024;
 const ALLOWED_LOGO_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'];
@@ -82,7 +86,7 @@ function buildApplyDto(raw: Record<string, unknown>): ApplyMemberDto {
   dto.businessActivityTypes = raw.businessActivityTypes as ApplyMemberDto['businessActivityTypes'];
   dto.references = raw.references as string | undefined;
   dto.membershipType = raw.membershipType as ApplyMemberDto['membershipType'];
-  dto.sectorStatus = raw.sectorStatus as ApplyMemberDto['sectorStatus'];
+  dto.location = raw.location as string | undefined;
   dto.birthPlace = raw.birthPlace as string | undefined;
   dto.birthDate = raw.birthDate as string | undefined;
   dto.nationality = raw.nationality as string | undefined;
@@ -97,6 +101,14 @@ function buildApplyDto(raw: Record<string, unknown>): ApplyMemberDto {
   dto.kvkkConsent = raw.kvkkConsent as boolean;
   dto.bylawsAcknowledged = raw.bylawsAcknowledged as boolean;
   dto.infoAccuracyConfirmed = raw.infoAccuracyConfirmed as boolean;
+  dto.collectionType = raw.collectionType as ApplyMemberDto['collectionType'];
+  dto.autoDebitDate = raw.autoDebitDate as string | undefined;
+  dto.autoDebitDayOfMonth = raw.autoDebitDayOfMonth as number | undefined;
+  dto.cardHolderName = raw.cardHolderName as string | undefined;
+  dto.cardNumber = raw.cardNumber as string | undefined;
+  dto.cardExpiry = raw.cardExpiry as string | undefined;
+  dto.cardCvc = raw.cardCvc as string | undefined;
+  dto.paymentConsent = raw.paymentConsent as boolean | undefined;
   return dto;
 }
 
@@ -104,7 +116,9 @@ function buildApplyDto(raw: Record<string, unknown>): ApplyMemberDto {
 export class MembersController {
   constructor(
     private readonly membersService: MembersService,
-    private readonly cloudinaryService: CloudinaryService,
+    private readonly storageService: StorageService,
+    private readonly encryptionService: EncryptionService,
+    private readonly membershipApplicationPdfService: MembershipApplicationPdfService,
   ) {}
 
   @Post()
@@ -121,7 +135,11 @@ export class MembersController {
       limits: { fileSize: MAX_DOCUMENT_SIZE_BYTES },
     }),
   )
-  async apply(@Body('payload') payloadJson: string, @UploadedFiles() files: ApplicationFiles) {
+  async apply(
+    @Body('payload') payloadJson: string,
+    @UploadedFiles() files: ApplicationFiles,
+    @Res() res: Response,
+  ) {
     if (!payloadJson) throw new BadRequestException('Başvuru verisi bulunamadı');
 
     let raw: unknown;
@@ -138,6 +156,13 @@ export class MembersController {
       throw new BadRequestException(errors.flatMap((e) => Object.values(e.constraints ?? {})));
     }
 
+    const hasCardInfo = Boolean(dto.cardHolderName || dto.cardNumber || dto.cardExpiry || dto.cardCvc);
+    if (hasCardInfo && dto.paymentConsent !== true) {
+      throw new BadRequestException(
+        'Kart bilgisi girildiyse üyelik aidatının karttan çekilmesine rıza onayı zorunludur',
+      );
+    }
+
     for (const [field, fileList] of Object.entries(files ?? {}) as [ApplicationDocumentField, Express.Multer.File[]][]) {
       for (const file of fileList) {
         if (!ALLOWED_DOCUMENT_MIME_TYPES.includes(file.mimetype)) {
@@ -152,21 +177,31 @@ export class MembersController {
       kvkkConsent: _kvkkConsent,
       bylawsAcknowledged: _bylawsAcknowledged,
       infoAccuracyConfirmed: _infoAccuracyConfirmed,
+      cardHolderName,
+      cardNumber,
+      cardExpiry,
+      cardCvc,
+      paymentConsent,
       ...memberFields
     } = dto;
     const payload: Record<string, unknown> = {
       ...memberFields,
       birthDate: memberFields.birthDate ? new Date(memberFields.birthDate) : undefined,
+      autoDebitDate: memberFields.autoDebitDate ? new Date(memberFields.autoDebitDate) : undefined,
       kvkkConsentAt: new Date(),
       bylawsAcknowledgedAt: new Date(),
       infoAccuracyConfirmedAt: new Date(),
+      cardDataEncrypted: hasCardInfo
+        ? this.encryptionService.encrypt(JSON.stringify({ cardHolderName, cardNumber, cardExpiry, cardCvc }))
+        : undefined,
+      paymentConsentAt: paymentConsent === true ? new Date() : undefined,
     };
     const member = await this.membersService.create(payload);
 
     const documents: { label: string; url: string }[] = [];
     for (const [field, fileList] of Object.entries(files ?? {}) as [ApplicationDocumentField, Express.Multer.File[]][]) {
       for (const file of fileList) {
-        const url = await this.cloudinaryService.uploadImage(file, `membershipDocs/${member._id}`, 'auto');
+        const url = await this.storageService.uploadImage(file, `membershipDocs/${member._id}`, 'auto');
         documents.push({ label: APPLICATION_DOCUMENT_LABELS[field], url });
       }
     }
@@ -174,7 +209,43 @@ export class MembersController {
       await this.membersService.setDocuments(member._id, documents);
     }
 
-    return { success: true };
+    const pdfBuffer = await this.membershipApplicationPdfService.generate({
+      applicationDate: new Date(),
+      fullName: dto.fullName,
+      companyName: dto.companyName,
+      title: dto.title,
+      companyAddress: dto.companyAddress,
+      phone: dto.phone,
+      mobilePhone: dto.mobilePhone,
+      email: dto.email,
+      sectors: dto.sectors,
+      businessActivityTypes: dto.businessActivityTypes,
+      references: dto.references,
+      membershipType: dto.membershipType,
+      location: dto.location,
+      birthPlace: dto.birthPlace,
+      birthDate: dto.birthDate ? new Date(dto.birthDate) : undefined,
+      nationality: dto.nationality,
+      nationalId: dto.nationalId,
+      maritalStatus: dto.maritalStatus,
+      faxPhone: dto.faxPhone,
+      personalMobilePhone: dto.personalMobilePhone,
+      affiliatedOrganizations: dto.affiliatedOrganizations,
+      contactPreference: dto.contactPreference,
+      documentLabels: documents.map((d) => d.label),
+      collectionType: dto.collectionType,
+      autoDebitDate: dto.autoDebitDate ? new Date(dto.autoDebitDate) : undefined,
+      autoDebitDayOfMonth: dto.autoDebitDayOfMonth,
+      cardNumberLast4: cardNumber ? cardNumber.replace(/\s+/g, '').slice(-4) : undefined,
+      paymentConsent: paymentConsent === true,
+      bylawsAcknowledged: dto.bylawsAcknowledged,
+    });
+
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': 'attachment; filename="assid-uyelik-basvuru-formu.pdf"',
+    });
+    res.send(pdfBuffer);
   }
 
   @Get()
@@ -236,7 +307,7 @@ export class MembersController {
     }
 
     const memberId = requireOwnMemberId(user);
-    const logoUrl = await this.cloudinaryService.uploadImage(file, 'member-logos');
+    const logoUrl = await this.storageService.uploadImage(file, 'member-logos');
     return this.membersService.setLogo(memberId, logoUrl);
   }
 

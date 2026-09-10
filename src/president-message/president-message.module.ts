@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PresidentMessageController } from './president-message.controller';
 import { PresidentMessageService } from './president-message.service';
-import { CloudinaryModule } from '../common/cloudinary/cloudinary.module';
+import { StorageModule } from '../common/storage/storage.module';
 
 @Module({
-  imports: [CloudinaryModule],
+  imports: [StorageModule],
   controllers: [PresidentMessageController],
   providers: [PresidentMessageService],
   exports: [PresidentMessageService],

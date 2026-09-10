@@ -22,7 +22,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '@prisma/client';
-import { CloudinaryService } from '../common/cloudinary/cloudinary.service';
+import { StorageService } from '../common/storage/storage.service';
 
 const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
 const MAX_IMAGE_COUNT = 5;
@@ -32,7 +32,7 @@ const ALLOWED_IMAGE_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 export class NewsController {
   constructor(
     private readonly newsService: NewsService,
-    private readonly cloudinaryService: CloudinaryService,
+    private readonly storageService: StorageService,
   ) {}
 
   @Post()
@@ -56,7 +56,7 @@ export class NewsController {
       }
     }
 
-    const urls = await Promise.all(files.map((file) => this.cloudinaryService.uploadImage(file, 'news')));
+    const urls = await Promise.all(files.map((file) => this.storageService.uploadImage(file, 'news')));
     return { urls };
   }
 

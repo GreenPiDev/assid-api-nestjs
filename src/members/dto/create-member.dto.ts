@@ -5,14 +5,18 @@ import {
   IsEmail,
   IsEnum,
   IsIn,
+  IsInt,
   IsOptional,
   IsString,
   Matches,
+  Max,
+  Min,
   MinLength,
 } from 'class-validator';
 import {
   ApplicationStatus,
   BusinessActivityType,
+  CollectionType,
   ContactPreference,
   MaritalStatus,
   MembershipType,
@@ -67,6 +71,24 @@ export class CreateMemberDto {
   @IsOptional()
   @IsEnum(SectorStatus)
   sectorStatus?: SectorStatus;
+
+  @IsOptional()
+  @IsString()
+  location?: string;
+
+  @IsOptional()
+  @IsEnum(CollectionType)
+  collectionType?: CollectionType;
+
+  @IsOptional()
+  @IsDateString()
+  autoDebitDate?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(31)
+  autoDebitDayOfMonth?: number;
 
   @IsOptional()
   @IsString()

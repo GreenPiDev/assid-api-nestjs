@@ -23,10 +23,14 @@ export interface MemberFile {
 type MemberInput = CreateMemberDto | ApplyMemberDto | UpdateMemberDto | Record<string, unknown>;
 
 function toMemberData(dto: MemberInput) {
-  const { birthDate, ...rest } = dto as Record<string, unknown> & { birthDate?: string | Date };
+  const { birthDate, autoDebitDate, ...rest } = dto as Record<string, unknown> & {
+    birthDate?: string | Date;
+    autoDebitDate?: string | Date;
+  };
   return {
     ...rest,
     birthDate: birthDate ? new Date(birthDate) : undefined,
+    autoDebitDate: autoDebitDate ? new Date(autoDebitDate) : undefined,
   } as Prisma.MemberCreateInput;
 }
 
