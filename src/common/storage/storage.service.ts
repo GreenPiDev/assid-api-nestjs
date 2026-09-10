@@ -1,14 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import type { Readable } from 'stream';
 import { randomUUID } from 'crypto';
 import { extname } from 'path';
+
+export interface DownloadedFile {
+  body: Readable;
+  contentType?: string;
+  contentLength?: number;
+}
 
 @Injectable()
 export class StorageService {
   private readonly client: S3Client;
   private readonly bucket: string;
-  private readonly publicBaseUrl: string;
+  private readonly apiPublicUrl: string;
   private readonly envFolder: string;
 
   constructor(private readonly config: ConfigService) {
@@ -22,7 +29,13 @@ export class StorageService {
       },
     });
     this.bucket = this.config.getOrThrow<string>('R2_BUCKET_NAME');
-    this.publicBaseUrl = this.config.getOrThrow<string>('R2_PUBLIC_BASE_URL').replace(/\/$/, '');
+    // Cloudflare'in genel "pub-xxxx.r2.dev" URL'i Türkiye'de ISP seviyesinde
+    // engelleniyor/yönlendiriliyor (middlebox redirect + TLS handshake hatası
+    // gözlemlendi) — bu yüzden dosyalar hiç public R2 URL'i ile servis
+    // edilmiyor, backend'in kendi `/files?key=...` proxy ucundan akıtılıyor
+    // (bkz. FilesController). Aynı çözüm 3-bi-yeni/bi-backend projesinde de
+    // uygulanmış (docs/VARSAYIMLAR.md V34).
+    this.apiPublicUrl = this.config.getOrThrow<string>('API_PUBLIC_URL').replace(/\/$/, '');
 
     // Defaults to "development" unless NODE_ENV is explicitly "production",
     // so a local run can never accidentally write into the production
@@ -46,6 +59,15 @@ export class StorageService {
         ContentType: file.mimetype,
       }),
     );
-    return `${this.publicBaseUrl}/${key}`;
+    return `${this.apiPublicUrl}/files?key=${encodeURIComponent(key)}`;
+  }
+
+  async download(key: string): Promise<DownloadedFile> {
+    const result = await this.client.send(new GetObjectCommand({ Bucket: this.bucket, Key: key }));
+    return {
+      body: result.Body as Readable,
+      contentType: result.ContentType,
+      contentLength: result.ContentLength,
+    };
   }
 }
