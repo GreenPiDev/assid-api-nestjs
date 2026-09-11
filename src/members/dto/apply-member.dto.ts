@@ -157,6 +157,26 @@ export class ApplyMemberDto {
   @Max(31)
   autoDebitDayOfMonth?: number;
 
+  // Ödeme talimatı PDF'inin "Üye / Firma Bilgileri" bölümüne yazılır — genel
+  // başvuru bilgilerinden (fullName, companyName vb.) bilinçli olarak ayrı
+  // tutulur, çünkü ödeme talimatını imzalayan kişi/firma başvurandan farklı
+  // olabilir.
+  @IsOptional()
+  @IsString()
+  paymentHolderFullName?: string;
+
+  @IsOptional()
+  @IsString()
+  paymentHolderCompanyName?: string;
+
+  @IsOptional()
+  @IsString()
+  paymentHolderTitle?: string;
+
+  @IsOptional()
+  @IsString()
+  paymentHolderCompanyAddress?: string;
+
   @IsOptional()
   @IsString()
   cardHolderName?: string;

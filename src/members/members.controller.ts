@@ -25,6 +25,7 @@ import { ApplyMemberDto } from './dto/apply-member.dto';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { UpdateMemberProfileDto } from './dto/update-member-profile.dto';
+import { CardInfoDto } from './dto/card-info.dto';
 import { SetApplicationStatusDto } from './dto/set-application-status.dto';
 import { ParseIdPipe } from '../common/pipes/parse-id.pipe';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -105,6 +106,10 @@ function buildApplyDto(raw: Record<string, unknown>): ApplyMemberDto {
   dto.collectionType = raw.collectionType as ApplyMemberDto['collectionType'];
   dto.autoDebitDate = raw.autoDebitDate as string | undefined;
   dto.autoDebitDayOfMonth = raw.autoDebitDayOfMonth as number | undefined;
+  dto.paymentHolderFullName = raw.paymentHolderFullName as string | undefined;
+  dto.paymentHolderCompanyName = raw.paymentHolderCompanyName as string | undefined;
+  dto.paymentHolderTitle = raw.paymentHolderTitle as string | undefined;
+  dto.paymentHolderCompanyAddress = raw.paymentHolderCompanyAddress as string | undefined;
   dto.cardHolderName = raw.cardHolderName as string | undefined;
   dto.cardNumber = raw.cardNumber as string | undefined;
   dto.cardExpiry = raw.cardExpiry as string | undefined;
@@ -206,6 +211,10 @@ export class MembersController {
       kvkkConsent: _kvkkConsent,
       bylawsAcknowledged: _bylawsAcknowledged,
       infoAccuracyConfirmed: _infoAccuracyConfirmed,
+      paymentHolderFullName,
+      paymentHolderCompanyName,
+      paymentHolderTitle,
+      paymentHolderCompanyAddress,
       cardHolderName,
       cardNumber,
       cardExpiry,
@@ -274,6 +283,10 @@ export class MembersController {
       collectionType: dto.collectionType,
       autoDebitDate: dto.autoDebitDate ? new Date(dto.autoDebitDate) : undefined,
       autoDebitDayOfMonth: dto.autoDebitDayOfMonth,
+      paymentHolderFullName,
+      paymentHolderCompanyName,
+      paymentHolderTitle,
+      paymentHolderCompanyAddress,
       cardNumberLast4: cardNumber ? cardNumber.replace(/\s+/g, '').slice(-4) : undefined,
       paymentConsent: paymentConsent === true,
       bylawsAcknowledged: dto.bylawsAcknowledged,
@@ -334,6 +347,20 @@ export class MembersController {
     return this.membersService.update(requireOwnMemberId(user), dto);
   }
 
+  @Get('me/card-info')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.member)
+  getOwnCardInfo(@CurrentUser() user: AuthenticatedUser) {
+    return this.membersService.getCardInfo(requireOwnMemberId(user));
+  }
+
+  @Patch('me/card-info')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.member)
+  setOwnCardInfo(@CurrentUser() user: AuthenticatedUser, @Body() dto: CardInfoDto) {
+    return this.membersService.setCardInfo(requireOwnMemberId(user), dto);
+  }
+
   @Post('me/logo')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.member)
@@ -360,6 +387,20 @@ export class MembersController {
   async getMaskedNationalId(@Param('id', ParseIdPipe) id: string) {
     const maskedNationalId = await this.membersService.getMaskedNationalId(id);
     return { maskedNationalId };
+  }
+
+  @Get(':id/card-info')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
+  getCardInfo(@Param('id', ParseIdPipe) id: string) {
+    return this.membersService.getCardInfo(id);
+  }
+
+  @Patch(':id/card-info')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.admin)
+  setCardInfo(@Param('id', ParseIdPipe) id: string, @Body() dto: CardInfoDto) {
+    return this.membersService.setCardInfo(id, dto);
   }
 
   @Patch(':id')

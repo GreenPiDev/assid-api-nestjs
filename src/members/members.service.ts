@@ -10,6 +10,8 @@ import { withMongoId, withMongoIdList } from '../common/utils/prisma-response.ut
 import { isPrismaNotFound, isPrismaUniqueViolation } from '../common/utils/prisma-errors.util';
 import { UsersService } from '../users/users.service';
 import { MailService } from '../common/mail/mail.service';
+import { EncryptionService } from '../common/crypto/encryption.service';
+import { CardInfoDto } from './dto/card-info.dto';
 
 // URL/e-posta içinde karışmasın diye 0/O/1/I/l gibi karakterler çıkarıldı.
 const PASSWORD_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
@@ -37,6 +39,12 @@ export interface MemberFile {
 
 type MemberInput = CreateMemberDto | ApplyMemberDto | UpdateMemberDto | Record<string, unknown>;
 
+// TC Kimlik No ve şifreli kart verisi hiçbir genel Member sorgusuyla düz
+// döndürülmez — nationalId sadece getMaskedNationalId() ile maskelenmiş
+// olarak, kart bilgisi sadece getCardInfo() ile şifresi çözülmüş olarak
+// (ayrı, yetkilendirilmiş endpoint'ler üzerinden) erişilebilir.
+const SENSITIVE_FIELD_OMIT = { nationalId: true, cardDataEncrypted: true } as const;
+
 function toMemberData(dto: MemberInput) {
   const { birthDate, autoDebitDate, ...rest } = dto as Record<string, unknown> & {
     birthDate?: string | Date;
@@ -55,11 +63,12 @@ export class MembersService {
     private prisma: PrismaService,
     private usersService: UsersService,
     private mailService: MailService,
+    private encryptionService: EncryptionService,
   ) {}
 
   async create(dto: MemberInput) {
     try {
-      const member = await this.prisma.member.create({ data: toMemberData(dto) });
+      const member = await this.prisma.member.create({ data: toMemberData(dto), omit: SENSITIVE_FIELD_OMIT });
       return withMongoId(member);
     } catch (error) {
       if (isPrismaUniqueViolation(error)) {
@@ -92,6 +101,7 @@ export class MembersService {
         applicationStatus: query.applicationStatus,
       },
       orderBy: { createdAt: 'desc' },
+      omit: SENSITIVE_FIELD_OMIT,
     });
 
     // Turkish text needs locale-aware lowercasing to match correctly (a
@@ -114,7 +124,7 @@ export class MembersService {
   }
 
   async findOne(id: string) {
-    const member = await this.prisma.member.findUnique({ where: { id } });
+    const member = await this.prisma.member.findUnique({ where: { id }, omit: SENSITIVE_FIELD_OMIT });
     if (!member) throw new NotFoundException('Member not found');
     return withMongoId(member);
   }
@@ -130,11 +140,37 @@ export class MembersService {
     return `${digits.slice(0, 3)}${'*'.repeat(Math.max(digits.length - 5, 0))}${digits.slice(-2)}`;
   }
 
+  // Kart bilgisi hiçbir genel sorguda düz dönmez (bkz. SENSITIVE_FIELD_OMIT);
+  // sadece bu admin/kendi-profili endpoint'leri üzerinden şifresi çözülüp
+  // döndürülür.
+  async getCardInfo(id: string): Promise<CardInfoDto | null> {
+    const member = await this.prisma.member.findUnique({ where: { id }, select: { cardDataEncrypted: true } });
+    if (!member) throw new NotFoundException('Member not found');
+    if (!member.cardDataEncrypted) return null;
+    return JSON.parse(this.encryptionService.decrypt(member.cardDataEncrypted)) as CardInfoDto;
+  }
+
+  async setCardInfo(id: string, dto: CardInfoDto) {
+    const hasCardInfo = Boolean(dto.cardHolderName || dto.cardNumber || dto.cardExpiry || dto.cardCvc);
+    try {
+      await this.prisma.member.update({
+        where: { id },
+        data: { cardDataEncrypted: hasCardInfo ? this.encryptionService.encrypt(JSON.stringify(dto)) : null },
+        omit: SENSITIVE_FIELD_OMIT,
+      });
+    } catch (error) {
+      if (isPrismaNotFound(error)) throw new NotFoundException('Member not found');
+      throw error;
+    }
+    return hasCardInfo ? dto : null;
+  }
+
   async update(id: string, dto: UpdateMemberDto) {
     try {
       const member = await this.prisma.member.update({
         where: { id },
         data: toMemberData(dto) as Prisma.MemberUpdateInput,
+        omit: SENSITIVE_FIELD_OMIT,
       });
       return withMongoId(member);
     } catch (error) {
@@ -155,6 +191,7 @@ export class MembersService {
           applicationStatus: status,
           approvedAt: status === ApplicationStatus.approved ? new Date() : undefined,
         },
+        omit: SENSITIVE_FIELD_OMIT,
       });
     } catch (error) {
       if (isPrismaNotFound(error)) throw new NotFoundException('Member not found');
@@ -179,7 +216,11 @@ export class MembersService {
 
   async setLogo(id: string, logoUrl: string) {
     try {
-      const member = await this.prisma.member.update({ where: { id }, data: { logo: logoUrl } });
+      const member = await this.prisma.member.update({
+        where: { id },
+        data: { logo: logoUrl },
+        omit: SENSITIVE_FIELD_OMIT,
+      });
       return withMongoId(member);
     } catch (error) {
       if (isPrismaNotFound(error)) throw new NotFoundException('Member not found');
@@ -192,6 +233,7 @@ export class MembersService {
       const member = await this.prisma.member.update({
         where: { id },
         data: { documents: documents as unknown as Prisma.InputJsonValue },
+        omit: SENSITIVE_FIELD_OMIT,
       });
       return withMongoId(member);
     } catch (error) {
@@ -202,7 +244,7 @@ export class MembersService {
 
   async remove(id: string) {
     try {
-      const member = await this.prisma.member.delete({ where: { id } });
+      const member = await this.prisma.member.delete({ where: { id }, omit: SENSITIVE_FIELD_OMIT });
       return withMongoId(member);
     } catch (error) {
       if (isPrismaNotFound(error)) throw new NotFoundException('Member not found');

@@ -50,6 +50,13 @@ export interface MembershipApplicationPdfData {
   // (tekrarlayan) için ayın günü (1-31).
   autoDebitDate?: Date;
   autoDebitDayOfMonth?: number;
+  // Ödeme talimatının "Üye / Firma Bilgileri" bölümüne yazılır — genel
+  // başvuru bilgilerinden (fullName, companyName vb.) bilinçli olarak
+  // ayrıdır, formda ayrıca girilir.
+  paymentHolderFullName?: string;
+  paymentHolderCompanyName?: string;
+  paymentHolderTitle?: string;
+  paymentHolderCompanyAddress?: string;
   cardNumberLast4?: string;
   paymentConsent: boolean;
   bylawsAcknowledged: boolean;
@@ -226,8 +233,7 @@ class PageCursor {
     if (this.y - height < CONTENT_BOTTOM) this.newPage();
   }
 
-  title(text: string, width = CONTENT_WIDTH): void {
-    const size = 22;
+  title(text: string, width = CONTENT_WIDTH, size = 22): void {
     const lines = this.wrapText(text, this.bold, size, width);
     for (const line of lines) {
       this.ensureSpace(size + 6);
@@ -282,8 +288,45 @@ class PageCursor {
       borderColor: LINE,
       borderWidth: 1,
     });
-    const truncated = this.fitText(value || '—', this.regular, 9.5, boxWidth - 12);
+    const truncated = this.fitText(value, this.regular, 9.5, boxWidth - 12);
     this.page.drawText(truncated, { x: boxX + 6, y: this.y - boxHeight + 9, size: 9.5, font: this.regular, color: INK });
+    this.y -= boxHeight + 8;
+  }
+
+  // field()'ın çok satırlı hali: değer, kutu genişliğine sığmayan uzun
+  // metinlerde (örn. çok sayıda sektör seçilmesi) tek satıra sığdırılıp
+  // kesilmek yerine alt satırlara sarılır; kutu bu satır sayısına göre
+  // büyür ve sonraki içerikler buna göre aşağı kayar.
+  fieldMultiline(label: string, value: string, xOffset = 0, width = CONTENT_WIDTH): void {
+    const labelSize = 8.5;
+    const textSize = 9.5;
+    const lineHeight = 12;
+    const x = MARGIN + xOffset;
+    const labelWidth = Math.min(width * 0.55, Math.max(132, this.bold.widthOfTextAtSize(label, labelSize) + 10));
+    const boxX = x + labelWidth;
+    const boxWidth = Math.max(width - labelWidth, 20);
+    const lines = value ? this.wrapText(value, this.regular, textSize, boxWidth - 12) : [''];
+    const boxHeight = 17 + (lines.length - 1) * lineHeight;
+    this.ensureSpace(boxHeight + 6);
+    this.page.drawText(label, { x, y: this.y - 5, size: labelSize, font: this.bold, color: MUTED });
+    this.page.drawRectangle({
+      x: boxX,
+      y: this.y - boxHeight + 4,
+      width: boxWidth,
+      height: boxHeight,
+      color: PAPER,
+      borderColor: LINE,
+      borderWidth: 1,
+    });
+    lines.forEach((line, i) => {
+      this.page.drawText(line, {
+        x: boxX + 6,
+        y: this.y - 12 - i * lineHeight,
+        size: textSize,
+        font: this.regular,
+        color: INK,
+      });
+    });
     this.y -= boxHeight + 8;
   }
 
@@ -494,7 +537,7 @@ export class MembershipApplicationPdfService {
       ['Cep Telefonu', data.mobilePhone ?? ''],
     ]);
     c.field('E Posta', data.email);
-    c.field('Faaliyet Alanı / Sektör', data.sectors.map(getSectorName).join(', '));
+    c.fieldMultiline('Faaliyet Alanı / Sektör', data.sectors.map(getSectorName).join(', '));
     c.checkboxRow(
       Object.entries(BUSINESS_ACTIVITY_LABELS).map(([key, label]) => [
         label,
@@ -592,12 +635,12 @@ export class MembershipApplicationPdfService {
 
     // --- Sayfa 4: Kredi Kartı / Otomatik Ödeme Talimatı ---
     c.newPage(false);
-    c.title('KREDİ KARTI ÖDEME TALİMATI / OTOMATİK ÖDEME TALİMATI');
+    c.title('KREDİ KARTI ÖDEME TALİMATI (MAIL ORDER) / OTOMATİK ÖDEME TALİMATI', CONTENT_WIDTH, 15);
     c.sectionHeader('Üye / Firma Bilgileri');
-    c.field('Adı Soyadı', data.fullName);
-    c.field('Şirket / Kurum Adı', data.companyName ?? '');
-    c.field('Görevi / Ünvanı', data.title ?? '');
-    c.field('Şirket / Kurum Adresi', data.companyAddress ?? '');
+    c.field('Adı Soyadı', data.paymentHolderFullName ?? '');
+    c.field('Şirket / Kurum Adı', data.paymentHolderCompanyName ?? '');
+    c.field('Görevi / Ünvanı', data.paymentHolderTitle ?? '');
+    c.field('Şirket / Kurum Adresi', data.paymentHolderCompanyAddress ?? '');
     c.spacer(4);
 
     c.sectionHeader('Tahsilat Türü');
