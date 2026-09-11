@@ -21,6 +21,7 @@ import {
   MembershipType,
 } from '@prisma/client';
 import { SECTOR_SLUGS, SectorSlug } from '../../common/constants/sector.constant';
+import { LOCATION_SLUGS, LocationSlug } from '../../common/constants/location.constant';
 
 /**
  * Public membership-application payload. Deliberately narrower than
@@ -78,8 +79,9 @@ export class ApplyMemberDto {
   // doldurulacaktır" notuyla ayrılmış — admin panelinden setlenir.
 
   @IsOptional()
-  @IsString()
-  location?: string;
+  @IsArray()
+  @IsIn(LOCATION_SLUGS, { each: true })
+  locations?: LocationSlug[];
 
   @IsOptional()
   @IsString()

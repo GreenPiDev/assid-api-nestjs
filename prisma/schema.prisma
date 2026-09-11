@@ -84,7 +84,7 @@ model Member {
   personalMobilePhone     String?
   affiliatedOrganizations String?
   contactPreference       ContactPreference?
-  location                String?
+  locations               String[]           @default([])
 
   // --- Ödeme tercihi: ödeme entegrasyonu yok, dernek yönetimi bu verilerle
   // manuel çekim yapar. Kart bilgileri (varsa) tek bir alanda şifrelenmiş

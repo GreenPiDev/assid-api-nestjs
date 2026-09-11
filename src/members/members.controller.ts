@@ -35,6 +35,7 @@ import type { AuthenticatedUser } from '../auth/auth.types';
 import { ApplicationStatus, Role } from '@prisma/client';
 import { StorageService } from '../common/storage/storage.service';
 import { EncryptionService } from '../common/crypto/encryption.service';
+import { OrganizationSettingsService } from '../organization-settings/organization-settings.service';
 
 const MAX_LOGO_SIZE_BYTES = 5 * 1024 * 1024;
 const ALLOWED_LOGO_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'];
@@ -86,7 +87,7 @@ function buildApplyDto(raw: Record<string, unknown>): ApplyMemberDto {
   dto.businessActivityTypes = raw.businessActivityTypes as ApplyMemberDto['businessActivityTypes'];
   dto.references = raw.references as string | undefined;
   dto.membershipType = raw.membershipType as ApplyMemberDto['membershipType'];
-  dto.location = raw.location as string | undefined;
+  dto.locations = raw.locations as ApplyMemberDto['locations'];
   dto.birthPlace = raw.birthPlace as string | undefined;
   dto.birthDate = raw.birthDate as string | undefined;
   dto.nationality = raw.nationality as string | undefined;
@@ -119,7 +120,35 @@ export class MembersController {
     private readonly storageService: StorageService,
     private readonly encryptionService: EncryptionService,
     private readonly membershipApplicationPdfService: MembershipApplicationPdfService,
+    private readonly organizationSettingsService: OrganizationSettingsService,
   ) {}
+
+  // Logo, R2'de PNG/JPEG olarak yüklendiyse PDF header'ına gömülebilir;
+  // webp/svg gibi pdf-lib'in gömemediği formatlarda veya logo hiç
+  // yoksa/indirilemezse sessizce metin tabanlı header fallback'ine düşülür
+  // (bkz. MembershipApplicationPdfService).
+  private async loadLogoImage(logoUrl?: string): Promise<{ bytes: Uint8Array; format: 'png' | 'jpg' } | undefined> {
+    if (!logoUrl) return undefined;
+    let key: string | null;
+    try {
+      key = new URL(logoUrl).searchParams.get('key');
+    } catch {
+      return undefined;
+    }
+    if (!key) return undefined;
+
+    try {
+      const file = await this.storageService.download(key);
+      const format = file.contentType === 'image/png' ? 'png' : file.contentType === 'image/jpeg' ? 'jpg' : null;
+      if (!format) return undefined;
+
+      const chunks: Buffer[] = [];
+      for await (const chunk of file.body) chunks.push(chunk as Buffer);
+      return { bytes: Buffer.concat(chunks), format };
+    } catch {
+      return undefined;
+    }
+  }
 
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -209,8 +238,18 @@ export class MembersController {
       await this.membersService.setDocuments(member._id, documents);
     }
 
+    const orgSettings = await this.organizationSettingsService.get();
+    const logoImage = await this.loadLogoImage(orgSettings.logo ?? undefined);
+
     const pdfBuffer = await this.membershipApplicationPdfService.generate({
       applicationDate: new Date(),
+      orgName: orgSettings.name ?? 'Dernek',
+      orgShortName: orgSettings.shortName ?? undefined,
+      orgAddress: orgSettings.address ?? undefined,
+      orgPhone: orgSettings.phone ?? undefined,
+      orgEmail: orgSettings.email ?? undefined,
+      orgWebsite: orgSettings.website ?? undefined,
+      logoImage,
       fullName: dto.fullName,
       companyName: dto.companyName,
       title: dto.title,
@@ -222,7 +261,6 @@ export class MembersController {
       businessActivityTypes: dto.businessActivityTypes,
       references: dto.references,
       membershipType: dto.membershipType,
-      location: dto.location,
       birthPlace: dto.birthPlace,
       birthDate: dto.birthDate ? new Date(dto.birthDate) : undefined,
       nationality: dto.nationality,

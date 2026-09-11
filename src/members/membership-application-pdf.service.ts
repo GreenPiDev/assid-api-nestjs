@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PDFDocument, PDFFont, PDFPage, rgb } from 'pdf-lib';
+import { PDFDocument, PDFFont, PDFImage, PDFPage, rgb } from 'pdf-lib';
 import { PdfService } from '../pdf/pdf.service';
 import { getSectorName } from '../common/utils/search.util';
 
@@ -7,9 +7,20 @@ const PAGE_WIDTH = 595.28; // A4
 const PAGE_HEIGHT = 841.89;
 const MARGIN = 40;
 const CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2;
+const HEADER_HEIGHT = 92;
+const FOOTER_HEIGHT = 42;
+const CONTENT_TOP = PAGE_HEIGHT - HEADER_HEIGHT - 26;
+const CONTENT_BOTTOM = FOOTER_HEIGHT + 24;
 
-const BLACK = rgb(0, 0, 0);
-const GRAY = rgb(0.4, 0.4, 0.4);
+// assid-frontend-react/src/index.css'teki --color-assid-* token'larıyla
+// birebir aynı palet — PDF, sitenin marka renkleriyle tutarlı olsun diye.
+const BRAND = rgb(0x12 / 255, 0x3a / 255, 0x63 / 255); // --color-assid-green
+const BRAND_DARK = rgb(0x08 / 255, 0x1f / 255, 0x38 / 255); // --color-assid-green-dark
+const INK = rgb(0x0d / 255, 0x1b / 255, 0x2a / 255); // --color-assid-ink
+const MUTED = rgb(0x62 / 255, 0x70 / 255, 0x7d / 255); // --color-assid-muted
+const PAPER = rgb(0xf2 / 255, 0xf5 / 255, 0xf8 / 255); // --color-assid-paper
+const LINE = rgb(0xdb / 255, 0xe3 / 255, 0xea / 255); // --color-assid-line
+const WHITE = rgb(1, 1, 1);
 
 export interface MembershipApplicationPdfData {
   applicationDate: Date;
@@ -24,7 +35,6 @@ export interface MembershipApplicationPdfData {
   businessActivityTypes?: string[];
   references?: string;
   membershipType?: string;
-  location?: string;
   birthPlace?: string;
   birthDate?: Date;
   nationality?: string;
@@ -43,6 +53,19 @@ export interface MembershipApplicationPdfData {
   cardNumberLast4?: string;
   paymentConsent: boolean;
   bylawsAcknowledged: boolean;
+  // Kurum kimliği (dernek adı/adresi vb.) hiçbir yerde hardcode edilmiyor —
+  // header/footer/beyan metinlerindeki dernek bilgileri admin panelinden
+  // (/panel/organizasyon-bilgileri) setlenen OrganizationSettings'ten gelir.
+  orgName: string;
+  orgShortName?: string;
+  orgAddress?: string;
+  orgPhone?: string;
+  orgEmail?: string;
+  orgWebsite?: string;
+  // Logo görseli PNG/JPEG ise gömülür; webp/svg gibi pdf-lib'in
+  // gömemediği formatlarda veya logo yoksa header metin tabanlı fallback'e
+  // düşer (bkz. PageCursor.drawHeader).
+  logoImage?: { bytes: Uint8Array; format: 'png' | 'jpg' };
 }
 
 const BUSINESS_ACTIVITY_LABELS: Record<string, string> = {
@@ -62,11 +85,6 @@ const CONTACT_PREFERENCE_LABELS: Record<string, string> = {
 const MARITAL_STATUS_LABELS: Record<string, string> = {
   married: 'Evli',
   single: 'Bekar',
-};
-
-const MEMBERSHIP_TYPE_LABELS: Record<string, string> = {
-  individual: 'Bireysel',
-  corporate: 'Kurumsal',
 };
 
 const COLLECTION_TYPE_LABELS: Record<string, string> = {
@@ -115,64 +133,159 @@ function formatDate(date?: Date): string {
   return date.toLocaleDateString('tr-TR');
 }
 
+interface Branding {
+  name: string;
+  shortName: string;
+  address?: string;
+  phone?: string;
+  email?: string;
+  website?: string;
+  logoImage?: PDFImage;
+}
+
 class PageCursor {
   y: number;
+  page: PDFPage;
+
   constructor(
     private readonly doc: PDFDocument,
-    public page: PDFPage,
     private readonly regular: PDFFont,
     private readonly bold: PDFFont,
+    private readonly org: Branding,
   ) {
-    this.y = PAGE_HEIGHT - MARGIN;
+    this.page = this.doc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
+    this.drawHeader();
+    this.y = CONTENT_TOP;
   }
 
-  newPage(): void {
+  private drawHeader(): void {
+    this.page.drawRectangle({
+      x: 0,
+      y: PAGE_HEIGHT - HEADER_HEIGHT,
+      width: PAGE_WIDTH,
+      height: HEADER_HEIGHT,
+      color: BRAND,
+    });
+
+    if (this.org.logoImage) {
+      const maxWidth = 230;
+      const maxHeight = HEADER_HEIGHT - 24;
+      const scale = Math.min(maxWidth / this.org.logoImage.width, maxHeight / this.org.logoImage.height, 1);
+      const w = this.org.logoImage.width * scale;
+      const h = this.org.logoImage.height * scale;
+      this.page.drawImage(this.org.logoImage, {
+        x: (PAGE_WIDTH - w) / 2,
+        y: PAGE_HEIGHT - HEADER_HEIGHT + (HEADER_HEIGHT - h) / 2,
+        width: w,
+        height: h,
+      });
+    } else {
+      const shortSize = 22;
+      const shortWidth = this.bold.widthOfTextAtSize(this.org.shortName, shortSize);
+      this.page.drawText(this.org.shortName, {
+        x: (PAGE_WIDTH - shortWidth) / 2,
+        y: PAGE_HEIGHT - HEADER_HEIGHT / 2 - 4,
+        size: shortSize,
+        font: this.bold,
+        color: WHITE,
+      });
+      const nameSize = 8;
+      const nameWidth = this.regular.widthOfTextAtSize(this.org.name, nameSize);
+      this.page.drawText(this.org.name, {
+        x: (PAGE_WIDTH - nameWidth) / 2,
+        y: PAGE_HEIGHT - HEADER_HEIGHT / 2 - 20,
+        size: nameSize,
+        font: this.regular,
+        color: WHITE,
+      });
+    }
+  }
+
+  newPage(withCompactTitle = true): void {
     this.page = this.doc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
-    this.y = PAGE_HEIGHT - MARGIN;
+    this.drawHeader();
+    this.y = CONTENT_TOP;
+    if (withCompactTitle) {
+      this.page.drawText('ÜYELİK BAŞVURU FORMU', { x: MARGIN, y: this.y, size: 12, font: this.bold, color: INK });
+      this.y -= 15;
+      this.paragraph('* Lütfen formu eksiksiz doldurunuz. Başvurunuz Yönetim Kurulunun değerlendirmesine sunulacaktır.', 7.5, 10);
+      this.y -= 6;
+    }
   }
 
   ensureSpace(height: number): void {
-    if (this.y - height < MARGIN) this.newPage();
+    if (this.y - height < CONTENT_BOTTOM) this.newPage();
   }
 
-  title(text: string): void {
-    const size = 15;
-    const lines = this.wrapText(text, this.bold, size, CONTENT_WIDTH);
+  title(text: string, width = CONTENT_WIDTH): void {
+    const size = 22;
+    const lines = this.wrapText(text, this.bold, size, width);
     for (const line of lines) {
-      this.ensureSpace(20);
-      this.page.drawText(line, { x: MARGIN, y: this.y, size, font: this.bold, color: BLACK });
-      this.y -= 20;
+      this.ensureSpace(size + 6);
+      this.page.drawText(line, { x: MARGIN, y: this.y, size, font: this.bold, color: INK });
+      this.y -= size + 6;
     }
-    this.y -= 4;
+    this.y -= 2;
+  }
+
+  dateBox(label: string, value: string): void {
+    const width = 170;
+    const height = 34;
+    const x = PAGE_WIDTH - MARGIN - width;
+    const y = this.y + 14;
+    this.page.drawRectangle({ x, y: y - height, width, height, borderColor: LINE, borderWidth: 1, color: PAPER });
+    this.page.drawText(label, { x: x + 10, y: y - 13, size: 7.5, font: this.bold, color: MUTED });
+    this.page.drawText(value, { x: x + 10, y: y - 27, size: 11, font: this.bold, color: INK });
   }
 
   sectionHeader(text: string): void {
-    this.ensureSpace(22);
+    this.ensureSpace(24);
+    this.page.drawText(text, { x: MARGIN, y: this.y, size: 11.5, font: this.bold, color: BRAND });
+    this.y -= 6;
     this.page.drawLine({
-      start: { x: MARGIN, y: this.y + 4 },
-      end: { x: PAGE_WIDTH - MARGIN, y: this.y + 4 },
-      thickness: 0.5,
-      color: GRAY,
+      start: { x: MARGIN, y: this.y },
+      end: { x: PAGE_WIDTH - MARGIN, y: this.y },
+      thickness: 1.2,
+      color: BRAND,
     });
-    this.page.drawText(text, { x: MARGIN, y: this.y - 10, size: 11, font: this.bold, color: BLACK });
-    this.y -= 26;
-  }
-
-  field(label: string, value: string, xOffset = 0, width = CONTENT_WIDTH): void {
-    this.ensureSpace(16);
-    const x = MARGIN + xOffset;
-    this.page.drawText(`${label}:`, { x, y: this.y, size: 9, font: this.bold, color: GRAY });
-    const labelWidth = this.bold.widthOfTextAtSize(`${label}: `, 9);
-    const maxValueWidth = width - labelWidth;
-    const truncated = this.fitText(value || '—', this.regular, 10, maxValueWidth);
-    this.page.drawText(truncated, { x: x + labelWidth, y: this.y, size: 10, font: this.regular, color: BLACK });
     this.y -= 16;
   }
 
+  field(label: string, value: string, xOffset = 0, width = CONTENT_WIDTH): void {
+    const boxHeight = 17;
+    this.ensureSpace(boxHeight + 6);
+    const x = MARGIN + xOffset;
+    const labelSize = 8.5;
+    // Sütun genişliği normalde sabit bir orana göre belirlenir, ama uzun
+    // etiketler (örn. "Üye Olduğu Oda veya Dernekler") bu payı aşarsa
+    // etiketin kendi metin genişliğine göre büyütülür — aksi halde üstüne
+    // çizilen kutu, etiketin son harflerini örter.
+    const labelWidth = Math.min(width * 0.55, Math.max(132, this.bold.widthOfTextAtSize(label, labelSize) + 10));
+    this.page.drawText(label, { x, y: this.y - 5, size: labelSize, font: this.bold, color: MUTED });
+    const boxX = x + labelWidth;
+    const boxWidth = Math.max(width - labelWidth, 20);
+    this.page.drawRectangle({
+      x: boxX,
+      y: this.y - boxHeight + 4,
+      width: boxWidth,
+      height: boxHeight,
+      color: PAPER,
+      borderColor: LINE,
+      borderWidth: 1,
+    });
+    const truncated = this.fitText(value || '—', this.regular, 9.5, boxWidth - 12);
+    this.page.drawText(truncated, { x: boxX + 6, y: this.y - boxHeight + 9, size: 9.5, font: this.regular, color: INK });
+    this.y -= boxHeight + 8;
+  }
+
   fieldRow(fields: [string, string][]): void {
-    const colWidth = CONTENT_WIDTH / fields.length;
-    this.ensureSpace(16);
-    fields.forEach(([label, value], i) => this.field(label, value, i * colWidth, colWidth - 10));
+    const gap = 14;
+    const colWidth = (CONTENT_WIDTH - gap * (fields.length - 1)) / fields.length;
+    const startY = this.y;
+    fields.forEach(([label, value], i) => {
+      this.y = startY;
+      this.field(label, value, i * (colWidth + gap), colWidth);
+    });
   }
 
   checkbox(label: string, checked: boolean, xOffset = 0): number {
@@ -180,23 +293,23 @@ class PageCursor {
     this.page.drawRectangle({
       x,
       y: this.y - 1,
-      width: 9,
-      height: 9,
-      borderColor: BLACK,
-      borderWidth: 1,
-      color: checked ? BLACK : undefined,
+      width: 10,
+      height: 10,
+      borderColor: checked ? BRAND : LINE,
+      borderWidth: 1.2,
+      color: checked ? BRAND : WHITE,
     });
-    this.page.drawText(label, { x: x + 13, y: this.y, size: 9, font: this.regular, color: BLACK });
-    return this.regular.widthOfTextAtSize(label, 9) + 20;
+    this.page.drawText(label, { x: x + 15, y: this.y, size: 9, font: this.regular, color: INK });
+    return this.regular.widthOfTextAtSize(label, 9) + 26;
   }
 
   checkboxRow(items: [string, boolean][]): void {
-    this.ensureSpace(16);
+    this.ensureSpace(18);
     let x = 0;
     for (const [label, checked] of items) {
       x += this.checkbox(label, checked, x);
     }
-    this.y -= 18;
+    this.y -= 20;
   }
 
   private fitText(text: string, font: PDFFont, size: number, maxWidth: number): string {
@@ -225,12 +338,12 @@ class PageCursor {
     return lines;
   }
 
-  paragraph(text: string, size = 8, lineHeight = 10, width = CONTENT_WIDTH, xOffset = 0): void {
+  paragraph(text: string, size = 8, lineHeight = 10, width = CONTENT_WIDTH, xOffset = 0, color = MUTED): void {
     for (const paraLine of text.split('\n')) {
       const lines = this.wrapText(paraLine, this.regular, size, width);
       for (const line of lines) {
         this.ensureSpace(lineHeight);
-        this.page.drawText(line, { x: MARGIN + xOffset, y: this.y, size, font: this.regular, color: BLACK });
+        this.page.drawText(line, { x: MARGIN + xOffset, y: this.y, size, font: this.regular, color });
         this.y -= lineHeight;
       }
     }
@@ -241,8 +354,8 @@ class PageCursor {
       const lines = this.wrapText(item, this.regular, size, CONTENT_WIDTH - 14);
       lines.forEach((line, i) => {
         this.ensureSpace(lineHeight);
-        this.page.drawText(i === 0 ? '•' : '', { x: MARGIN, y: this.y, size, font: this.bold, color: BLACK });
-        this.page.drawText(line, { x: MARGIN + 14, y: this.y, size, font: this.regular, color: BLACK });
+        if (i === 0) this.page.drawText('•', { x: MARGIN, y: this.y, size, font: this.bold, color: BRAND });
+        this.page.drawText(line, { x: MARGIN + 14, y: this.y, size, font: this.regular, color: INK });
         this.y -= lineHeight;
       });
     }
@@ -252,27 +365,71 @@ class PageCursor {
     this.y -= height;
   }
 
-  signatureBox(label: string): void {
-    this.ensureSpace(40);
-    this.y -= 20;
-    this.page.drawLine({
-      start: { x: PAGE_WIDTH - MARGIN - 180, y: this.y },
-      end: { x: PAGE_WIDTH - MARGIN, y: this.y },
-      thickness: 0.5,
-      color: GRAY,
+  // Fiziksel imza için ayrılmış, kenarlıklı boş bir kutu (sağ üstte).
+  signatureBox(label: string, width = 180, height = 50): void {
+    this.ensureSpace(height + 6);
+    const x = PAGE_WIDTH - MARGIN - width;
+    this.page.drawRectangle({ x, y: this.y - height, width, height, borderColor: LINE, borderWidth: 1 });
+    this.page.drawText(label, { x: x + 8, y: this.y - 14, size: 8, font: this.regular, color: MUTED });
+    this.y -= height + 8;
+  }
+
+  signatureRow(labels: string[]): void {
+    const height = 60;
+    this.ensureSpace(height + 6);
+    const colWidth = CONTENT_WIDTH / labels.length;
+    labels.forEach((label, i) => {
+      const x = MARGIN + i * colWidth;
+      this.page.drawRectangle({ x, y: this.y - height, width: colWidth, height, borderColor: LINE, borderWidth: 1 });
+      const labelWidth = this.bold.widthOfTextAtSize(label, 9);
+      this.page.drawText(label, { x: x + (colWidth - labelWidth) / 2, y: this.y - height + 10, size: 9, font: this.bold, color: INK });
     });
-    this.page.drawText(label, { x: PAGE_WIDTH - MARGIN - 180, y: this.y - 12, size: 8, font: this.regular, color: GRAY });
-    this.y -= 20;
+    this.y -= height + 8;
+  }
+
+  table(headers: string[], rows: string[][], colRatios: number[]): void {
+    const rowHeight = 20;
+    const totalRatio = colRatios.reduce((a, b) => a + b, 0);
+    const colWidths = colRatios.map((r) => (CONTENT_WIDTH * r) / totalRatio);
+    this.ensureSpace(rowHeight * (rows.length + 1) + 4);
+
+    let x = MARGIN;
+    this.page.drawRectangle({ x: MARGIN, y: this.y - rowHeight, width: CONTENT_WIDTH, height: rowHeight, color: BRAND });
+    headers.forEach((header, i) => {
+      this.page.drawText(header, { x: x + 8, y: this.y - rowHeight + 6, size: 9.5, font: this.bold, color: WHITE });
+      x += colWidths[i];
+    });
+    this.y -= rowHeight;
+
+    rows.forEach((row) => {
+      x = MARGIN;
+      this.page.drawRectangle({
+        x: MARGIN,
+        y: this.y - rowHeight,
+        width: CONTENT_WIDTH,
+        height: rowHeight,
+        color: WHITE,
+        borderColor: LINE,
+        borderWidth: 1,
+      });
+      row.forEach((cell, i) => {
+        this.page.drawText(cell, { x: x + 8, y: this.y - rowHeight + 6, size: 9.5, font: this.regular, color: INK });
+        x += colWidths[i];
+      });
+      this.y -= rowHeight;
+    });
+    this.y -= 8;
   }
 }
 
-// Fiziksel "assid-uyelik-formu.pdf" başvuru formunu taban alarak, başvuru
-// sırasında toplanan verilerle A4 formatında yeni bir PDF üretir (mevcut
-// taranmış şablonun üzerine koordinat bazlı basmak yerine — bakım kolaylığı
-// ve pdf-lib'in font subsetting sınırlamaları nedeniyle bu yol seçildi).
-// Fiziksel formda dernek yönetiminin doldurduğu/kullandığı bölümler (Sektör
-// Durumu, Dernek İçi Kullanım, imza kutuları, Ücretler tablosu) boş/statik
-// şablon olarak basılır.
+// Fiziksel "assid-uyelik-formu.pdf" başvuru formunun görsel diline (koyu
+// lacivert başlık/altbilgi bantları, kutulu alanlar, tablo) sadık kalarak,
+// başvuru sırasında toplanan verilerle A4 formatında yeni bir PDF üretir
+// (mevcut taranmış şablonun üzerine koordinat bazlı basmak yerine — bakım
+// kolaylığı ve pdf-lib'in font subsetting sınırlamaları nedeniyle bu yol
+// seçildi). Fiziksel formda dernek yönetiminin doldurduğu/kullandığı
+// bölümler (Sektör Durumu, Dernek İçi Kullanım, imza kutuları, Ücretler
+// tablosu) boş/statik şablon olarak basılır.
 @Injectable()
 export class MembershipApplicationPdfService {
   constructor(private readonly pdfService: PdfService) {}
@@ -280,20 +437,43 @@ export class MembershipApplicationPdfService {
   async generate(data: MembershipApplicationPdfData): Promise<Buffer> {
     const doc = await this.pdfService.create();
     const { regular, bold } = await this.pdfService.embedTrFonts(doc);
-    const page = doc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
-    const c = new PageCursor(doc, page, regular, bold);
+
+    let logoImage: PDFImage | undefined;
+    if (data.logoImage) {
+      try {
+        logoImage =
+          data.logoImage.format === 'png'
+            ? await doc.embedPng(data.logoImage.bytes)
+            : await doc.embedJpg(data.logoImage.bytes);
+      } catch {
+        logoImage = undefined; // bozuk/desteklenmeyen görsel — metin fallback'ine düşülür
+      }
+    }
+
+    const org: Branding = {
+      name: data.orgName,
+      shortName: data.orgShortName || data.orgName,
+      address: data.orgAddress,
+      phone: data.orgPhone,
+      email: data.orgEmail,
+      website: data.orgWebsite,
+      logoImage,
+    };
+
+    const c = new PageCursor(doc, regular, bold, org);
 
     // --- Sayfa 1: Genel / Üyelik Sınıfı / Kişisel Bilgiler ---
-    c.page.drawText(`BAŞVURU TARİHİ: ${formatDate(data.applicationDate)}`, {
-      x: PAGE_WIDTH - MARGIN - 160,
-      y: c.y,
-      size: 9,
-      font: regular,
-      color: GRAY,
-    });
     c.title('ÜYELİK BAŞVURU FORMU');
-    c.paragraph('* Lütfen formu eksiksiz doldurunuz. Başvurunuz Yönetim Kurulunun değerlendirmesine sunulacaktır.', 8, 11);
-    c.spacer(8);
+    c.dateBox('BAŞVURU TARİHİ', formatDate(data.applicationDate));
+    // Not metni sağ üstteki tarih kutusuyla çakışmasın diye genişliği
+    // kutunun bıraktığı alanla sınırlandırılıyor.
+    c.paragraph(
+      '* Lütfen formu eksiksiz doldurunuz. Başvurunuz Yönetim Kurulunun değerlendirmesine sunulacaktır.',
+      8,
+      11,
+      290,
+    );
+    c.spacer(20);
 
     c.sectionHeader('1 — GENEL BİLGİLER');
     c.field('Adı Soyadı', data.fullName);
@@ -305,7 +485,6 @@ export class MembershipApplicationPdfService {
       ['Cep Telefonu', data.mobilePhone ?? ''],
     ]);
     c.field('E Posta', data.email);
-    c.field('Lokasyon', data.location ?? '');
     c.field('Faaliyet Alanı / Sektör', data.sectors.map(getSectorName).join(', '));
     c.checkboxRow(
       Object.entries(BUSINESS_ACTIVITY_LABELS).map(([key, label]) => [
@@ -314,7 +493,7 @@ export class MembershipApplicationPdfService {
       ]),
     );
     c.field('Referanslar', data.references ?? '');
-    c.spacer(6);
+    c.spacer(4);
 
     c.sectionHeader('2 — ÜYELİK SINIFI');
     c.checkboxRow([
@@ -323,7 +502,7 @@ export class MembershipApplicationPdfService {
     ]);
     c.paragraph('Sektör Durumu (Sektör İçi / Sektör Dışı): * Bu kısım Yönetim Kurulu tarafından doldurulacaktır.', 8, 11);
     c.paragraph('* Sınıflandırma ve nihai üyelik sınıfı Yönetim Kurulu değerlendirmesiyle kesinleşir.', 7, 10);
-    c.spacer(6);
+    c.spacer(4);
 
     c.sectionHeader('3 — KİŞİSEL BİLGİLER');
     c.fieldRow([
@@ -345,8 +524,17 @@ export class MembershipApplicationPdfService {
     // --- Sayfa 2: Ücretler / Ekler / İletişim / Dernek İçi Kullanım ---
     c.newPage();
     c.sectionHeader('4 — ÜCRETLER');
-    c.paragraph('Sektör İçi Bireysel: 10.000₺   |   Sektör İçi Kurumsal: 20.000₺   |   Sektör Dışı Bireysel: 50.000₺', 8, 12);
-    c.paragraph('Sektör Dışı Kurumsal: 80.000₺   |   Aylık Aidat: 1.000₺', 8, 12);
+    c.table(
+      ['Üyelik Sınıfı', 'Tutar'],
+      [
+        ['Sektör İçi Bireysel', '10.000₺'],
+        ['Sektör İçi Kurumsal', '20.000₺'],
+        ['Sektör Dışı Bireysel', '50.000₺'],
+        ['Sektör Dışı Kurumsal', '80.000₺'],
+        ['Aylık Aidat', '1.000₺'],
+      ],
+      [0.65, 0.35],
+    );
     c.paragraph('* Kesin üyelik sınıfı ve tutar, Yönetim Kurulu onayı sonrası belirlenir.', 7, 10);
     c.spacer(8);
 
@@ -358,16 +546,14 @@ export class MembershipApplicationPdfService {
     c.checkboxRow(
       Object.entries(CONTACT_PREFERENCE_LABELS).map(([key, label]) => [label, data.contactPreference === key]),
     );
-    c.spacer(6);
+    c.spacer(4);
 
     c.sectionHeader('7 — DERNEK İÇİ KULLANIM');
-    c.paragraph('Yönetim Kurulu Karar ve Tarih Sayısı: ____________________', 9, 14);
-    c.spacer(30);
-    c.fieldRow([
-      ['Genel Sekreter (imza)', ''],
-      ['Sayman (imza)', ''],
-      ['Genel Başkan (imza)', ''],
-    ]);
+    c.field('Yönetim Kurulu Karar ve Tarih Sayısı', '');
+    c.spacer(16);
+    c.paragraph('İlgili İmzalar', 9, 12, CONTENT_WIDTH, 0, INK);
+    c.spacer(4);
+    c.signatureRow(['Genel Sekreter', 'Sayman', 'Genel Başkan']);
 
     // --- Sayfa 3: Beyan/Onay, EK-1, EK-2, Tüzük Okuma Beyanı ---
     c.newPage();
@@ -376,11 +562,11 @@ export class MembershipApplicationPdfService {
     c.spacer(6);
 
     c.sectionHeader('EK-1 — DERNEK TÜZÜĞÜ (Özet)');
-    c.paragraph(EK1_BYLAWS_TEXT, 7, 9.5);
+    c.paragraph(EK1_BYLAWS_TEXT, 7, 9.5, CONTENT_WIDTH, 0, INK);
     c.spacer(6);
 
     c.sectionHeader('EK-2 — KVKK AYDINLATMA METNİ');
-    c.paragraph(EK2_KVKK_TEXT, 7, 9.5);
+    c.paragraph(EK2_KVKK_TEXT, 7, 9.5, CONTENT_WIDTH, 0, INK);
     c.spacer(10);
 
     c.sectionHeader('9 — TÜZÜK OKUMA BEYANI');
@@ -389,20 +575,20 @@ export class MembershipApplicationPdfService {
     c.signatureBox('Tarih / İmza (fiziksel imza için ayrılmıştır)');
 
     // --- Sayfa 4: Kredi Kartı / Otomatik Ödeme Talimatı ---
-    c.newPage();
-    c.title('KREDİ KARTI ÖDEME TALİMATI (MAIL ORDER) / OTOMATİK ÖDEME TALİMATI');
+    c.newPage(false);
+    c.title('KREDİ KARTI ÖDEME TALİMATI / OTOMATİK ÖDEME TALİMATI');
     c.sectionHeader('Üye / Firma Bilgileri');
     c.field('Adı Soyadı', data.fullName);
     c.field('Şirket / Kurum Adı', data.companyName ?? '');
     c.field('Görevi / Ünvanı', data.title ?? '');
     c.field('Şirket / Kurum Adresi', data.companyAddress ?? '');
-    c.spacer(6);
+    c.spacer(4);
 
     c.sectionHeader('Tahsilat Türü');
     c.checkboxRow(
       Object.entries(COLLECTION_TYPE_LABELS).map(([key, label]) => [label, data.collectionType === key]),
     );
-    c.spacer(6);
+    c.spacer(4);
 
     c.sectionHeader('Tutar ve Otomatik Çekim Günü');
     if (data.collectionType === 'entry_fee') {
@@ -416,7 +602,7 @@ export class MembershipApplicationPdfService {
       c.field('Otomatik Çekim Tarihi / Günü', '');
     }
     c.paragraph('Tutar: Yönetim Kurulu onayı sonrası kesinleşen üyelik sınıfına göre belirlenir.', 8, 11);
-    c.spacer(6);
+    c.spacer(4);
 
     c.sectionHeader('Kart Bilgileri');
     c.paragraph(
@@ -426,22 +612,72 @@ export class MembershipApplicationPdfService {
       8,
       11,
     );
-    c.spacer(6);
+    c.spacer(4);
 
     c.sectionHeader('Yetkilendirme Metni');
     c.paragraph(
-      "Bu form kapsamında; seçtiğim tahsilat türü ve tutar(lar) doğrultusunda, kredi kartımdan Ankara Siteler Sanayici ve İş İnsanları Derneği (ASSİD) tarafından tahsilat yapılmasına muvafakat ederim. Otomatik ödeme talimatı seçilmişse, iptal bildirimime kadar talimatın yürürlükte kalacağını kabul ederim.",
+      `Bu form kapsamında; seçtiğim tahsilat türü ve tutar(lar) doğrultusunda, kredi kartımdan ${org.name} tarafından tahsilat yapılmasına muvafakat ederim. Otomatik ödeme talimatı seçilmişse, iptal bildirimime kadar talimatın yürürlükte kalacağını kabul ederim.`,
       8,
       11,
+      CONTENT_WIDTH,
+      0,
+      INK,
     );
     c.checkboxRow([['Karttan çekime rıza gösteriyorum', data.paymentConsent]]);
-    c.spacer(6);
+    c.spacer(4);
 
     c.sectionHeader('Banka Havalesi / EFT Bilgileri (Alternatif Ödeme)');
-    c.paragraph('Hesap Sahibi / Ünvan: Ankara Siteler Sanayici ve İş İnsanları Derneği (ASSİD)', 8, 11);
-    c.paragraph('IBAN: TR13 0006 2000 6380 0006 2951 19', 8, 11);
+    c.paragraph(`Hesap Sahibi / Ünvan: ${org.name}`, 8, 11, CONTENT_WIDTH, 0, INK);
+    c.paragraph('IBAN: TR13 0006 2000 6380 0006 2951 19', 8, 11, CONTENT_WIDTH, 0, INK);
     c.signatureBox('Tarih / İmza (fiziksel imza için ayrılmıştır)');
 
+    // --- Alt bilgi bandı: tüm sayfa sayısı belli olduktan sonra tek geçişte çizilir ---
+    const pages = doc.getPages();
+    pages.forEach((page, index) => {
+      this.drawFooter(page, regular, bold, org, index + 1, pages.length);
+    });
+
     return this.pdfService.save(doc);
+  }
+
+  private drawFooter(page: PDFPage, regular: PDFFont, bold: PDFFont, org: Branding, pageNum: number, totalPages: number): void {
+    page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: FOOTER_HEIGHT, color: BRAND_DARK });
+
+    const addressLabel = `${org.shortName} Genel Merkezi adresi: `;
+    const addressValue = org.address ?? '';
+    const labelSize = 7.5;
+    page.drawText(addressLabel, { x: MARGIN, y: FOOTER_HEIGHT / 2 - 3, size: labelSize, font: bold, color: WHITE });
+    const labelWidth = bold.widthOfTextAtSize(addressLabel, labelSize);
+    page.drawText(addressValue, {
+      x: MARGIN + labelWidth,
+      y: FOOTER_HEIGHT / 2 - 3,
+      size: labelSize,
+      font: regular,
+      color: WHITE,
+    });
+
+    const contactParts = [org.website, org.email, org.phone].filter(Boolean) as string[];
+    if (contactParts.length > 0) {
+      const contactText = contactParts.join('  /  ');
+      const contactWidth = regular.widthOfTextAtSize(contactText, labelSize);
+      page.drawText(contactText, {
+        x: PAGE_WIDTH - MARGIN - contactWidth,
+        y: FOOTER_HEIGHT / 2 - 3,
+        size: labelSize,
+        font: regular,
+        color: WHITE,
+      });
+    }
+
+    const pageText = `sayfa ${pageNum}/${totalPages}`;
+    const pageTextSize = 7;
+    const pageTextWidth = regular.widthOfTextAtSize(pageText, pageTextSize);
+    page.drawText(pageText, {
+      x: PAGE_WIDTH - MARGIN - pageTextWidth,
+      y: 8,
+      size: pageTextSize,
+      font: regular,
+      color: rgb(1, 1, 1),
+    });
   }
 }

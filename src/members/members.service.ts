@@ -1,5 +1,6 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { ApplicationStatus, Prisma } from '@prisma/client';
+import { randomBytes } from 'crypto';
+import { ApplicationStatus, Prisma, Role } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { ApplyMemberDto } from './dto/apply-member.dto';
 import { CreateMemberDto } from './dto/create-member.dto';
@@ -7,6 +8,20 @@ import { UpdateMemberDto } from './dto/update-member.dto';
 import { getSectorName, normalizeTr, textIncludes } from '../common/utils/search.util';
 import { withMongoId, withMongoIdList } from '../common/utils/prisma-response.util';
 import { isPrismaNotFound, isPrismaUniqueViolation } from '../common/utils/prisma-errors.util';
+import { UsersService } from '../users/users.service';
+import { MailService } from '../common/mail/mail.service';
+
+// URL/e-posta içinde karışmasın diye 0/O/1/I/l gibi karakterler çıkarıldı.
+const PASSWORD_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+
+function generateTempPassword(length = 12): string {
+  const bytes = randomBytes(length);
+  let password = '';
+  for (let i = 0; i < length; i++) {
+    password += PASSWORD_ALPHABET[bytes[i] % PASSWORD_ALPHABET.length];
+  }
+  return password;
+}
 
 export interface FindMembersQuery {
   sector?: string;
@@ -36,7 +51,11 @@ function toMemberData(dto: MemberInput) {
 
 @Injectable()
 export class MembersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private usersService: UsersService,
+    private mailService: MailService,
+  ) {}
 
   async create(dto: MemberInput) {
     try {
@@ -128,19 +147,34 @@ export class MembersService {
   }
 
   async setApplicationStatus(id: string, status: ApplicationStatus) {
+    let member;
     try {
-      const member = await this.prisma.member.update({
+      member = await this.prisma.member.update({
         where: { id },
         data: {
           applicationStatus: status,
           approvedAt: status === ApplicationStatus.approved ? new Date() : undefined,
         },
       });
-      return withMongoId(member);
     } catch (error) {
       if (isPrismaNotFound(error)) throw new NotFoundException('Member not found');
       throw error;
     }
+
+    // Üyelik ilk kez onaylandığında üye paneli için otomatik bir hesap
+    // oluşturulup giriş bilgileri e-posta ile gönderilir. Zaten bir hesabı
+    // olan üye tekrar onaylanırsa (örn. reddedilip sonra tekrar onaylanırsa)
+    // mevcut hesap/şifresi korunur, yeni hesap açılmaz.
+    if (status === ApplicationStatus.approved) {
+      const existingUser = await this.usersService.findByEmail(member.email);
+      if (!existingUser) {
+        const tempPassword = generateTempPassword();
+        await this.usersService.create({ email: member.email, password: tempPassword, role: Role.member, memberId: member.id });
+        await this.mailService.sendMemberApprovedEmail(member.email, tempPassword).catch(() => undefined);
+      }
+    }
+
+    return withMongoId(member);
   }
 
   async setLogo(id: string, logoUrl: string) {

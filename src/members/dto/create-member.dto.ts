@@ -23,6 +23,7 @@ import {
   SectorStatus,
 } from '@prisma/client';
 import { SECTOR_SLUGS, SectorSlug } from '../../common/constants/sector.constant';
+import { LOCATION_SLUGS, LocationSlug } from '../../common/constants/location.constant';
 
 export class CreateMemberDto {
   @IsString()
@@ -73,8 +74,9 @@ export class CreateMemberDto {
   sectorStatus?: SectorStatus;
 
   @IsOptional()
-  @IsString()
-  location?: string;
+  @IsArray()
+  @IsIn(LOCATION_SLUGS, { each: true })
+  locations?: LocationSlug[];
 
   @IsOptional()
   @IsEnum(CollectionType)

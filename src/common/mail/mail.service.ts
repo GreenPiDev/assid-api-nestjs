@@ -49,6 +49,19 @@ export class MailService {
     await this.sendMail(to, 'ASSİD - Şifre Sıfırlama Talebi', html);
   }
 
+  async sendMemberApprovedEmail(to: string, password: string) {
+    const frontendUrl = this.config.get<string>('FRONTEND_URL') ?? 'http://localhost:5173';
+    const loginUrl = `${frontendUrl}/giris`;
+    const html = renderEmailTemplate(`
+      <h2 style="margin-bottom:8px">Üyeliğiniz Onaylandı</h2>
+      <p>ASSİD üyelik başvurunuz onaylandı. Üye panelinize aşağıdaki bilgilerle giriş yapabilirsiniz:</p>
+      <p><strong>Kullanıcı adı (e-posta):</strong> ${to}<br/><strong>Şifre:</strong> ${password}</p>
+      ${emailButton(loginUrl, 'Üye Paneline Giriş Yap')}
+      <p style="color:#62707d;font-size:0.85rem">Güvenliğiniz için giriş yaptıktan sonra şifrenizi değiştirmenizi öneririz.</p>
+    `);
+    await this.sendMail(to, 'ASSİD - Üyeliğiniz Onaylandı', html);
+  }
+
   async sendMail(to: string, subject: string, html: string): Promise<void> {
     try {
       await this.transporter.sendMail({ from: this.from, to, subject, html });
