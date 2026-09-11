@@ -68,6 +68,15 @@ export interface MembershipApplicationPdfData {
   logoImage?: { bytes: Uint8Array; format: 'png' | 'jpg' };
 }
 
+const REQUIRED_DOCUMENTS = [
+  '2 Adet Fotoğraf',
+  'Adli Sicil Kaydı',
+  'Kimlik Fotokopisi',
+  'Ticaret Sicil Gazetesi (Kurumsal)',
+  'Vergi Levhası (Kurumsal)',
+  'İmza Sirküleri (Kurumsal)',
+];
+
 const BUSINESS_ACTIVITY_LABELS: Record<string, string> = {
   manufacturer: 'Üretici',
   importer: 'İthalat',
@@ -539,7 +548,14 @@ export class MembershipApplicationPdfService {
     c.spacer(8);
 
     c.sectionHeader('5 — EKLER');
-    c.bulletList(data.documentLabels.length > 0 ? data.documentLabels : ['(Başvuruyla birlikte ek belge yüklenmedi)']);
+    c.paragraph(
+      'Aşağıdaki evraklar, bu form çıktısıyla birlikte fiziksel olarak derneğe ulaştırılmalıdır:',
+      7,
+      10,
+    );
+    for (const doc of REQUIRED_DOCUMENTS) {
+      c.checkboxRow([[doc, false]]);
+    }
     c.spacer(4);
 
     c.sectionHeader('6 — İLETİŞİM TERCİHİ');
