@@ -18,6 +18,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { MessagingModule } from './messaging/messaging.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { MessagingModule } from './messaging/messaging.module';
     AuthModule,
     NotificationsModule,
     MessagingModule,
+    PostsModule,
   ],
   controllers: [SectorsController],
 })

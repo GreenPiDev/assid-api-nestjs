@@ -134,6 +134,18 @@ model Member {
   conversationsAsB Conversation[]  @relation("ConversationsAsB")
   sentMessages     Message[]
   notifications    Notification[]
+  posts            Post[]
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  body     String
+  imageUrl String?
 }
 
 model News {
