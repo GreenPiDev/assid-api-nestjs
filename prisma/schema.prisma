@@ -117,6 +117,14 @@ model Member {
   activityAreas       String[] @default([])
   productsAndServices String[] @default([])
 
+  // --- Directory panel: company documents shown publicly as access links
+  // (separate from `documents`, which holds application-time evidence files) ---
+  companyDocuments Json     @default("[]") // {label, url}[]
+  portfolioSlides  String[] @default([]) // ordered slideshow image URLs, max 25 enforced in controller
+
+  // --- Admin-controlled directory promotion flag ---
+  isFeatured Boolean @default(false)
+
   // --- Free-form label/value notes, Json object of string -> string ---
   notes Json?
 
@@ -279,6 +287,7 @@ model Message {
 
 enum NotificationType {
   new_message
+  info_request
 }
 
 model Notification {

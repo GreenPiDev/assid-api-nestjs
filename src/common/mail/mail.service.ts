@@ -62,6 +62,19 @@ export class MailService {
     await this.sendMail(to, 'ASSİD - Üyeliğiniz Onaylandı', html);
   }
 
+  async sendInfoRequestEmail(
+    to: string,
+    data: { name: string; email: string; phone?: string; message: string; companyName: string },
+  ) {
+    const html = renderEmailTemplate(`
+      <h2 style="margin-bottom:8px">Yeni Bilgi Talebi</h2>
+      <p><strong>${data.companyName}</strong> firma profiliniz üzerinden bir ziyaretçi bilgi talebinde bulundu:</p>
+      <p><strong>Ad Soyad:</strong> ${data.name}<br/><strong>E-posta:</strong> ${data.email}${data.phone ? `<br/><strong>Telefon:</strong> ${data.phone}` : ''}</p>
+      <p style="white-space:pre-wrap">${data.message}</p>
+    `);
+    await this.sendMail(to, 'ASSİD - Firma Rehberi Üzerinden Bilgi Talebi', html);
+  }
+
   async sendMail(to: string, subject: string, html: string): Promise<void> {
     try {
       await this.transporter.sendMail({ from: this.from, to, subject, html });

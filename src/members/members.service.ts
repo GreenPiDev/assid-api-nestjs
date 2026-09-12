@@ -12,6 +12,7 @@ import { UsersService } from '../users/users.service';
 import { MailService } from '../common/mail/mail.service';
 import { EncryptionService } from '../common/crypto/encryption.service';
 import { CardInfoDto } from './dto/card-info.dto';
+import { InfoRequestDto } from './dto/info-request.dto';
 
 // URL/e-posta içinde karışmasın diye 0/O/1/I/l gibi karakterler çıkarıldı.
 const PASSWORD_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
@@ -100,7 +101,7 @@ export class MembersService {
         sectors: query.sector ? { has: query.sector } : undefined,
         applicationStatus: query.applicationStatus,
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: [{ isFeatured: 'desc' }, { createdAt: 'desc' }],
       omit: SENSITIVE_FIELD_OMIT,
     });
 
@@ -240,6 +241,68 @@ export class MembersService {
       if (isPrismaNotFound(error)) throw new NotFoundException('Member not found');
       throw error;
     }
+  }
+
+  async addPortfolioSlides(id: string, urls: string[]) {
+    const member = await this.prisma.member.findUnique({ where: { id }, select: { portfolioSlides: true } });
+    if (!member) throw new NotFoundException('Member not found');
+    const updated = await this.prisma.member.update({
+      where: { id },
+      data: { portfolioSlides: { set: [...member.portfolioSlides, ...urls] } },
+      omit: SENSITIVE_FIELD_OMIT,
+    });
+    return withMongoId(updated);
+  }
+
+  async removePortfolioSlide(id: string, url: string) {
+    const member = await this.prisma.member.findUnique({ where: { id }, select: { portfolioSlides: true } });
+    if (!member) throw new NotFoundException('Member not found');
+    const updated = await this.prisma.member.update({
+      where: { id },
+      data: { portfolioSlides: { set: member.portfolioSlides.filter((slide) => slide !== url) } },
+      omit: SENSITIVE_FIELD_OMIT,
+    });
+    return withMongoId(updated);
+  }
+
+  async addCompanyDocuments(id: string, docs: MemberFile[]) {
+    const member = await this.prisma.member.findUnique({ where: { id }, select: { companyDocuments: true } });
+    if (!member) throw new NotFoundException('Member not found');
+    const existing = member.companyDocuments as unknown as MemberFile[];
+    const updated = await this.prisma.member.update({
+      where: { id },
+      data: { companyDocuments: [...existing, ...docs] as unknown as Prisma.InputJsonValue },
+      omit: SENSITIVE_FIELD_OMIT,
+    });
+    return withMongoId(updated);
+  }
+
+  async removeCompanyDocument(id: string, url: string) {
+    const member = await this.prisma.member.findUnique({ where: { id }, select: { companyDocuments: true } });
+    if (!member) throw new NotFoundException('Member not found');
+    const existing = member.companyDocuments as unknown as MemberFile[];
+    const updated = await this.prisma.member.update({
+      where: { id },
+      data: { companyDocuments: existing.filter((doc) => doc.url !== url) as unknown as Prisma.InputJsonValue },
+      omit: SENSITIVE_FIELD_OMIT,
+    });
+    return withMongoId(updated);
+  }
+
+  async sendInfoRequest(id: string, dto: InfoRequestDto) {
+    const member = await this.prisma.member.findUnique({ where: { id } });
+    if (!member) throw new NotFoundException('Member not found');
+
+    const companyName = member.companyName ?? member.fullName;
+    await this.mailService.sendInfoRequestEmail(member.email, { ...dto, companyName });
+    await this.prisma.notification.create({
+      data: {
+        recipientMemberId: id,
+        type: 'info_request',
+        title: 'Yeni bilgi talebi',
+        body: dto.message.slice(0, 140),
+      },
+    });
   }
 
   async remove(id: string) {

@@ -15,7 +15,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor, FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { validate } from 'class-validator';
 import { memoryStorage } from 'multer';
 import type { Response } from 'express';
@@ -27,6 +27,7 @@ import { UpdateMemberDto } from './dto/update-member.dto';
 import { UpdateMemberProfileDto } from './dto/update-member-profile.dto';
 import { CardInfoDto } from './dto/card-info.dto';
 import { SetApplicationStatusDto } from './dto/set-application-status.dto';
+import { InfoRequestDto } from './dto/info-request.dto';
 import { ParseIdPipe } from '../common/pipes/parse-id.pipe';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -43,6 +44,9 @@ const ALLOWED_LOGO_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image
 
 const MAX_DOCUMENT_SIZE_BYTES = 10 * 1024 * 1024;
 const ALLOWED_DOCUMENT_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'application/pdf'];
+
+const MAX_PORTFOLIO_SLIDES = 25;
+const MAX_COMPANY_DOCUMENTS = 10;
 
 const APPLICATION_DOCUMENT_FIELDS = [
   { name: 'photos', maxCount: 2 },
@@ -374,6 +378,77 @@ export class MembersController {
     const memberId = requireOwnMemberId(user);
     const logoUrl = await this.storageService.uploadImage(file, 'member-logos');
     return this.membersService.setLogo(memberId, logoUrl);
+  }
+
+  @Post('me/portfolio-slides')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.member)
+  @UseInterceptors(FilesInterceptor('files', MAX_PORTFOLIO_SLIDES, { storage: memoryStorage(), limits: { fileSize: MAX_LOGO_SIZE_BYTES } }))
+  async uploadOwnPortfolioSlides(
+    @CurrentUser() user: AuthenticatedUser,
+    @UploadedFiles() files?: Express.Multer.File[],
+  ) {
+    if (!files || files.length === 0) throw new BadRequestException('Dosya bulunamadı');
+    for (const file of files) {
+      if (!ALLOWED_LOGO_MIME_TYPES.includes(file.mimetype)) {
+        throw new BadRequestException('Sadece PNG, JPEG, WEBP veya SVG dosyaları yüklenebilir');
+      }
+    }
+
+    const memberId = requireOwnMemberId(user);
+    const existing = await this.membersService.findOne(memberId);
+    const currentCount = (existing.portfolioSlides ?? []).length;
+    if (currentCount + files.length > MAX_PORTFOLIO_SLIDES) {
+      throw new BadRequestException(`En fazla ${MAX_PORTFOLIO_SLIDES} slayt yükleyebilirsiniz`);
+    }
+
+    const urls = await Promise.all(files.map((file) => this.storageService.uploadImage(file, 'member-portfolio')));
+    return this.membersService.addPortfolioSlides(memberId, urls);
+  }
+
+  @Delete('me/portfolio-slides')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.member)
+  removeOwnPortfolioSlide(@CurrentUser() user: AuthenticatedUser, @Body() dto: { url: string }) {
+    return this.membersService.removePortfolioSlide(requireOwnMemberId(user), dto.url);
+  }
+
+  @Post('me/company-documents')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.member)
+  @UseInterceptors(FilesInterceptor('files', MAX_COMPANY_DOCUMENTS, { storage: memoryStorage(), limits: { fileSize: MAX_DOCUMENT_SIZE_BYTES } }))
+  async uploadOwnCompanyDocuments(
+    @CurrentUser() user: AuthenticatedUser,
+    @UploadedFiles() files?: Express.Multer.File[],
+  ) {
+    if (!files || files.length === 0) throw new BadRequestException('Dosya bulunamadı');
+    for (const file of files) {
+      if (file.mimetype !== 'application/pdf') {
+        throw new BadRequestException('Sadece PDF dosyaları yüklenebilir');
+      }
+    }
+
+    const memberId = requireOwnMemberId(user);
+    const docs = await Promise.all(
+      files.map(async (file) => ({
+        label: file.originalname,
+        url: await this.storageService.uploadImage(file, 'member-company-docs'),
+      })),
+    );
+    return this.membersService.addCompanyDocuments(memberId, docs);
+  }
+
+  @Delete('me/company-documents')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.member)
+  removeOwnCompanyDocument(@CurrentUser() user: AuthenticatedUser, @Body() dto: { url: string }) {
+    return this.membersService.removeCompanyDocument(requireOwnMemberId(user), dto.url);
+  }
+
+  @Post(':id/info-request')
+  async sendInfoRequest(@Param('id', ParseIdPipe) id: string, @Body() dto: InfoRequestDto) {
+    await this.membersService.sendInfoRequest(id, dto);
+    return { success: true };
   }
 
   @Get(':id')

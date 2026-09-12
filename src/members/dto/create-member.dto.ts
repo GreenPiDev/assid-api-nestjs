@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
 import {
   IsArray,
+  IsBoolean,
   IsDateString,
   IsEmail,
   IsEnum,
@@ -149,4 +150,8 @@ export class CreateMemberDto {
   @IsOptional()
   @Type(() => Object)
   notes?: Record<string, string>;
+
+  @IsOptional()
+  @IsBoolean()
+  isFeatured?: boolean;
 }
