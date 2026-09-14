@@ -273,12 +273,23 @@ model Conversation {
   updatedAt DateTime @updatedAt
 
   memberAId String
-  memberBId String
-  memberA   Member @relation("ConversationsAsA", fields: [memberAId], references: [id], onDelete: Cascade)
-  memberB   Member @relation("ConversationsAsB", fields: [memberBId], references: [id], onDelete: Cascade)
+  // Üye-admin konuşmalarında (isAdminConversation: true) null olur — karşı taraf
+  // belirli bir Member değil, admin ekibinin kendisidir.
+  memberBId String?
+  memberA   Member  @relation("ConversationsAsA", fields: [memberAId], references: [id], onDelete: Cascade)
+  memberB   Member? @relation("ConversationsAsB", fields: [memberBId], references: [id], onDelete: Cascade)
+
+  // true ise bu, memberA ile dernek yönetimi (admin) arasındaki konuşmadır.
+  isAdminConversation Boolean @default(false)
 
   messages      Message[]
   notifications Notification[]
+
+  // Sıralama için denormalize edilmiş son mesaj zamanı.
+  lastMessageAt DateTime?
+  // Admin'in bu konuşmayı en son okuduğu an; üyelerin Message.readAt durumundan
+  // tamamen bağımsız tutulur (bkz. ikinci-tur-plan.md Faz 4 okunmamış sayaç kuralı).
+  adminReadAt DateTime?
 
   @@unique([memberAId, memberBId])
 }
@@ -290,8 +301,10 @@ model Message {
   conversationId String
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
-  senderMemberId String
-  senderMember   Member @relation(fields: [senderMemberId], references: [id], onDelete: Cascade)
+  // Admin tarafından gönderilen mesajlarda (senderIsAdmin: true) null olur.
+  senderMemberId String?
+  senderMember   Member? @relation(fields: [senderMemberId], references: [id], onDelete: Cascade)
+  senderIsAdmin  Boolean @default(false)
 
   body   String
   readAt DateTime?
@@ -300,14 +313,17 @@ model Message {
 enum NotificationType {
   new_message
   info_request
+  new_conversation
 }
 
 model Notification {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
 
-  recipientMemberId String
-  recipientMember   Member @relation(fields: [recipientMemberId], references: [id], onDelete: Cascade)
+  // Admin geneline düşen bildirimlerde (forAdmin: true) null olur.
+  recipientMemberId String?
+  recipientMember   Member? @relation(fields: [recipientMemberId], references: [id], onDelete: Cascade)
+  forAdmin          Boolean @default(false)
 
   conversationId String?
   conversation   Conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
@@ -316,6 +332,9 @@ model Notification {
   title  String
   body   String
   isRead Boolean @default(false)
+
+  @@index([recipientMemberId, isRead])
+  @@index([forAdmin, isRead])
 }
 
 model User {

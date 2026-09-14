@@ -12,13 +12,18 @@ import type { AuthenticatedUser } from './auth.types';
 const COOKIE_NAME = 'access_token';
 const COOKIE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 
-// Frontend (Vercel) ve backend (Render) farklı origin'lerde olduğu için
-// cookie cross-site sayılıyor; tarayıcılar SameSite=Lax cookie'leri
-// cross-site fetch/XHR isteklerinde göndermiyor, bu yüzden None + Secure şart.
+// Prod'da frontend (Vercel) ve backend (Render) farklı origin'lerde olduğu için
+// cookie cross-site sayılıyor; tarayıcılar SameSite=Lax cookie'leri cross-site
+// fetch/XHR isteklerinde göndermiyor, bu yüzden None + Secure şart. Local dev'de
+// ise her ikisi de "localhost" olduğundan Lax yeterli — Secure+None zorunluluğu
+// local'de düz HTTP üzerinden çalışmıyor: Chrome localhost'u istisna tutup
+// Secure cookie'yi yine de kaydediyor ama Safari bu istisnayı uygulamıyor ve
+// cookie'yi hiç saklamıyor (login sonrası "kullanıcı bilgisi gelmiyor" sorunu).
+const isProduction = process.env.NODE_ENV === 'production';
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: true,
-  sameSite: 'none' as const,
+  secure: isProduction,
+  sameSite: (isProduction ? 'none' : 'lax') as 'none' | 'lax',
 };
 
 @Controller('auth')

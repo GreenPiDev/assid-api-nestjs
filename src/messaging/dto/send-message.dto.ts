@@ -1,8 +1,14 @@
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class SendMessageDto {
+  // recipientMemberId ve toAdmin'den tam olarak biri dolu olmalı (bkz. MessagingService.sendMessage).
+  @IsOptional()
   @IsUUID()
-  recipientMemberId: string;
+  recipientMemberId?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  toAdmin?: boolean;
 
   @IsString()
   @IsNotEmpty()

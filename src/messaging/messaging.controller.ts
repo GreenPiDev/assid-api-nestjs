@@ -1,5 +1,6 @@
 import { Body, Controller, ForbiddenException, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { MessagingService } from './messaging.service';
+import { AdminSendMessageDto } from './dto/admin-send-message.dto';
 import { SendMessageDto } from './dto/send-message.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -34,6 +35,17 @@ export class MessagingController {
     return this.messagingService.getMessages(requireOwnMemberId(user), id);
   }
 
+  @Get('unread-count')
+  getUnreadCount(@CurrentUser() user: AuthenticatedUser) {
+    return this.messagingService.getUnreadCountForMember(requireOwnMemberId(user));
+  }
+
+  @Post('admin/messages')
+  @Roles(Role.admin)
+  sendMessageAsAdmin(@Body() dto: AdminSendMessageDto) {
+    return this.messagingService.sendMessageAsAdmin(dto.memberId, dto.body);
+  }
+
   @Get('admin/conversations')
   @Roles(Role.admin)
   listConversationsForAdmin() {
@@ -46,6 +58,12 @@ export class MessagingController {
     return this.messagingService.getMessagesForAdmin(id);
   }
 
+  @Get('admin/unread-count')
+  @Roles(Role.admin)
+  getUnreadCountForAdmin() {
+    return this.messagingService.getUnreadCountForAdmin();
+  }
+
   @Get('notifications')
   listNotifications(@CurrentUser() user: AuthenticatedUser) {
     return this.messagingService.listNotifications(requireOwnMemberId(user));
@@ -54,5 +72,17 @@ export class MessagingController {
   @Patch('notifications/:id/read')
   markNotificationRead(@CurrentUser() user: AuthenticatedUser, @Param('id', ParseIdPipe) id: string) {
     return this.messagingService.markNotificationRead(requireOwnMemberId(user), id);
+  }
+
+  @Get('admin/notifications')
+  @Roles(Role.admin)
+  listNotificationsForAdmin() {
+    return this.messagingService.listNotificationsForAdmin();
+  }
+
+  @Patch('admin/notifications/:id/read')
+  @Roles(Role.admin)
+  markNotificationReadForAdmin(@Param('id', ParseIdPipe) id: string) {
+    return this.messagingService.markNotificationReadForAdmin(id);
   }
 }

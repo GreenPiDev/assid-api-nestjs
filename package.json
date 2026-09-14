@@ -9,7 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "dev": "nest start",
+    "dev": "nest start --watch",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "seed": "ts-node -r tsconfig-paths/register src/seed/seed.ts",
     "seed:admin": "ts-node -r tsconfig-paths/register src/seed/seed-admin.ts",
+    "seed:test-members": "ts-node -r tsconfig-paths/register src/seed/seed-test-members.ts",
     "migrate:mongo": "ts-node -r tsconfig-paths/register src/seed/migrate-mongo-to-postgres.ts"
   },
   "dependencies": {
@@ -33,6 +34,8 @@
     "@nestjs/mapped-types": "^2.1.1",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/platform-socket.io": "^11.2.3",
+    "@nestjs/websockets": "^11.2.3",
     "@pdf-lib/fontkit": "^1.1.1",
     "@prisma/client": "^6.19.3",
     "bcrypt": "^6.0.0",
@@ -47,7 +50,8 @@
     "pdf-lib": "^1.17.1",
     "prisma": "^6.19.3",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "socket.io": "^4.8.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
