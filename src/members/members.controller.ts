@@ -306,6 +306,7 @@ export class MembersController {
   @Get()
   findAll(
     @Query('sector') sector?: string,
+    @Query('location') location?: string,
     @Query('q') q?: string,
     @Query('limit') limit?: string,
   ) {
@@ -314,6 +315,7 @@ export class MembersController {
     // exposed without auth. Unapproved listing lives at GET /members/admin.
     return this.membersService.findAll({
       sector,
+      location,
       q,
       applicationStatus: ApplicationStatus.approved,
       limit: limit ? Number(limit) : undefined,

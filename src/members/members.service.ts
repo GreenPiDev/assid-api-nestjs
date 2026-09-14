@@ -28,6 +28,7 @@ function generateTempPassword(length = 12): string {
 
 export interface FindMembersQuery {
   sector?: string;
+  location?: string;
   q?: string;
   applicationStatus?: ApplicationStatus;
   limit?: number;
@@ -99,6 +100,7 @@ export class MembersService {
     let members = await this.prisma.member.findMany({
       where: {
         sectors: query.sector ? { has: query.sector } : undefined,
+        locations: query.location ? { has: query.location } : undefined,
         applicationStatus: query.applicationStatus,
       },
       orderBy: [{ isFeatured: 'desc' }, { createdAt: 'desc' }],
